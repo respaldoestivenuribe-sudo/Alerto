@@ -8,4 +8,6 @@ RUN npm ci
 COPY frontend/ .
 COPY asset/Logo ./public/logo
 
-CMD ["sh", "-c", "npm run dev -- --host 0.0.0.0 --port ${PORT:-3000}"]
+RUN npm run build
+
+CMD ["sh", "-c", "npm run preview -- --host 0.0.0.0 --port ${PORT:-3000}"]
