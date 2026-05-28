@@ -10,4 +10,7 @@ export default defineConfig({
       '/api': process.env.BACKEND_URL || 'http://localhost:8000',
     },
   },
+  preview: {
+    allowedHosts: true,
+  },
 })
