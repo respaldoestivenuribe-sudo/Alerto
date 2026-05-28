@@ -1,0 +1,31 @@
+.risk-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.risk-table th,
+.risk-table td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.risk-table th {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    background-color: rgba(248, 250, 252, 0.5);
+}
+
+.risk-table tr:last-child td {
+    border-bottom: none;
+}
+
+.risk-table tr:hover {
+    background-color: rgba(248, 250, 252, 0.8);
+}
+
+.text-center {
+    text-align: center;
+    color: var(--text-muted);
+}

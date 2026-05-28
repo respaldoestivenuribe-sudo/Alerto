@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.14.4 on win32)" generated="2026-05-26T17:06:16.171352" rpa="false" schemaversion="5">
+<suite id="s1" name="TC AUTH" source="C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\tests\TC_AUTH.robot">
+<kw name="Setup Suite AUTH" type="SETUP">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T17:06:16.339937" level="INFO">=== Iniciando Suite AUTH ===</msg>
+<arg>=== Iniciando Suite AUTH ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T17:06:16.339648" elapsed="0.000342"/>
+</kw>
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session">
+<msg time="2026-05-26T17:06:16.341111" level="FAIL">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<status status="FAIL" start="2026-05-26T17:06:16.341083" elapsed="0.000058">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="FAIL" start="2026-05-26T17:06:16.340123" elapsed="0.001106">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</kw>
+<kw name="Register Test User" owner="api_keywords">
+<doc>Registra un usuario de prueba. Ignora si ya existe (409/400).</doc>
+<status status="NOT RUN" start="2026-05-26T17:06:16.341332" elapsed="0.000017"/>
+</kw>
+<kw name="Get Admin Token" owner="api_keywords">
+<var>${token}</var>
+<doc>Inicia sesión como administrador y retorna el token JWT</doc>
+<status status="NOT RUN" start="2026-05-26T17:06:16.341422" elapsed="0.000014"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<arg>${SUITE_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" start="2026-05-26T17:06:16.341495" elapsed="0.000013"/>
+</kw>
+<kw name="Create Directory" owner="OperatingSystem">
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="NOT RUN" start="2026-05-26T17:06:16.341552" elapsed="0.000011"/>
+</kw>
+<status status="FAIL" start="2026-05-26T17:06:16.338451" elapsed="0.003155">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</kw>
+<test id="s1-t1" name="TC-AUTH-001 Registro exitoso de nuevo usuario" line="18">
+<doc>RF-014, RF-015 — Registro con datos válidos debe crear usuario con rol 'usuario'</doc>
+<tag>Alta</tag>
+<tag>AUTH</tag>
+<tag>Funcional</tag>
+<tag>TC-AUTH-001</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.341648" elapsed="0.000270">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t2" name="TC-AUTH-002 Registro con email duplicado es rechazado" line="35">
+<doc>RF-014 — Email ya registrado debe retornar HTTP 400</doc>
+<tag>Alta</tag>
+<tag>AUTH</tag>
+<tag>Funcional</tag>
+<tag>TC-AUTH-002</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.342043" elapsed="0.000171">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t3" name="TC-AUTH-003 Registro con contraseña corta es rechazado" line="50">
+<doc>RF-014 — Contraseña &lt; 6 caracteres debe retornar HTTP 422</doc>
+<tag>AUTH</tag>
+<tag>Funcional</tag>
+<tag>Media</tag>
+<tag>TC-AUTH-003</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.342379" elapsed="0.000642">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t4" name="TC-AUTH-004 Login exitoso con credenciales válidas" line="64">
+<doc>RF-014, RF-015 — Login admin retorna JWT con claims correctos</doc>
+<tag>Alta</tag>
+<tag>AUTH</tag>
+<tag>Funcional</tag>
+<tag>TC-AUTH-004</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.343195" elapsed="0.000533">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t5" name="TC-AUTH-005 Login con contraseña incorrecta es rechazado" line="79">
+<doc>RF-014 — Credenciales inválidas deben retornar HTTP 401 con mensaje genérico</doc>
+<tag>Alta</tag>
+<tag>AUTH</tag>
+<tag>Funcional</tag>
+<tag>Seguridad</tag>
+<tag>TC-AUTH-005</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.343937" elapsed="0.000465">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t6" name="TC-AUTH-006 Cierre de sesión elimina token y redirige al login" line="91">
+<doc>RF-015 — Logout debe limpiar token y bloquear rutas protegidas</doc>
+<tag>Alta</tag>
+<tag>AUTH</tag>
+<tag>Funcional</tag>
+<tag>TC-AUTH-006</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.344673" elapsed="0.000468">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t7" name="TC-AUTH-007 Acceso sin sesión redirige a login" line="107">
+<doc>RF-015 — Sin token, todas las rutas protegidas redirigen a /login</doc>
+<tag>Alta</tag>
+<tag>AUTH</tag>
+<tag>Seguridad</tag>
+<tag>TC-AUTH-007</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.345350" elapsed="0.000366">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t8" name="TC-AUTH-008 Usuario regular no puede acceder a rutas de admin" line="120">
+<doc>RF-015 (RBAC) — Rol 'usuario' bloqueado por AdminRoute y API</doc>
+<tag>Alta</tag>
+<tag>AUTH</tag>
+<tag>Seguridad</tag>
+<tag>TC-AUTH-008</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.345904" elapsed="0.000406">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t9" name="TC-AUTH-009 Token JWT expirado es rechazado" line="139">
+<doc>RF-015 — Token con exp pasado debe retornar HTTP 401</doc>
+<tag>Alta</tag>
+<tag>AUTH</tag>
+<tag>Seguridad</tag>
+<tag>TC-AUTH-009</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.346535" elapsed="0.000529">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t10" name="TC-AUTH-010 Cuenta desactivada no puede iniciar sesión" line="149">
+<doc>RF-015 — Usuario con is_active=false rechazado en login</doc>
+<tag>Alta</tag>
+<tag>AUTH</tag>
+<tag>Funcional</tag>
+<tag>TC-AUTH-010</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.347481" elapsed="0.000396">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t11" name="TC-AUTH-011 Recuperación contraseña paso 1 muestra pregunta de seguridad" line="171">
+<doc>RF-016 — POST con email válido retorna la pregunta de seguridad</doc>
+<tag>Alta</tag>
+<tag>AUTH</tag>
+<tag>Funcional</tag>
+<tag>TC-AUTH-011</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.348091" elapsed="0.000299">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t12" name="TC-AUTH-012 Recuperación contraseña paso 2 cambia la contraseña exitosamente" line="182">
+<doc>RF-016 — Respuesta correcta + nueva contraseña deben actualizar la BD</doc>
+<tag>Alta</tag>
+<tag>AUTH</tag>
+<tag>Funcional</tag>
+<tag>TC-AUTH-012</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.348589" elapsed="0.000279">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t13" name="TC-AUTH-013 Recuperación contraseña con respuesta incorrecta es rechazada" line="202">
+<doc>RF-016 — Respuesta incorrecta debe retornar HTTP 400</doc>
+<tag>Alta</tag>
+<tag>AUTH</tag>
+<tag>Funcional</tag>
+<tag>Seguridad</tag>
+<tag>TC-AUTH-013</tag>
+<status status="FAIL" start="2026-05-26T17:06:16.349061" elapsed="0.000322">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<kw name="Teardown Suite AUTH" type="TEARDOWN">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T17:06:16.350361" level="INFO">=== Suite AUTH completada ===</msg>
+<arg>=== Suite AUTH completada ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T17:06:16.350172" elapsed="0.000221"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Delete All Sessions">
+<msg time="2026-05-26T17:06:16.354143" level="FAIL">No keyword with name 'Delete All Sessions' found.</msg>
+<status status="FAIL" start="2026-05-26T17:06:16.354082" elapsed="0.000107">No keyword with name 'Delete All Sessions' found.</status>
+</kw>
+<arg>Delete All Sessions</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-26T17:06:16.350468" elapsed="0.003796"/>
+</kw>
+<status status="PASS" start="2026-05-26T17:06:16.350037" elapsed="0.004294"/>
+</kw>
+<doc>MÓDULO AUTENTICACIÓN — TC-AUTH-001 al TC-AUTH-013
+Requisitos: RF-014, RF-015, RF-016
+Tipos: Funcional, Seguridad
+Herramientas: RequestsLibrary (API), SeleniumLibrary (UI)</doc>
+<status status="FAIL" start="2026-05-26T17:06:16.172319" elapsed="0.182047">Suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="13" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="12" skip="0">Alta</stat>
+<stat pass="0" fail="13" skip="0">AUTH</stat>
+<stat pass="0" fail="10" skip="0">Funcional</stat>
+<stat pass="0" fail="1" skip="0">Media</stat>
+<stat pass="0" fail="5" skip="0">Seguridad</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-001</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-002</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-003</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-004</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-005</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-006</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-007</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-008</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-009</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-010</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-011</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-012</stat>
+<stat pass="0" fail="1" skip="0">TC-AUTH-013</stat>
+<stat pass="0" fail="1" skip="0">UI</stat>
+</tag>
+<suite>
+<stat name="TC AUTH" id="s1" pass="0" fail="13" skip="0">TC AUTH</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-05-26T17:06:16.198084" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 35: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:06:16.198224" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 45: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:06:16.198328" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 60: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:06:16.198447" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 74: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:06:16.198578" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 87: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:06:16.198645" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 95: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:06:16.198707" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 103: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:06:16.198903" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 141: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:06:16.198981" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 154: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:06:16.199770" level="ERROR">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 3: Importing library 'RequestsLibrary' failed: ModuleNotFoundError: No module named 'RequestsLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\python314.zip
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\DLLs
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\Lib
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages</msg>
+<msg time="2026-05-26T17:06:16.212290" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\ui_keywords.robot' on line 121: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+</errors>
+</robot>

@@ -1,0 +1,1209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1 (Python 3.14.4 on win32)" generated="2026-05-26T21:45:40.863810" rpa="false" schemaversion="5">
+<suite id="s1" name="TC INT" source="C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\tests\TC_INT.robot">
+<kw name="Setup Suite INT" type="SETUP">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:40.993099" level="INFO">=== Iniciando Suite INT ===</msg>
+<arg>=== Iniciando Suite INT ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:40.992934" elapsed="0.000214"/>
+</kw>
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:40.993701" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-26T21:45:40.993486" elapsed="0.000383"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-26T21:45:40.993353" elapsed="0.000569"/>
+</kw>
+<kw name="Get Admin Token" owner="api_keywords">
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:40.994389" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-26T21:45:40.994236" elapsed="0.000247"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-26T21:45:40.994146" elapsed="0.000378"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:40.994843" level="INFO">&amp;{body} = { email=admin@alerto.com | password=alerto123** }</msg>
+<var>&amp;{body}</var>
+<arg>email=${ADMIN_EMAIL}</arg>
+<arg>password=${ADMIN_PASS}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:40.994591" elapsed="0.000267"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.239974" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '56', 'Content-Type': 'application/json'} 
+ body=b'{"email": "admin@alerto.com", "password": "alerto123**"}' 
+ </msg>
+<msg time="2026-05-26T21:45:41.240091" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 02:45:40 GMT', 'server': 'uvicorn', 'content-length': '210', 'content-type': 'application/json'} 
+ body={"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4","token_type":"bearer"} 
+ </msg>
+<msg time="2026-05-26T21:45:41.240225" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>/api/auth/login</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T21:45:40.994921" elapsed="0.245325"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>${resp}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.240415" elapsed="0.000191"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T21:45:41.241076" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4</msg>
+<var>${token}</var>
+<arg>${resp.json()}</arg>
+<arg>access_token</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.240665" elapsed="0.000424"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" start="2026-05-26T21:45:41.241128" elapsed="0.000047"/>
+</return>
+<msg time="2026-05-26T21:45:41.241259" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4</msg>
+<var>${token}</var>
+<doc>Inicia sesión como administrador y retorna el token JWT</doc>
+<status status="PASS" start="2026-05-26T21:45:40.994039" elapsed="0.247232"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.241503" level="INFO">${SUITE_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4</msg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.241352" elapsed="0.000169"/>
+</kw>
+<status status="PASS" start="2026-05-26T21:45:40.992532" elapsed="0.249024"/>
+</kw>
+<test id="s1-t1" name="TC-INT-001 Integración con Open-Meteo usa HTTPS y coordenadas correctas" line="16">
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.246549" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.242090" elapsed="0.004484"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.296639" level="INFO">GET Request : url=http://localhost:8000/api/precipitation/current 
+ path_url=/api/precipitation/current 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4'} 
+ body=None 
+ </msg>
+<msg time="2026-05-26T21:45:41.296708" level="INFO">GET Response : url=http://localhost:8000/api/precipitation/current 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 02:45:40 GMT', 'server': 'uvicorn', 'content-length': '156', 'content-type': 'application/json'} 
+ body={"precipitation_1h":0.0,"precipitation_3h":0.0,"precipitation_6h":0.2,"humidity_avg_6h":93.67,"trend_1h":"estable","as_of_time":"2026-06-01T23:00:00+00:00"} 
+ </msg>
+<msg time="2026-05-26T21:45:41.296806" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.246839" elapsed="0.049980"/>
+</kw>
+<status status="PASS" start="2026-05-26T21:45:41.246658" elapsed="0.050198"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.296993" elapsed="0.000012"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T21:45:41.296888" elapsed="0.000151"/>
+</branch>
+<status status="PASS" start="2026-05-26T21:45:41.246636" elapsed="0.050415"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T21:45:41.297078" elapsed="0.000029"/>
+</return>
+<msg time="2026-05-26T21:45:41.297184" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/precipitation/current</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-26T21:45:41.241928" elapsed="0.055266"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.297519" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.297430" elapsed="0.000099"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.297571" elapsed="0.000613"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-26T21:45:41.297287" elapsed="0.000927"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.298487" level="INFO">${data} = {'precipitation_1h': 0.0, 'precipitation_3h': 0.0, 'precipitation_6h': 0.2, 'humidity_avg_6h': 93.67, 'trend_1h': 'estable', 'as_of_time': '2026-06-01T23:00:00+00:00'}</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.298262" elapsed="0.000236"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.298606" level="INFO">@{expected_fields} = [ precipitation_1h | precipitation_3h | humidity_avg_6h ]</msg>
+<var>@{expected_fields}</var>
+<arg>precipitation_1h</arg>
+<arg>precipitation_3h</arg>
+<arg>humidity_avg_6h</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.298545" elapsed="0.000071"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${data}</arg>
+<arg>${field}</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.298773" elapsed="0.000088"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T21:45:41.298981" level="INFO">${value} = 0.0</msg>
+<var>${value}</var>
+<arg>${data}</arg>
+<arg>${field}</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.298909" elapsed="0.000082"/>
+</kw>
+<kw name="Should Not Be Equal" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.299126" level="INFO">Argument types are:
+&lt;class 'float'&gt;
+&lt;class 'NoneType'&gt;</msg>
+<arg>${value}</arg>
+<arg>${None}</arg>
+<arg>msg=Campo '${field}' es null (extracción Open-Meteo fallida?)</arg>
+<doc>Fails if the given objects are equal.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.299035" elapsed="0.000114"/>
+</kw>
+<var name="${field}">precipitation_1h</var>
+<status status="PASS" start="2026-05-26T21:45:41.298734" elapsed="0.000432"/>
+</iter>
+<iter>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${data}</arg>
+<arg>${field}</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.299249" elapsed="0.000064"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T21:45:41.299428" level="INFO">${value} = 0.0</msg>
+<var>${value}</var>
+<arg>${data}</arg>
+<arg>${field}</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.299357" elapsed="0.000081"/>
+</kw>
+<kw name="Should Not Be Equal" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.299570" level="INFO">Argument types are:
+&lt;class 'float'&gt;
+&lt;class 'NoneType'&gt;</msg>
+<arg>${value}</arg>
+<arg>${None}</arg>
+<arg>msg=Campo '${field}' es null (extracción Open-Meteo fallida?)</arg>
+<doc>Fails if the given objects are equal.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.299481" elapsed="0.000110"/>
+</kw>
+<var name="${field}">precipitation_3h</var>
+<status status="PASS" start="2026-05-26T21:45:41.299215" elapsed="0.000393"/>
+</iter>
+<iter>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${data}</arg>
+<arg>${field}</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.299687" elapsed="0.000067"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T21:45:41.299879" level="INFO">${value} = 93.67</msg>
+<var>${value}</var>
+<arg>${data}</arg>
+<arg>${field}</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.299799" elapsed="0.000091"/>
+</kw>
+<kw name="Should Not Be Equal" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.300022" level="INFO">Argument types are:
+&lt;class 'float'&gt;
+&lt;class 'NoneType'&gt;</msg>
+<arg>${value}</arg>
+<arg>${None}</arg>
+<arg>msg=Campo '${field}' es null (extracción Open-Meteo fallida?)</arg>
+<doc>Fails if the given objects are equal.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.299935" elapsed="0.000108"/>
+</kw>
+<var name="${field}">humidity_avg_6h</var>
+<status status="PASS" start="2026-05-26T21:45:41.299652" elapsed="0.000409"/>
+</iter>
+<var>${field}</var>
+<value>@{expected_fields}</value>
+<status status="PASS" start="2026-05-26T21:45:41.298656" elapsed="0.001419"/>
+</for>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.300419" level="INFO">${p1h} = 0.0</msg>
+<var>${p1h}</var>
+<arg>float(${data['precipitation_1h']})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.300134" elapsed="0.000297"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.300713" level="INFO">${hum} = 93.67</msg>
+<var>${hum}</var>
+<arg>float(${data['humidity_avg_6h']})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.300479" elapsed="0.000244"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>0 &lt;= ${p1h} &lt;= 200</arg>
+<arg>msg=precipitation_1h fuera de rango real: ${p1h}mm</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.300769" elapsed="0.000116"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>0 &lt;= ${hum} &lt;= 100</arg>
+<arg>msg=humidity_avg_6h fuera de rango real: ${hum}%</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.300930" elapsed="0.000104"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.301157" level="INFO">✓ Open-Meteo → datos actuales: p1h=0.0mm, hum=93.67%</msg>
+<arg>✓ Open-Meteo → datos actuales: p1h=${p1h}mm, hum=${hum}%</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.301077" elapsed="0.000098"/>
+</kw>
+<doc>RF-001 — El pipeline extrae datos vía HTTPS de Open-Meteo para Medellín</doc>
+<tag>Alta</tag>
+<tag>INT</tag>
+<tag>Integración</tag>
+<tag>TC-INT-001</tag>
+<status status="PASS" start="2026-05-26T21:45:41.241610" elapsed="0.059624"/>
+</test>
+<test id="s1-t2" name="TC-INT-002 Pipeline almacena datos históricos en PostgreSQL correctamente" line="40">
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.301893" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.301777" elapsed="0.000128"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.302045" elapsed="0.000008"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T21:45:41.301944" elapsed="0.000128"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.309831" level="INFO">GET Request : url=http://localhost:8000/api/precipitation/history?limit=24 
+ path_url=/api/precipitation/history?limit=24 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4'} 
+ body=None 
+ </msg>
+<msg time="2026-05-26T21:45:41.309949" level="INFO">GET Response : url=http://localhost:8000/api/precipitation/history?limit=24 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 02:45:40 GMT', 'server': 'uvicorn', 'content-length': '10749', 'content-type': 'application/json'} 
+ body=[{"time_local":"2026-06-01T23:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T22:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T21:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T20:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T19:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-06-01T18:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-06-01T17:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-06-01T16:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-06-01T15:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-06-01T14:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-06-01T13:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T12:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T11:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T10:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T09:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T08:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T07:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T06:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T05:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T04:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T03:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T02:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T01:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-06-01T00:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T23:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T22:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T21:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T20:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T19:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T18:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T17:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T16:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T15:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T14:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T13:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T12:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T11:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T10:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T09:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T08:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-31T07:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-31T06:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-31T05:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-31T04:00:00+00:00","precipitation_mm":0.2},{"time_local":"2026-05-31T03:00:00+00:00","precipitation_mm":0.2},{"time_local":"2026-05-31T02:00:00+00:00","precipitation_mm":0.2},{"time_local":"2026-05-31T01:00:00+00:00","precipitation_mm":0.3},{"time_local":"2026-05-31T00:00:00+00:00","precipitation_mm":0.3},{"time_local":"2026-05-30T23:00:00+00:00","precipitation_mm":0.3},{"time_local":"2026-05-30T22:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-30T21:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-30T20:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-30T19:00:00+00:00","precipitation_mm":0.7},{"time_local":"2026-05-30T18:00:00+00:00","precipitation_mm":0.7},{"time_local":"2026-05-30T17:00:00+00:00","precipitation_mm":0.7},{"time_local":"2026-05-30T16:00:00+00:00","precipitation_mm":1.6},{"time_local":"2026-05-30T15:00:00+00:00","precipitation_mm":1.6},{"time_local":"2026-05-30T14:00:00+00:00","precipitation_mm":1.6},{"time_local":"2026-05-30T13:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-30T12:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-30T11:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-30T10:00:00+00:00","precipitation_mm":0.4},{"time_local":"2026-05-30T09:00:00+00:00","precipitation_mm":0.4},{"time_local":"2026-05-30T08:00:00+00:00","precipitation_mm":0.4},{"time_local":"2026-05-30T07:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-30T06:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-30T05:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-30T04:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-30T03:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-30T02:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-30T01:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-30T00:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-29T23:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-29T22:00:00+00:00","precipitation_mm":0.7},{"time_local":"2026-05-29T21:00:00+00:00","precipitation_mm":0.7},{"time_local":"2026-05-29T20:00:00+00:00","precipitation_mm":0.7},{"time_local":"2026-05-29T19:00:00+00:00","precipitation_mm":0.3},{"time_local":"2026-05-29T18:00:00+00:00","precipitation_mm":0.6},{"time_local":"2026-05-29T17:00:00+00:00","precipitation_mm":3.5},{"time_local":"2026-05-29T16:00:00+00:00","precipitation_mm":0.5},{"time_local":"2026-05-29T15:00:00+00:00","precipitation_mm":0.7},{"time_local":"2026-05-29T14:00:00+00:00","precipitation_mm":1.2},{"time_local":"2026-05-29T13:00:00+00:00","precipitation_mm":0.5},{"time_local":"2026-05-29T12:00:00+00:00","precipitation_mm":0.2},{"time_local":"2026-05-29T11:00:00+00:00","precipitation_mm":0.2},{"time_local":"2026-05-29T10:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-29T09:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-29T08:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-29T07:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-29T06:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-29T05:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-29T04:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-29T03:00:00+00:00","precipitation_mm":0.2},{"time_local":"2026-05-29T02:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-29T01:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-29T00:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T23:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T22:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T21:00:00+00:00","precipitation_mm":0.2},{"time_local":"2026-05-28T20:00:00+00:00","precipitation_mm":1.5},{"time_local":"2026-05-28T19:00:00+00:00","precipitation_mm":0.5},{"time_local":"2026-05-28T18:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-28T17:00:00+00:00","precipitation_mm":0.3},{"time_local":"2026-05-28T16:00:00+00:00","precipitation_mm":0.4},{"time_local":"2026-05-28T15:00:00+00:00","precipitation_mm":0.3},{"time_local":"2026-05-28T14:00:00+00:00","precipitation_mm":3.1},{"time_local":"2026-05-28T13:00:00+00:00","precipitation_mm":2.7},{"time_local":"2026-05-28T12:00:00+00:00","precipitation_mm":0.3},{"time_local":"2026-05-28T11:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-28T10:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T09:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T08:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T07:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T06:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T05:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T04:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T03:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T02:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T01:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-28T00:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T23:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-27T22:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-27T21:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T20:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T19:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T18:00:00+00:00","precipitation_mm":0.2},{"time_local":"2026-05-27T17:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-27T16:00:00+00:00","precipitation_mm":0.2},{"time_local":"2026-05-27T15:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-27T14:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T13:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T12:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T11:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-27T10:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T09:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T08:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T07:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T06:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T05:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T04:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T03:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T02:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T01:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-27T00:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-26T23:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-26T22:00:00+00:00","precipitation_mm":0.1},{"time_local":"2026-05-26T21:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-26T20:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-26T19:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-26T18:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-26T17:00:00+00:00","precipitation_mm":0.0},{"time_local":"2026-05-26T16:00:0... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2026-05-26T21:45:41.310219" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.302122" elapsed="0.008129"/>
+</kw>
+<status status="PASS" start="2026-05-26T21:45:41.302083" elapsed="0.008209"/>
+</branch>
+<status status="PASS" start="2026-05-26T21:45:41.301935" elapsed="0.008381"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T21:45:41.310361" elapsed="0.000035"/>
+</return>
+<msg time="2026-05-26T21:45:41.310494" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/precipitation/history</arg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>params=limit=24</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-26T21:45:41.301627" elapsed="0.008879"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.310955" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.310836" elapsed="0.000131"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.311023" elapsed="0.000665"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-26T21:45:41.310632" elapsed="0.001087"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.312093" level="INFO">${data} = [{'time_local': '2026-06-01T23:00:00+00:00', 'precipitation_mm': 0.0}, {'time_local': '2026-06-01T22:00:00+00:00', 'precipitation_mm': 0.0}, {'time_local': '2026-06-01T21:00:00+00:00', 'precipitation_...</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.311765" elapsed="0.000342"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.312205" level="INFO">Length is 162.</msg>
+<msg time="2026-05-26T21:45:41.312246" level="INFO">${count} = 162</msg>
+<var>${count}</var>
+<arg>${data}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.312156" elapsed="0.000101"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${count} &gt; 0</arg>
+<arg>msg=No hay datos históricos — pipeline no ha corrido o BD vacía</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.312302" elapsed="0.000111"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2026-05-26T21:45:41.312542" level="INFO">${first} = {'time_local': '2026-06-01T23:00:00+00:00', 'precipitation_mm': 0.0}</msg>
+<var>${first}</var>
+<arg>${data}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.312468" elapsed="0.000085"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.312671" level="INFO">@{required} = [ time_local | precipitation_mm ]</msg>
+<var>@{required}</var>
+<arg>time_local</arg>
+<arg>precipitation_mm</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.312605" elapsed="0.000077"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${first}</arg>
+<arg>${field}</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.312842" elapsed="0.000079"/>
+</kw>
+<var name="${field}">time_local</var>
+<status status="PASS" start="2026-05-26T21:45:41.312800" elapsed="0.000141"/>
+</iter>
+<iter>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${first}</arg>
+<arg>${field}</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.313017" elapsed="0.000069"/>
+</kw>
+<var name="${field}">precipitation_mm</var>
+<status status="PASS" start="2026-05-26T21:45:41.312982" elapsed="0.000122"/>
+</iter>
+<var>${field}</var>
+<value>@{required}</value>
+<status status="PASS" start="2026-05-26T21:45:41.312724" elapsed="0.000395"/>
+</for>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T21:45:41.313237" level="INFO">${ts1} = 2026-06-01T23:00:00+00:00</msg>
+<var>${ts1}</var>
+<arg>${first}</arg>
+<arg>time_local</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.313168" elapsed="0.000080"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2026-05-26T21:45:41.313359" level="INFO">${last} = {'time_local': '2026-05-26T06:24:11.477164+00:00', 'precipitation_mm': 0.3}</msg>
+<var>${last}</var>
+<arg>${data}</arg>
+<arg>-1</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.313294" elapsed="0.000075"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T21:45:41.313484" level="INFO">${ts_last} = 2026-05-26T06:24:11.477164+00:00</msg>
+<var>${ts_last}</var>
+<arg>${last}</arg>
+<arg>time_local</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.313415" elapsed="0.000080"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.313646" level="INFO">Rango histórico: 2026-05-26T06:24:11.477164+00:00 → 2026-06-01T23:00:00+00:00</msg>
+<arg>Rango histórico: ${ts_last} → ${ts1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.313550" elapsed="0.000119"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.313797" level="INFO">✓ PostgreSQL contiene 162 registros históricos válidos</msg>
+<arg>✓ PostgreSQL contiene ${count} registros históricos válidos</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.313722" elapsed="0.000096"/>
+</kw>
+<doc>RF-002, RF-011 — Los datos pasan de bronze→silver→gold y se persisten</doc>
+<tag>Alta</tag>
+<tag>INT</tag>
+<tag>Integración</tag>
+<tag>TC-INT-002</tag>
+<status status="PASS" start="2026-05-26T21:45:41.301390" elapsed="0.012497"/>
+</test>
+<test id="s1-t3" name="TC-INT-003 Conexión a PostgreSQL es estable y no hay pérdida de datos" line="64">
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.314712" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.314582" elapsed="0.000145"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.314899" elapsed="0.000010"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T21:45:41.314773" elapsed="0.000157"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.319301" level="INFO">GET Request : url=http://localhost:8000/api/risk/history?limit=50 
+ path_url=/api/risk/history?limit=50 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4'} 
+ body=None 
+ </msg>
+<msg time="2026-05-26T21:45:41.319356" level="INFO">GET Response : url=http://localhost:8000/api/risk/history?limit=50 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 02:45:40 GMT', 'server': 'uvicorn', 'content-length': '3960', 'content-type': 'application/json'} 
+ body=[{"evaluated_at":"2026-05-27T01:32:30.217716+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:43.318620+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:35.371158+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:45.842710+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:32.603252+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:15:21.423552+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:02:25.069359+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:45:25.538078+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:38:04.354120+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:36:01.114910+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:15:19.794617+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:00:20.021922+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:45:18.711238+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:30:18.274250+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:15:18.475074+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:00:21.001662+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:45:19.509455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:30:20.998231+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:15:19.666687+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:00:23.702427+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:45:23.314060+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:30:27.326591+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:15:24.060476+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:00:25.665545+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:45:19.412919+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:42:59.295940+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:59.944505+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:55.979270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:45:21.389879+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:30:19.112951+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:15:21.009534+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:00:22.881747+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:45:21.700270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:30:20.038657+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:15:21.850761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:00:20.722205+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:45:20.618936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:30:21.595745+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:15:22.557473+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T13:25:09.806870+00:00","riesgo_score":60.66,"nivel_riesgo":"NARANJA"}] 
+ </msg>
+<msg time="2026-05-26T21:45:41.319497" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.315003" elapsed="0.004509"/>
+</kw>
+<status status="PASS" start="2026-05-26T21:45:41.314957" elapsed="0.004595"/>
+</branch>
+<status status="PASS" start="2026-05-26T21:45:41.314762" elapsed="0.004853"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T21:45:41.319678" elapsed="0.000039"/>
+</return>
+<msg time="2026-05-26T21:45:41.319835" level="INFO">${resp1} = &lt;Response [200]&gt;</msg>
+<var>${resp1}</var>
+<arg>/api/risk/history</arg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>params=limit=50</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-26T21:45:41.314397" elapsed="0.005454"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.320504" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.320381" elapsed="0.000136"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.320578" elapsed="0.000655"/>
+</kw>
+<arg>${resp1}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-26T21:45:41.320062" elapsed="0.001209"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.321599" level="INFO">Length is 40.</msg>
+<msg time="2026-05-26T21:45:41.321636" level="INFO">${count1} = 40</msg>
+<var>${count1}</var>
+<arg>${resp1.json()}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.321328" elapsed="0.000319"/>
+</kw>
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.322094" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.321965" elapsed="0.000153"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.322282" elapsed="0.000010"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T21:45:41.322166" elapsed="0.000150"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.325946" level="INFO">GET Request : url=http://localhost:8000/api/risk/history?limit=50 
+ path_url=/api/risk/history?limit=50 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4'} 
+ body=None 
+ </msg>
+<msg time="2026-05-26T21:45:41.325997" level="INFO">GET Response : url=http://localhost:8000/api/risk/history?limit=50 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 02:45:40 GMT', 'server': 'uvicorn', 'content-length': '3960', 'content-type': 'application/json'} 
+ body=[{"evaluated_at":"2026-05-27T01:32:30.217716+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:43.318620+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:35.371158+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:45.842710+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:32.603252+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:15:21.423552+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:02:25.069359+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:45:25.538078+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:38:04.354120+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:36:01.114910+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:15:19.794617+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:00:20.021922+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:45:18.711238+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:30:18.274250+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:15:18.475074+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:00:21.001662+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:45:19.509455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:30:20.998231+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:15:19.666687+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:00:23.702427+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:45:23.314060+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:30:27.326591+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:15:24.060476+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:00:25.665545+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:45:19.412919+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:42:59.295940+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:59.944505+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:55.979270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:45:21.389879+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:30:19.112951+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:15:21.009534+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:00:22.881747+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:45:21.700270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:30:20.038657+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:15:21.850761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:00:20.722205+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:45:20.618936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:30:21.595745+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:15:22.557473+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T13:25:09.806870+00:00","riesgo_score":60.66,"nivel_riesgo":"NARANJA"}] 
+ </msg>
+<msg time="2026-05-26T21:45:41.326073" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.322387" elapsed="0.003698"/>
+</kw>
+<status status="PASS" start="2026-05-26T21:45:41.322340" elapsed="0.003779"/>
+</branch>
+<status status="PASS" start="2026-05-26T21:45:41.322155" elapsed="0.003979"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T21:45:41.326163" elapsed="0.000026"/>
+</return>
+<msg time="2026-05-26T21:45:41.326260" level="INFO">${resp2} = &lt;Response [200]&gt;</msg>
+<var>${resp2}</var>
+<arg>/api/risk/history</arg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>params=limit=50</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-26T21:45:41.321781" elapsed="0.004489"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.326631" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.326530" elapsed="0.000111"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.326686" elapsed="0.000716"/>
+</kw>
+<arg>${resp2}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-26T21:45:41.326372" elapsed="0.001064"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.327729" level="INFO">Length is 40.</msg>
+<msg time="2026-05-26T21:45:41.327763" level="INFO">${count2} = 40</msg>
+<var>${count2}</var>
+<arg>${resp2.json()}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.327489" elapsed="0.000283"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${count1}</arg>
+<arg>${count2}</arg>
+<arg>msg=Inconsistencia en BD: primera lectura=${count1}, segunda=${count2}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.327821" elapsed="0.000115"/>
+</kw>
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.328342" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.328212" elapsed="0.000144"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.372683" level="INFO">GET Request : url=http://localhost:8000/api/risk/current 
+ path_url=/api/risk/current 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4'} 
+ body=None 
+ </msg>
+<msg time="2026-05-26T21:45:41.372826" level="INFO">GET Response : url=http://localhost:8000/api/risk/current 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 02:45:40 GMT', 'server': 'uvicorn', 'content-length': '120', 'content-type': 'application/json'} 
+ body={"nivel_riesgo":"AMARILLO","riesgo_score":35.67,"nivel_lluvia":0.1556,"evaluated_at":"2026-05-27T01:32:30.217716+00:00"} 
+ </msg>
+<msg time="2026-05-26T21:45:41.372946" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.328521" elapsed="0.044441"/>
+</kw>
+<status status="PASS" start="2026-05-26T21:45:41.328402" elapsed="0.044604"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.373148" elapsed="0.000014"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T21:45:41.373033" elapsed="0.000159"/>
+</branch>
+<status status="PASS" start="2026-05-26T21:45:41.328390" elapsed="0.044817"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T21:45:41.373236" elapsed="0.000030"/>
+</return>
+<msg time="2026-05-26T21:45:41.373359" level="INFO">${current} = &lt;Response [200]&gt;</msg>
+<var>${current}</var>
+<arg>/api/risk/current</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-26T21:45:41.328052" elapsed="0.045320"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.373746" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.373647" elapsed="0.000111"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.373807" elapsed="0.000739"/>
+</kw>
+<arg>${current}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-26T21:45:41.373472" elapsed="0.001110"/>
+</kw>
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.374976" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.374865" elapsed="0.000125"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.375128" elapsed="0.000009"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T21:45:41.375028" elapsed="0.000129"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.379241" level="INFO">GET Request : url=http://localhost:8000/api/risk/history?limit=1 
+ path_url=/api/risk/history?limit=1 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4'} 
+ body=None 
+ </msg>
+<msg time="2026-05-26T21:45:41.379310" level="INFO">GET Response : url=http://localhost:8000/api/risk/history?limit=1 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 02:45:40 GMT', 'server': 'uvicorn', 'content-length': '3960', 'content-type': 'application/json'} 
+ body=[{"evaluated_at":"2026-05-27T01:32:30.217716+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:43.318620+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:35.371158+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:45.842710+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:32.603252+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:15:21.423552+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:02:25.069359+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:45:25.538078+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:38:04.354120+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:36:01.114910+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:15:19.794617+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:00:20.021922+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:45:18.711238+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:30:18.274250+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:15:18.475074+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:00:21.001662+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:45:19.509455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:30:20.998231+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:15:19.666687+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:00:23.702427+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:45:23.314060+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:30:27.326591+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:15:24.060476+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:00:25.665545+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:45:19.412919+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:42:59.295940+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:59.944505+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:55.979270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:45:21.389879+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:30:19.112951+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:15:21.009534+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:00:22.881747+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:45:21.700270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:30:20.038657+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:15:21.850761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:00:20.722205+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:45:20.618936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:30:21.595745+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:15:22.557473+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T13:25:09.806870+00:00","riesgo_score":60.66,"nivel_riesgo":"NARANJA"}] 
+ </msg>
+<msg time="2026-05-26T21:45:41.379423" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.375208" elapsed="0.004230"/>
+</kw>
+<status status="PASS" start="2026-05-26T21:45:41.375169" elapsed="0.004311"/>
+</branch>
+<status status="PASS" start="2026-05-26T21:45:41.375019" elapsed="0.004481"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T21:45:41.379535" elapsed="0.000031"/>
+</return>
+<msg time="2026-05-26T21:45:41.379655" level="INFO">${history_resp} = &lt;Response [200]&gt;</msg>
+<var>${history_resp}</var>
+<arg>/api/risk/history</arg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>params=limit=1</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-26T21:45:41.374702" elapsed="0.004966"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.380114" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.379963" elapsed="0.000163"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.380182" elapsed="0.000817"/>
+</kw>
+<arg>${history_resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-26T21:45:41.379780" elapsed="0.001260"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.381460" level="INFO">${hist_list} = [{'evaluated_at': '2026-05-27T01:32:30.217716+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}, {'evaluated_at': '2026-05-27T01:29:43.318620+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'A...</msg>
+<var>${hist_list}</var>
+<arg>${history_resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.381100" elapsed="0.000377"/>
+</kw>
+<if>
+<branch type="IF" condition="len(${hist_list}) &gt; 0">
+<kw name="Get From List" owner="Collections">
+<msg time="2026-05-26T21:45:41.382049" level="INFO">${latest_hist} = {'evaluated_at': '2026-05-27T01:32:30.217716+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</msg>
+<var>${latest_hist}</var>
+<arg>${hist_list}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.381957" elapsed="0.000106"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T21:45:41.382210" level="INFO">${hist_nivel} = AMARILLO</msg>
+<var>${hist_nivel}</var>
+<arg>${latest_hist}</arg>
+<arg>nivel_riesgo</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.382122" elapsed="0.000101"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T21:45:41.382571" level="INFO">${curr_nivel} = AMARILLO</msg>
+<var>${curr_nivel}</var>
+<arg>${current.json()}</arg>
+<arg>nivel_riesgo</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.382279" elapsed="0.000305"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${curr_nivel}</arg>
+<arg>${hist_nivel}</arg>
+<arg>msg=Inconsistencia: current=${curr_nivel} vs history[0]=${hist_nivel}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.382643" elapsed="0.000139"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.382930" level="INFO">✓ Consistencia BD: current == history[0] == AMARILLO</msg>
+<arg>✓ Consistencia BD: current == history[0] == ${curr_nivel}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.382841" elapsed="0.000112"/>
+</kw>
+<status status="PASS" start="2026-05-26T21:45:41.381528" elapsed="0.001445"/>
+</branch>
+<status status="PASS" start="2026-05-26T21:45:41.381515" elapsed="0.001474"/>
+</if>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.383113" level="INFO">✓ PostgreSQL estable: 40 registros consistentes</msg>
+<arg>✓ PostgreSQL estable: ${count1} registros consistentes</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.383038" elapsed="0.000097"/>
+</kw>
+<doc>RF-004 — La BD mantiene integridad bajo operaciones sucesivas</doc>
+<tag>Alta</tag>
+<tag>INT</tag>
+<tag>Integración</tag>
+<tag>TC-INT-003</tag>
+<status status="PASS" start="2026-05-26T21:45:41.314057" elapsed="0.069137"/>
+</test>
+<test id="s1-t4" name="TC-INT-004 Airflow DAG weather_pipeline está activo y configurado" line="92">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.383737" level="INFO">Creating Session using : alias=airflow_int, url=http://localhost:8080, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>airflow_int</arg>
+<arg>${AIRFLOW_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-26T21:45:41.383596" elapsed="0.000250"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.384015" level="INFO">&amp;{headers} = { Authorization=Basic YWRtaW46YWRtaW4= }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Basic YWRtaW46YWRtaW4=</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.383916" elapsed="0.000111"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.568886" level="INFO">GET Request : url=http://localhost:8080/api/v1/dags/weather_pipeline 
+ path_url=/api/v1/dags/weather_pipeline 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Basic YWRtaW46YWRtaW4='} 
+ body=None 
+ </msg>
+<msg time="2026-05-26T21:45:41.568952" level="INFO">GET Response : url=http://localhost:8080/api/v1/dags/weather_pipeline 
+ status=200, reason=OK 
+ headers={'Server': 'gunicorn', 'Date': 'Wed, 27 May 2026 02:45:41 GMT', 'Connection': 'close', 'Content-Type': 'application/json', 'Content-Length': '1175', 'X-Robots-Tag': 'noindex, nofollow'} 
+ body={
+  "dag_display_name": "weather_pipeline",
+  "dag_id": "weather_pipeline",
+  "default_view": "grid",
+  "description": null,
+  "file_token": "Ii9vcHQvYWlyZmxvdy9kYWdzL3dlYXRoZXJfcGlwZWxpbmUucHki.TfgCTc7abV2DtxCd2VZBY08_z_E",
+  "fileloc": "/opt/airflow/dags/weather_pipeline.py",
+  "has_import_errors": false,
+  "has_task_concurrency_limits": false,
+  "is_active": true,
+  "is_paused": true,
+  "is_subdag": false,
+  "last_expired": null,
+  "last_parsed_time": "2026-05-27T02:45:17.306062+00:00",
+  "last_pickled": null,
+  "max_active_runs": 16,
+  "max_active_tasks": 16,
+  "max_consecutive_failed_dag_runs": 0,
+  "next_dagrun": "2026-05-27T02:30:00+00:00",
+  "next_dagrun_create_after": "2026-05-27T02:45:00+00:00",
+  "next_dagrun_data_interval_end": "2026-05-27T02:45:00+00:00",
+  "next_dagrun_data_interval_start": "2026-05-27T02:30:00+00:00",
+  "owners": [
+    "airflow"
+  ],
+  "pickle_id": null,
+  "root_dag_id": null,
+  "schedule_interval": {
+    "__type": "CronExpression",
+    "value": "*/15 * * * *"
+  },
+  "scheduler_lock": null,
+  "tags": [
+    {
+      "name": "weather"
+    },
+    {
+      "name": "alerto"
+    }
+  ],
+  "timetable_description": "Every 15 minutes"
+}
+ 
+ </msg>
+<msg time="2026-05-26T21:45:41.569070" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>airflow_int</arg>
+<arg>/api/v1/dags/weather_pipeline</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.384081" elapsed="0.185003"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.569505" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.569205" elapsed="0.000311"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.569645" level="INFO">Airflow DAG API: HTTP 200</msg>
+<arg>Airflow DAG API: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.569567" elapsed="0.000095"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.570050" level="INFO">${dag} = {'dag_display_name': 'weather_pipeline', 'dag_id': 'weather_pipeline', 'default_view': 'grid', 'description': None, 'file_token': 'Ii9vcHQvYWlyZmxvdy9kYWdzL3dlYXRoZXJfcGlwZWxpbmUucHki.TfgCTc7abV2DtxCd...</msg>
+<var>${dag}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.569796" elapsed="0.000267"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T21:45:41.570196" level="INFO">${is_paused} = True</msg>
+<var>${is_paused}</var>
+<arg>${dag}</arg>
+<arg>is_paused</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.570114" elapsed="0.000092"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T21:45:41.570321" level="INFO">${dag_id} = weather_pipeline</msg>
+<var>${dag_id}</var>
+<arg>${dag}</arg>
+<arg>dag_id</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.570255" elapsed="0.000075"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${dag_id}</arg>
+<arg>weather_pipeline</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.570379" elapsed="0.000068"/>
+</kw>
+<if>
+<branch type="IF" condition="${is_paused}">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.570590" level="WARN">ADVERTENCIA: DAG weather_pipeline está pausado</msg>
+<arg>ADVERTENCIA: DAG weather_pipeline está pausado</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.570539" elapsed="0.000130"/>
+</kw>
+<status status="PASS" start="2026-05-26T21:45:41.570480" elapsed="0.000207"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log" owner="BuiltIn">
+<arg>✓ DAG weather_pipeline activo (is_paused=False)</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.570744" elapsed="0.000008"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T21:45:41.570703" elapsed="0.000065"/>
+</branch>
+<status status="PASS" start="2026-05-26T21:45:41.570472" elapsed="0.000306"/>
+</if>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.570888" level="WARN">You might have an = symbol in url. You better place 'url=' before, example: 'url=/your-url/foo?param=a' or use '/your-url/foo  params=param=a' or escape it</msg>
+<msg time="2026-05-26T21:45:41.570983" level="FAIL">TypeError: RequestsOnSessionKeywords.get_on_session() missing 1 required positional argument: 'url'</msg>
+<var>${runs_resp}</var>
+<arg>airflow_int</arg>
+<arg>/api/v1/dags/weather_pipeline/dagRuns?limit=1</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2026-05-26T21:45:41.570818" elapsed="0.001695">TypeError: RequestsOnSessionKeywords.get_on_session() missing 1 required positional argument: 'url'</status>
+</kw>
+<if>
+<branch type="IF" condition="${runs_resp.status_code} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${runs}</var>
+<arg>${runs_resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.572662" elapsed="0.000010"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${run_list}</var>
+<arg>${runs}</arg>
+<arg>dag_runs</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.572719" elapsed="0.000008"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<var>${run_count}</var>
+<arg>${run_list}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.572773" elapsed="0.000008"/>
+</kw>
+<if>
+<branch type="IF" condition="${run_count} &gt; 0">
+<kw name="Get From List" owner="Collections">
+<var>${last_run}</var>
+<arg>${run_list}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.572855" elapsed="0.000008"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${state}</var>
+<arg>${last_run}</arg>
+<arg>state</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.572905" elapsed="0.000006"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Última ejecución del DAG: estado=${state}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.572950" elapsed="0.000007"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T21:45:41.572812" elapsed="0.000159"/>
+</branch>
+<status status="NOT RUN" start="2026-05-26T21:45:41.572805" elapsed="0.000180"/>
+</if>
+<status status="NOT RUN" start="2026-05-26T21:45:41.572594" elapsed="0.000401"/>
+</branch>
+<status status="NOT RUN" start="2026-05-26T21:45:41.572581" elapsed="0.000421"/>
+</if>
+<status status="FAIL" start="2026-05-26T21:45:41.569710" elapsed="0.003318">TypeError: RequestsOnSessionKeywords.get_on_session() missing 1 required positional argument: 'url'</status>
+</branch>
+<branch type="ELSE">
+<kw name="Log" owner="BuiltIn">
+<arg>Airflow API no accesible (HTTP ${status}) — verificar manualmente</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.573077" elapsed="0.000007"/>
+</kw>
+<kw name="GET Authenticated" owner="api_keywords">
+<var>${data_resp}</var>
+<arg>/api/risk/current</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.573201" elapsed="0.000013"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${data_resp.status_code} in [200, 404]</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.573258" elapsed="0.000008"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Evidencia indirecta: pipeline ha corrido (datos disponibles en API)</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T21:45:41.573304" elapsed="0.000007"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T21:45:41.573040" elapsed="0.000285"/>
+</branch>
+<status status="FAIL" start="2026-05-26T21:45:41.569697" elapsed="0.003638">TypeError: RequestsOnSessionKeywords.get_on_session() missing 1 required positional argument: 'url'</status>
+</if>
+<doc>RF-004 — El DAG existe en Airflow, tiene retries y schedule activo</doc>
+<tag>INT</tag>
+<tag>Integración</tag>
+<tag>Media</tag>
+<tag>TC-INT-004</tag>
+<status status="FAIL" start="2026-05-26T21:45:41.383333" elapsed="0.190101">TypeError: RequestsOnSessionKeywords.get_on_session() missing 1 required positional argument: 'url'</status>
+</test>
+<kw name="Teardown Suite INT" type="TEARDOWN">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.573883" level="INFO">=== Suite INT completada ===</msg>
+<arg>=== Suite INT completada ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.573815" elapsed="0.000090"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.574048" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-05-26T21:45:41.574021" elapsed="0.000081"/>
+</kw>
+<arg>Delete All Sessions</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.573955" elapsed="0.000166"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.574249" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-05-26T21:45:41.574222" elapsed="0.000047"/>
+</kw>
+<arg>Delete All Sessions</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.574164" elapsed="0.000122"/>
+</kw>
+<status status="PASS" start="2026-05-26T21:45:41.573727" elapsed="0.000581"/>
+</kw>
+<doc>MÓDULO INTEGRACIÓN — TC-INT-001 al TC-INT-004
+Requisitos: RF-001, RF-002, RF-004</doc>
+<status status="FAIL" start="2026-05-26T21:45:40.865681" elapsed="0.708638"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="3" fail="0" skip="0">Alta</stat>
+<stat pass="3" fail="1" skip="0">INT</stat>
+<stat pass="3" fail="1" skip="0">Integración</stat>
+<stat pass="0" fail="1" skip="0">Media</stat>
+<stat pass="1" fail="0" skip="0">TC-INT-001</stat>
+<stat pass="1" fail="0" skip="0">TC-INT-002</stat>
+<stat pass="1" fail="0" skip="0">TC-INT-003</stat>
+<stat pass="0" fail="1" skip="0">TC-INT-004</stat>
+</tag>
+<suite>
+<stat pass="3" fail="1" skip="0" id="s1" name="TC INT">TC INT</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-05-26T21:45:41.570590" level="WARN">ADVERTENCIA: DAG weather_pipeline está pausado</msg>
+<msg time="2026-05-26T21:45:41.570888" level="WARN">You might have an = symbol in url. You better place 'url=' before, example: 'url=/your-url/foo?param=a' or use '/your-url/foo  params=param=a' or escape it</msg>
+</errors>
+</robot>

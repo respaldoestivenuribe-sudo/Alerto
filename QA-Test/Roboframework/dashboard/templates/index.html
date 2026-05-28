@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alerto QA Dashboard — Robot Framework</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="rf-header">
+  <div class="rf-logo">
+    <div class="rf-logo-icon">⚡</div>
+    <span class="rf-logo-text">Alerto <span>QA</span> Dashboard</span>
+  </div>
+  <div class="rf-header-meta">
+    <span class="version">Robot Framework 7.1</span>
+    <span id="clock">--:--:--</span>
+    <span id="global-status" class="rf-badge rf-badge-queued">IDLE</span>
+  </div>
+</header>
+
+<div class="rf-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="rf-sidebar">
+    <div class="rf-sidebar-section">Módulos</div>
+
+    <a class="rf-sidebar-item active" data-view="modules" onclick="showView('modules', this)">
+      <span class="mod-dot" style="background:#e94560"></span>
+      Todos los módulos
+      <span class="mod-count">{{ modules|length }}</span>
+    </a>
+
+    <hr class="rf-sidebar-divider">
+
+    {% for m in modules %}
+    <a class="rf-sidebar-item" data-module="{{ m.id }}" onclick="selectModule('{{ m.id }}', this)">
+      <span class="mod-dot" style="background:{{ m.color }}"></span>
+      {{ m.name }}
+      <span class="mod-count">{{ m.tc_count }}</span>
+    </a>
+    {% endfor %}
+
+    <hr class="rf-sidebar-divider">
+    <div class="rf-sidebar-section">Vistas</div>
+    <a class="rf-sidebar-item" onclick="showView('terminal', this)">
+      <span class="mod-dot" style="background:#555"></span>
+      Terminal en vivo
+    </a>
+    <a class="rf-sidebar-item" onclick="showView('reports', this)">
+      <span class="mod-dot" style="background:#555"></span>
+      Historial de reportes
+    </a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="rf-main">
+
+    <!-- TOOLBAR -->
+    <div class="rf-toolbar">
+      <span class="rf-toolbar-title" id="view-title">Panel de módulos</span>
+      <button class="rf-btn rf-btn-success" id="btn-run-all" onclick="runAll()">
+        <span>▶</span> Ejecutar Todo
+      </button>
+      <button class="rf-btn rf-btn-ghost" onclick="refreshStatus()">
+        ↻ Actualizar
+      </button>
+      <button class="rf-btn rf-btn-ghost" id="btn-install" onclick="installDeps()" title="Instalar/actualizar robotframework-requests, SeleniumLibrary, etc.">
+        ⬇ Instalar deps
+      </button>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="rf-content">
+
+      <!-- VIEW: MODULES -->
+      <div id="view-modules">
+        <!-- Stats bar -->
+        <div class="rf-stats-bar" id="stats-bar">
+          <div class="rf-stat-card stat-total">
+            <span class="stat-value" id="stat-total">75</span>
+            <span class="stat-label">Total TCs</span>
+          </div>
+          <div class="rf-stat-card stat-pass">
+            <span class="stat-value" id="stat-pass">0</span>
+            <span class="stat-label">Pasaron</span>
+          </div>
+          <div class="rf-stat-card stat-fail">
+            <span class="stat-value" id="stat-fail">0</span>
+            <span class="stat-label">Fallaron</span>
+          </div>
+          <div class="rf-stat-card stat-skip">
+            <span class="stat-value" id="stat-skip">0</span>
+            <span class="stat-label">Omitidos</span>
+          </div>
+        </div>
+
+        <!-- Module cards -->
+        <div class="rf-module-grid" id="module-grid">
+          {% for m in modules %}
+          <div class="rf-module-card" id="card-{{ m.id }}" style="--card-color:{{ m.color }}"
+               onclick="toggleSelectModule('{{ m.id }}')">
+            <div class="rf-module-card-header">
+              <div>
+                <div class="rf-module-card-name">{{ m.name }}</div>
+                <div style="font-size:11px; color:var(--rf-text-dim); margin-top:3px;">{{ m.req }}</div>
+              </div>
+              <span class="rf-module-card-id">{{ m.id }}</span>
+            </div>
+            <div class="rf-module-card-meta">
+              <span class="tc-badge">{{ m.tc_count }} TCs</span>
+              <span id="status-{{ m.id }}" class="rf-badge rf-badge-queued">IDLE</span>
+            </div>
+            <div id="progress-{{ m.id }}" class="rf-progress" style="display:none">
+              <div class="rf-progress-fill" style="background:{{ m.color }}; width:0%"></div>
+            </div>
+            <div class="rf-module-card-footer">
+              <span id="result-{{ m.id }}" style="font-family:var(--rf-font); font-size:11px; color:var(--rf-text-dim)">—</span>
+              <button class="rf-btn rf-btn-primary run-btn"
+                      onclick="event.stopPropagation(); runModule('{{ m.id }}')">
+                ▶ Run
+              </button>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- VIEW: TERMINAL -->
+      <div id="view-terminal" style="display:none">
+        <div class="rf-terminal-panel">
+          <div class="rf-terminal-header">
+            <div class="rf-terminal-dots">
+              <span class="dot-red"></span>
+              <span class="dot-yellow"></span>
+              <span class="dot-green"></span>
+            </div>
+            <span class="rf-terminal-title" id="terminal-title">robot — esperando ejecución</span>
+            <button class="rf-btn rf-btn-ghost" style="font-size:11px; padding:3px 8px"
+                    onclick="clearTerminal()">Limpiar</button>
+          </div>
+          <div class="rf-terminal-body" id="terminal-body">
+            <div class="rf-log-line">
+              <span class="rf-log-ts"></span>
+              <span class="rf-log-text rf-log-system">
+                Alerto QA Dashboard — listo para ejecutar pruebas.<br>
+                Selecciona un módulo y pulsa ▶ Run, o ejecuta todo con "Ejecutar Todo".
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW: REPORTS -->
+      <div id="view-reports" style="display:none">
+        <div class="rf-tabs">
+          <div class="rf-tab active" onclick="showReportTab('list', this)">Lista de ejecuciones</div>
+          <div class="rf-tab" onclick="showReportTab('frame', this)">Ver reporte</div>
+        </div>
+
+        <div id="report-tab-list">
+          <table class="rf-results-table">
+            <thead>
+              <tr>
+                <th>Job ID</th>
+                <th>Módulo</th>
+                <th>Estado</th>
+                <th>Inicio</th>
+                <th>Resultados</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="reports-tbody">
+              <tr>
+                <td colspan="6">
+                  <div class="rf-empty">
+                    <span class="rf-empty-icon">📋</span>
+                    <span class="rf-empty-title">Sin ejecuciones todavía</span>
+                    <span class="rf-empty-desc">Ejecuta un módulo para ver los resultados aquí</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="report-tab-frame" style="display:none">
+          <iframe id="report-iframe" class="rf-report-frame" src="about:blank"></iframe>
+        </div>
+      </div>
+
+    </div><!-- /rf-content -->
+  </main>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="rf-toast-container" id="toast-container"></div>
+
+<script>
+/* ─── STATE ─── */
+const MODULES = {{ modules | tojson }};
+let activeJobs = {};
+let selectedModules = new Set();
+let currentView = 'modules';
+let terminalAutoScroll = true;
+
+/* ─── CLOCK ─── */
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toTimeString().slice(0,8);
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+/* ─── VIEW SWITCHING ─── */
+function showView(view, el) {
+  ['modules','terminal','reports'].forEach(v => {
+    document.getElementById('view-' + v).style.display = v === view ? 'block' : 'none';
+  });
+  document.querySelectorAll('.rf-sidebar-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  currentView = view;
+
+  const titles = {
+    modules: 'Panel de módulos',
+    terminal: 'Terminal en vivo',
+    reports: 'Historial de reportes'
+  };
+  document.getElementById('view-title').textContent = titles[view] || view;
+
+  if (view === 'reports') loadReports();
+}
+
+/* ─── MODULE SELECTION ─── */
+function selectModule(id, el) {
+  document.querySelectorAll('.rf-sidebar-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+  showView('modules', null);
+  document.getElementById('view-title').textContent = MODULES.find(m => m.id === id)?.name || id;
+}
+
+function toggleSelectModule(id) {
+  const card = document.getElementById('card-' + id);
+  if (selectedModules.has(id)) {
+    selectedModules.delete(id);
+    card.classList.remove('selected');
+  } else {
+    selectedModules.add(id);
+    card.classList.add('selected');
+  }
+}
+
+/* ─── RUN TESTS ─── */
+async function runAll() {
+  await startRun('ALL');
+}
+
+async function runModule(moduleId) {
+  await startRun(moduleId);
+}
+
+async function startRun(moduleId) {
+  setGlobalStatus('running');
+  showView('terminal', document.querySelector('[onclick*="terminal"]'));
+
+  try {
+    const resp = await fetch('/api/run', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ module_id: moduleId })
+    });
+    const data = await resp.json();
+
+    if (data.error) {
+      toast('Error: ' + data.error, 'fail');
+      setGlobalStatus('idle');
+      return;
+    }
+
+    appendTerminal(`► Iniciando ${data.count} suite(s)... [${data.jobs.join(', ')}]`, 'system');
+
+    for (const jobId of data.jobs) {
+      activeJobs[jobId] = true;
+      streamJob(jobId, moduleId === 'ALL' ? 'ALL' : moduleId);
+    }
+
+  } catch (e) {
+    toast('Error de red: ' + e.message, 'fail');
+    setGlobalStatus('idle');
+  }
+}
+
+function streamJob(jobId, moduleId) {
+  const es = new EventSource('/api/stream/' + jobId);
+  document.getElementById('terminal-title').textContent =
+    `robot — ejecutando ${moduleId} [${jobId}]`;
+
+  es.onmessage = (event) => {
+    const msg = JSON.parse(event.data);
+
+    switch (msg.type) {
+      case 'start':
+        appendTerminal(`$ ${msg.cmd}`, 'system');
+        updateModuleStatus(msg.module, 'running');
+        showProgress(msg.module, true);
+        break;
+
+      case 'log':
+        appendTerminalLine(msg.line);
+        break;
+
+      case 'done':
+        es.close();
+        delete activeJobs[jobId];
+        updateModuleStatus(moduleId === 'ALL' ? msg.module || moduleId : moduleId,
+                           msg.status);
+        updateModuleResult(moduleId === 'ALL' ? msg.module || moduleId : moduleId,
+                           msg.summary);
+        showProgress(moduleId === 'ALL' ? msg.module || moduleId : moduleId, false);
+
+        if (msg.status === 'passed') {
+          appendTerminal(`✓ Ejecución completada — PASSED`, 'pass');
+          toast(`${moduleId} completado ✓`, 'pass');
+        } else {
+          appendTerminal(`✗ Ejecución completada — FAILED (RC=${msg.return_code})`, 'fail');
+          toast(`${moduleId} falló ✗`, 'fail');
+        }
+
+        updateGlobalStats();
+
+        if (Object.keys(activeJobs).length === 0) {
+          setGlobalStatus('idle');
+        }
+        break;
+
+      case 'error':
+        es.close();
+        appendTerminal(`ERROR: ${msg.message}`, 'fail');
+        toast('Error durante ejecución', 'fail');
+        setGlobalStatus('idle');
+        break;
+
+      case 'end':
+        es.close();
+        break;
+
+      case 'heartbeat':
+        break;
+    }
+  };
+
+  es.onerror = () => {
+    es.close();
+    delete activeJobs[jobId];
+  };
+}
+
+/* ─── TERMINAL ─── */
+function appendTerminal(text, cls = 'info') {
+  const body = document.getElementById('terminal-body');
+  const line = document.createElement('div');
+  line.className = 'rf-log-line';
+  const ts = new Date().toTimeString().slice(0,8);
+  line.innerHTML = `<span class="rf-log-ts">${ts}</span><span class="rf-log-text rf-log-${cls}">${escapeHtml(text)}</span>`;
+  body.appendChild(line);
+  if (terminalAutoScroll) body.scrollTop = body.scrollHeight;
+}
+
+function appendTerminalLine(line) {
+  let cls = 'info';
+  if (/PASS/.test(line))  cls = 'pass';
+  else if (/FAIL/.test(line))  cls = 'fail';
+  else if (/WARN/.test(line))  cls = 'warn';
+  else if (/^={3,}/.test(line)) cls = 'suite';
+  else if (/^Running test/.test(line) || /TC-[A-Z]+-\d{3}/.test(line)) cls = 'test';
+  else if (/^\d{8}\s+\d{2}:\d{2}:\d{2}/.test(line)) cls = 'system';
+  appendTerminal(line, cls);
+}
+
+function clearTerminal() {
+  document.getElementById('terminal-body').innerHTML = '';
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/* ─── STATUS HELPERS ─── */
+function updateModuleStatus(moduleId, status) {
+  const el = document.getElementById('status-' + moduleId);
+  if (!el) return;
+  el.className = 'rf-badge';
+  const map = {
+    running: ['rf-badge-running', '⟳ RUNNING'],
+    passed:  ['rf-badge-pass',    '✓ PASSED'],
+    failed:  ['rf-badge-fail',    '✗ FAILED'],
+    error:   ['rf-badge-error',   '! ERROR'],
+    queued:  ['rf-badge-queued',  'QUEUED'],
+  };
+  const [cls, txt] = map[status] || ['rf-badge-queued', status.toUpperCase()];
+  el.classList.add(cls);
+  el.textContent = txt;
+}
+
+function updateModuleResult(moduleId, summary) {
+  const el = document.getElementById('result-' + moduleId);
+  if (!el || !summary) return;
+  const { passed = 0, failed = 0, total = 0 } = summary;
+  el.innerHTML = `<span style="color:var(--rf-green)">${passed}✓</span> / <span style="color:var(--rf-red)">${failed}✗</span> de ${total}`;
+}
+
+function showProgress(moduleId, show) {
+  const el = document.getElementById('progress-' + moduleId);
+  if (el) el.style.display = show ? 'block' : 'none';
+}
+
+function setGlobalStatus(status) {
+  const el = document.getElementById('global-status');
+  const map = {
+    running: ['rf-badge-running', '⟳ RUNNING'],
+    idle:    ['rf-badge-queued',  'IDLE'],
+    passed:  ['rf-badge-pass',    '✓ PASSED'],
+    failed:  ['rf-badge-fail',    '✗ FAILED'],
+  };
+  const [cls, txt] = map[status] || ['rf-badge-queued', status];
+  el.className = 'rf-badge ' + cls;
+  el.textContent = txt;
+}
+
+function updateGlobalStats() {
+  fetch('/api/reports')
+    .then(r => r.json())
+    .then(reports => {
+      let total = 0, passed = 0, failed = 0, skipped = 0;
+      reports.forEach(r => {
+        const s = r.summary || {};
+        total   += s.total   || 0;
+        passed  += s.passed  || 0;
+        failed  += s.failed  || 0;
+        skipped += s.skipped || 0;
+      });
+      document.getElementById('stat-total').textContent = total || 75;
+      document.getElementById('stat-pass').textContent  = passed;
+      document.getElementById('stat-fail').textContent  = failed;
+      document.getElementById('stat-skip').textContent  = skipped;
+    })
+    .catch(() => {});
+}
+
+/* ─── REFRESH STATUS ─── */
+async function refreshStatus() {
+  try {
+    const resp = await fetch('/api/jobs');
+    const jobs = await resp.json();
+    jobs.forEach(j => {
+      if (j.status !== 'queued') {
+        updateModuleStatus(j.module_id, j.status);
+        if (j.summary && j.summary.total > 0) {
+          updateModuleResult(j.module_id, j.summary);
+        }
+      }
+    });
+  } catch (e) {}
+}
+
+/* ─── REPORTS ─── */
+async function loadReports() {
+  try {
+    const resp = await fetch('/api/reports');
+    const reports = await resp.json();
+    const tbody = document.getElementById('reports-tbody');
+
+    if (!reports.length) {
+      tbody.innerHTML = `
+        <tr><td colspan="6">
+          <div class="rf-empty">
+            <span class="rf-empty-icon">📋</span>
+            <span class="rf-empty-title">Sin ejecuciones todavía</span>
+            <span class="rf-empty-desc">Ejecuta un módulo para ver los resultados aquí</span>
+          </div>
+        </td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = reports.map(r => {
+      const s = r.summary || {};
+      const statusMap = {
+        passed: '<span class="rf-badge rf-badge-pass">✓ PASSED</span>',
+        failed: '<span class="rf-badge rf-badge-fail">✗ FAILED</span>',
+        running:'<span class="rf-badge rf-badge-running">⟳ RUNNING</span>',
+        error:  '<span class="rf-badge rf-badge-error">! ERROR</span>',
+      };
+      const statusBadge = statusMap[r.status] || `<span class="rf-badge rf-badge-queued">${r.status}</span>`;
+      const startTime = r.started_at ? new Date(r.started_at).toLocaleString('es-CO') : '—';
+      const resultText = s.total > 0
+        ? `<span style="color:var(--rf-green)">${s.passed}✓</span> / <span style="color:var(--rf-red)">${s.failed}✗</span> de ${s.total}`
+        : '—';
+      const actions = r.report_available
+        ? `<button class="rf-btn rf-btn-ghost" style="font-size:11px;padding:4px 8px"
+                   onclick="openReport('${r.job_id}')">Ver reporte</button>`
+        : '—';
+
+      return `<tr>
+        <td style="font-family:var(--rf-font);font-size:11px;color:var(--rf-text-dim)">${r.job_id}</td>
+        <td><strong>${r.module_name || r.module_id}</strong></td>
+        <td>${statusBadge}</td>
+        <td style="font-size:12px;color:var(--rf-text-dim)">${startTime}</td>
+        <td style="font-family:var(--rf-font);font-size:12px">${resultText}</td>
+        <td>${actions}</td>
+      </tr>`;
+    }).join('');
+
+  } catch (e) {
+    console.error('Error loading reports:', e);
+  }
+}
+
+function openReport(jobId) {
+  document.getElementById('report-iframe').src = '/report/' + jobId;
+  showReportTab('frame', document.querySelectorAll('.rf-tab')[1]);
+}
+
+function showReportTab(tab, el) {
+  document.getElementById('report-tab-list').style.display  = tab === 'list' ? 'block' : 'none';
+  document.getElementById('report-tab-frame').style.display = tab === 'frame' ? 'block' : 'none';
+  document.querySelectorAll('.rf-tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+/* ─── TOAST ─── */
+function toast(message, type = 'info') {
+  const container = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  el.className = `rf-toast rf-toast-${type}`;
+  el.innerHTML = `
+    <span>${type === 'pass' ? '✓' : type === 'fail' ? '✗' : 'ℹ'}</span>
+    <span>${escapeHtml(message)}</span>`;
+  container.appendChild(el);
+  setTimeout(() => el.remove(), 5000);
+}
+
+/* ─── INSTALL DEPS ─── */
+async function installDeps() {
+  const btn = document.getElementById('btn-install');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="rf-spinner"></span> Instalando...';
+  showView('terminal', document.querySelector('[onclick*="terminal"]'));
+  appendTerminal('Instalando dependencias de Robot Framework...', 'system');
+
+  try {
+    const resp = await fetch('/api/install', { method: 'POST' });
+    const data = await resp.json();
+    if (data.ok) {
+      appendTerminal('✓ Dependencias instaladas correctamente.', 'pass');
+      toast('Dependencias instaladas ✓', 'pass');
+    } else {
+      appendTerminal('✗ Error instalando dependencias:', 'fail');
+      if (data.stderr) appendTerminal(data.stderr, 'fail');
+      toast('Error en instalación ✗', 'fail');
+    }
+  } catch (e) {
+    appendTerminal('Error de red: ' + e.message, 'fail');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '⬇ Instalar deps';
+  }
+}
+
+/* ─── INIT ─── */
+refreshStatus();
+setInterval(refreshStatus, 10000);
+</script>
+</body>
+</html>

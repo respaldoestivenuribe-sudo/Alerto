@@ -1,0 +1,2449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1 (Python 3.14.4 on win32)" generated="2026-05-26T22:21:52.312540" rpa="false" schemaversion="5">
+<suite id="s1" name="TC SEC" source="C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\tests\TC_SEC.robot">
+<kw name="Setup Suite SEC" type="SETUP">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.453869" level="INFO">=== Iniciando Suite SEC ===</msg>
+<arg>=== Iniciando Suite SEC ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.453724" elapsed="0.000191"/>
+</kw>
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:52.454434" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-26T22:21:52.454158" elapsed="0.000501"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-26T22:21:52.454037" elapsed="0.000689"/>
+</kw>
+<kw name="Get Admin Token" owner="api_keywords">
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:52.455169" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-26T22:21:52.455032" elapsed="0.000233"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-26T22:21:52.454943" elapsed="0.000364"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.455639" level="INFO">&amp;{body} = { email=admin@alerto.com | password=alerto123** }</msg>
+<var>&amp;{body}</var>
+<arg>email=${ADMIN_EMAIL}</arg>
+<arg>password=${ADMIN_PASS}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.455380" elapsed="0.000275"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:52.689771" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '56', 'Content-Type': 'application/json'} 
+ body=b'{"email": "admin@alerto.com", "password": "alerto123**"}' 
+ </msg>
+<msg time="2026-05-26T22:21:52.689848" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 03:21:51 GMT', 'server': 'uvicorn', 'content-length': '210', 'content-type': 'application/json'} 
+ body={"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTJ9.AUr0BhZ3PbOiRvgvKHez_GpW105zxsMYO6f8xNpZdAE","token_type":"bearer"} 
+ </msg>
+<msg time="2026-05-26T22:21:52.689938" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>/api/auth/login</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.455737" elapsed="0.234216"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>${resp}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.690073" elapsed="0.000152"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T22:21:52.690620" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTJ9.AUr0BhZ3PbOiRvgvKHez_GpW105zxsMYO6f8xNpZdAE</msg>
+<var>${token}</var>
+<arg>${resp.json()}</arg>
+<arg>access_token</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.690288" elapsed="0.000345"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" start="2026-05-26T22:21:52.690667" elapsed="0.000041"/>
+</return>
+<msg time="2026-05-26T22:21:52.690803" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTJ9.AUr0BhZ3PbOiRvgvKHez_GpW105zxsMYO6f8xNpZdAE</msg>
+<var>${token}</var>
+<doc>Inicia sesión como administrador y retorna el token JWT</doc>
+<status status="PASS" start="2026-05-26T22:21:52.454837" elapsed="0.235978"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.690989" level="INFO">${SUITE_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTJ9.AUr0BhZ3PbOiRvgvKHez_GpW105zxsMYO6f8xNpZdAE</msg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.690882" elapsed="0.000125"/>
+</kw>
+<status status="PASS" start="2026-05-26T22:21:52.453248" elapsed="0.237786"/>
+</kw>
+<test id="s1-t1" name="TC-SEC-001 Contraseñas almacenadas con hash bcrypt en la base de datos" line="16">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.691487" level="INFO">&amp;{body} = { email=admin@alerto.com | password=alerto123** }</msg>
+<var>&amp;{body}</var>
+<arg>email=${ADMIN_EMAIL}</arg>
+<arg>password=${ADMIN_PASS}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.691334" elapsed="0.000166"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:52.963905" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '56', 'Content-Type': 'application/json'} 
+ body=b'{"email": "admin@alerto.com", "password": "alerto123**"}' 
+ </msg>
+<msg time="2026-05-26T22:21:52.963976" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 03:21:52 GMT', 'server': 'uvicorn', 'content-length': '210', 'content-type': 'application/json'} 
+ body={"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTJ9.AUr0BhZ3PbOiRvgvKHez_GpW105zxsMYO6f8xNpZdAE","token_type":"bearer"} 
+ </msg>
+<msg time="2026-05-26T22:21:52.964094" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.691735" elapsed="0.272378"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:52.964181" elapsed="0.000043"/>
+</return>
+<msg time="2026-05-26T22:21:52.964336" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:52.691601" elapsed="0.272749"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.964849" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.964727" elapsed="0.000135"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.964926" elapsed="0.000898"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-26T22:21:52.964488" elapsed="0.001381"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.966196" level="INFO">${data} = {'access_token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTJ9.AUr0BhZ3PbOiRvgvKHez_GpW105zxsMYO6f8xNpZdAE', 'token_typ...</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.965935" elapsed="0.000274"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${data}</arg>
+<arg>access_token</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.966264" elapsed="0.000072"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.966621" level="INFO">${resp_text} = {"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTJ9.AUr0BhZ3PbOiRvgvKHez_GpW105zxsMYO6f8xNpZdAE","token_type"...</msg>
+<var>${resp_text}</var>
+<arg>${resp.text}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.966386" elapsed="0.000247"/>
+</kw>
+<kw name="Should Not Contain" owner="BuiltIn">
+<arg>${resp_text}</arg>
+<arg>${ADMIN_PASS}</arg>
+<arg>msg=La contraseña aparece en texto plano en la respuesta</arg>
+<doc>Fails if ``container`` contains ``item`` one or more times.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.966682" elapsed="0.000087"/>
+</kw>
+<kw name="Should Not Contain" owner="BuiltIn">
+<arg>${resp_text}</arg>
+<arg>password_hash</arg>
+<arg>msg=El hash de contraseña se expone en la respuesta</arg>
+<doc>Fails if ``container`` contains ``item`` one or more times.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.966817" elapsed="0.000071"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.966990" level="INFO">✓ Autenticación bcrypt funciona y la contraseña no se expone</msg>
+<arg>✓ Autenticación bcrypt funciona y la contraseña no se expone</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.966937" elapsed="0.000071"/>
+</kw>
+<doc>RF-016 — password_hash empieza con $2b$ (bcrypt 12 rounds)</doc>
+<tag>Alta</tag>
+<tag>SEC</tag>
+<tag>Seguridad</tag>
+<tag>TC-SEC-001</tag>
+<status status="PASS" start="2026-05-26T22:21:52.691093" elapsed="0.275975"/>
+</test>
+<test id="s1-t2" name="TC-SEC-002 Headers de seguridad HTTP presentes en respuestas del backend" line="34">
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:52.967632" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-26T22:21:52.967509" elapsed="0.000230"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-26T22:21:52.967409" elapsed="0.000363"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:52.972068" level="INFO">GET Request : url=http://localhost:8000/health 
+ path_url=/health 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-05-26T22:21:52.972122" level="INFO">GET Response : url=http://localhost:8000/health 
+ status=404, reason=Not Found 
+ headers={'date': 'Wed, 27 May 2026 03:21:52 GMT', 'server': 'uvicorn', 'content-length': '22', 'content-type': 'application/json'} 
+ body={"detail":"Not Found"} 
+ </msg>
+<msg time="2026-05-26T22:21:52.972197" level="INFO">${resp} = &lt;Response [404]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>/health</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.967877" elapsed="0.004333"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.972666" level="INFO">${headers} = {'date': 'Wed, 27 May 2026 03:21:52 GMT', 'server': 'uvicorn', 'content-length': '22', 'content-type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>${resp.headers}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.972328" elapsed="0.000351"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.972821" level="INFO">Response headers: {'date': 'Wed, 27 May 2026 03:21:52 GMT', 'server': 'uvicorn', 'content-length': '22', 'content-type': 'application/json'}</msg>
+<arg>Response headers: ${headers}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.972737" elapsed="0.000103"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<msg time="2026-05-26T22:21:52.973077" level="FAIL">Dictionary does not contain key 'X-Content-Type-Options'.</msg>
+<arg>${headers}</arg>
+<arg>X-Content-Type-Options</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="FAIL" start="2026-05-26T22:21:52.972970" elapsed="0.000214">Dictionary does not contain key 'X-Content-Type-Options'.</status>
+</kw>
+<msg time="2026-05-26T22:21:52.973228" level="INFO">${has_xcto} = False</msg>
+<var>${has_xcto}</var>
+<arg>Dictionary Should Contain Key</arg>
+<arg>${headers}</arg>
+<arg>X-Content-Type-Options</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.972896" elapsed="0.000345"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<msg time="2026-05-26T22:21:52.973430" level="FAIL">Dictionary does not contain key 'X-Frame-Options'.</msg>
+<arg>${headers}</arg>
+<arg>X-Frame-Options</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="FAIL" start="2026-05-26T22:21:52.973356" elapsed="0.000109">Dictionary does not contain key 'X-Frame-Options'.</status>
+</kw>
+<msg time="2026-05-26T22:21:52.973505" level="INFO">${has_xfo} = False</msg>
+<var>${has_xfo}</var>
+<arg>Dictionary Should Contain Key</arg>
+<arg>${headers}</arg>
+<arg>X-Frame-Options</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.973295" elapsed="0.000228"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<msg time="2026-05-26T22:21:52.973690" level="FAIL">Dictionary does not contain key 'X-XSS-Protection'.</msg>
+<arg>${headers}</arg>
+<arg>X-XSS-Protection</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="FAIL" start="2026-05-26T22:21:52.973625" elapsed="0.000091">Dictionary does not contain key 'X-XSS-Protection'.</status>
+</kw>
+<msg time="2026-05-26T22:21:52.973775" level="INFO">${has_xxss} = False</msg>
+<var>${has_xxss}</var>
+<arg>Dictionary Should Contain Key</arg>
+<arg>${headers}</arg>
+<arg>X-XSS-Protection</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.973571" elapsed="0.000212"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.973885" level="INFO">X-Content-Type-Options: False</msg>
+<arg>X-Content-Type-Options: ${has_xcto}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.973825" elapsed="0.000078"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.974199" level="INFO">X-Frame-Options: False</msg>
+<arg>X-Frame-Options: ${has_xfo}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.974096" elapsed="0.000126"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.974395" level="INFO">X-XSS-Protection: False</msg>
+<arg>X-XSS-Protection: ${has_xxss}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.974321" elapsed="0.000092"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.974674" level="INFO">${security_count} = 0</msg>
+<var>${security_count}</var>
+<arg>[${has_xcto}, ${has_xfo}, ${has_xxss}].count(True)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.974481" elapsed="0.000243"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.975042" level="INFO">Headers de seguridad encontrados: 0/3</msg>
+<arg>Headers de seguridad encontrados: ${security_count}/3</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.974953" elapsed="0.000112"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.975168" level="INFO">✓ TC-SEC-002 completado — headers de seguridad verificados</msg>
+<arg>✓ TC-SEC-002 completado — headers de seguridad verificados</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.975117" elapsed="0.000070"/>
+</kw>
+<doc>RF-009 — X-Content-Type-Options, X-Frame-Options, etc. configurados</doc>
+<tag>Alta</tag>
+<tag>SEC</tag>
+<tag>Seguridad</tag>
+<tag>TC-SEC-002</tag>
+<status status="PASS" start="2026-05-26T22:21:52.967207" elapsed="0.008042"/>
+</test>
+<test id="s1-t3" name="TC-SEC-003 Rate limiting bloquea intentos de login excesivos" line="56">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.975705" level="INFO">${rate_limited} = False</msg>
+<var>${rate_limited}</var>
+<arg>${False}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.975635" elapsed="0.000081"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:52.976082" level="INFO">&amp;{body} = { email=brute@test.com | password=wrong0 }</msg>
+<var>&amp;{body}</var>
+<arg>email=brute@test.com</arg>
+<arg>password=wrong${i}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.975968" elapsed="0.000127"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:53.063855" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "brute@test.com", "password": "wrong0"}' 
+ </msg>
+<msg time="2026-05-26T22:21:53.063925" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:52 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:53.064028" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:52.976327" elapsed="0.087719"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:53.064112" elapsed="0.000035"/>
+</return>
+<msg time="2026-05-26T22:21:53.064255" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:52.976180" elapsed="0.088089"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.065020" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.064418" elapsed="0.000637"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.065616" level="INFO">Intento 1: HTTP 401</msg>
+<arg>Intento ${i+1}: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.065170" elapsed="0.000487"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 429">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${rate_limited}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.065923" elapsed="0.000015"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Rate limit activado en intento ${i+1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.066010" elapsed="0.000011"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.066063" elapsed="0.000021"/>
+</break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.065754" elapsed="0.000352"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:53.065725" elapsed="0.000404"/>
+</if>
+<var name="${i}">0</var>
+<status status="PASS" start="2026-05-26T22:21:52.975915" elapsed="0.090236"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.066630" level="INFO">&amp;{body} = { email=brute@test.com | password=wrong1 }</msg>
+<var>&amp;{body}</var>
+<arg>email=brute@test.com</arg>
+<arg>password=wrong${i}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.066420" elapsed="0.000230"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:53.155936" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "brute@test.com", "password": "wrong1"}' 
+ </msg>
+<msg time="2026-05-26T22:21:53.156006" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:52 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:53.156133" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.067043" elapsed="0.089107"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:53.156213" elapsed="0.000034"/>
+</return>
+<msg time="2026-05-26T22:21:53.156339" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:53.066788" elapsed="0.089563"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.156822" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.156460" elapsed="0.000375"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.157188" level="INFO">Intento 2: HTTP 401</msg>
+<arg>Intento ${i+1}: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.156899" elapsed="0.000313"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 429">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${rate_limited}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.157380" elapsed="0.000010"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Rate limit activado en intento ${i+1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.157443" elapsed="0.000010"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.157484" elapsed="0.000011"/>
+</break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.157275" elapsed="0.000236"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:53.157256" elapsed="0.000267"/>
+</if>
+<var name="${i}">1</var>
+<status status="PASS" start="2026-05-26T22:21:53.066328" elapsed="0.091210"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.157859" level="INFO">&amp;{body} = { email=brute@test.com | password=wrong2 }</msg>
+<var>&amp;{body}</var>
+<arg>email=brute@test.com</arg>
+<arg>password=wrong${i}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.157718" elapsed="0.000156"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:53.247708" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "brute@test.com", "password": "wrong2"}' 
+ </msg>
+<msg time="2026-05-26T22:21:53.247780" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:52 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:53.247880" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.158424" elapsed="0.089471"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:53.247957" elapsed="0.000036"/>
+</return>
+<msg time="2026-05-26T22:21:53.248087" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:53.157978" elapsed="0.090120"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.248531" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.248202" elapsed="0.000340"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.248851" level="INFO">Intento 3: HTTP 401</msg>
+<arg>Intento ${i+1}: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.248597" elapsed="0.000274"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 429">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${rate_limited}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.249010" elapsed="0.000008"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Rate limit activado en intento ${i+1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.249062" elapsed="0.000007"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.249094" elapsed="0.000008"/>
+</break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.248919" elapsed="0.000195"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:53.248907" elapsed="0.000217"/>
+</if>
+<var name="${i}">2</var>
+<status status="PASS" start="2026-05-26T22:21:53.157651" elapsed="0.091485"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.249405" level="INFO">&amp;{body} = { email=brute@test.com | password=wrong3 }</msg>
+<var>&amp;{body}</var>
+<arg>email=brute@test.com</arg>
+<arg>password=wrong${i}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.249275" elapsed="0.000141"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:53.335721" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "brute@test.com", "password": "wrong3"}' 
+ </msg>
+<msg time="2026-05-26T22:21:53.335785" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:52 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:53.335876" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.249633" elapsed="0.086256"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:53.335948" elapsed="0.000033"/>
+</return>
+<msg time="2026-05-26T22:21:53.336077" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:53.249498" elapsed="0.086592"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.336509" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.336189" elapsed="0.000331"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.336808" level="INFO">Intento 4: HTTP 401</msg>
+<arg>Intento ${i+1}: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.336571" elapsed="0.000257"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 429">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${rate_limited}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.336957" elapsed="0.000008"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Rate limit activado en intento ${i+1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.337006" elapsed="0.000006"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.337036" elapsed="0.000007"/>
+</break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.336873" elapsed="0.000182"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:53.336861" elapsed="0.000204"/>
+</if>
+<var name="${i}">3</var>
+<status status="PASS" start="2026-05-26T22:21:53.249231" elapsed="0.087845"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.337323" level="INFO">&amp;{body} = { email=brute@test.com | password=wrong4 }</msg>
+<var>&amp;{body}</var>
+<arg>email=brute@test.com</arg>
+<arg>password=wrong${i}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.337208" elapsed="0.000134"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:53.436059" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "brute@test.com", "password": "wrong4"}' 
+ </msg>
+<msg time="2026-05-26T22:21:53.436130" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:52 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:53.436233" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.337832" elapsed="0.098417"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:53.436311" elapsed="0.000033"/>
+</return>
+<msg time="2026-05-26T22:21:53.436441" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:53.337490" elapsed="0.099044"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.437666" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.436750" elapsed="0.000979"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.438955" level="INFO">Intento 5: HTTP 401</msg>
+<arg>Intento ${i+1}: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.437997" elapsed="0.001021"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 429">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${rate_limited}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.439367" elapsed="0.000028"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Rate limit activado en intento ${i+1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.439478" elapsed="0.000010"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.439517" elapsed="0.000010"/>
+</break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.439130" elapsed="0.000411"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:53.439103" elapsed="0.000449"/>
+</if>
+<var name="${i}">4</var>
+<status status="PASS" start="2026-05-26T22:21:53.337165" elapsed="0.102402"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.439864" level="INFO">&amp;{body} = { email=brute@test.com | password=wrong5 }</msg>
+<var>&amp;{body}</var>
+<arg>email=brute@test.com</arg>
+<arg>password=wrong${i}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.439721" elapsed="0.000156"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:53.531889" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "brute@test.com", "password": "wrong5"}' 
+ </msg>
+<msg time="2026-05-26T22:21:53.532000" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:52 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:53.532130" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.440234" elapsed="0.091915"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:53.532238" elapsed="0.000052"/>
+</return>
+<msg time="2026-05-26T22:21:53.532418" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:53.439965" elapsed="0.092470"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.533072" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.532631" elapsed="0.000463"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.533538" level="INFO">Intento 6: HTTP 401</msg>
+<arg>Intento ${i+1}: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.533220" elapsed="0.000343"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 429">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${rate_limited}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.533742" elapsed="0.000012"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Rate limit activado en intento ${i+1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.533830" elapsed="0.000010"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.533869" elapsed="0.000010"/>
+</break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.533619" elapsed="0.000275"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:53.533604" elapsed="0.000301"/>
+</if>
+<var name="${i}">5</var>
+<status status="PASS" start="2026-05-26T22:21:53.439673" elapsed="0.094245"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.534234" level="INFO">&amp;{body} = { email=brute@test.com | password=wrong6 }</msg>
+<var>&amp;{body}</var>
+<arg>email=brute@test.com</arg>
+<arg>password=wrong${i}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.534077" elapsed="0.000172"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:53.623758" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "brute@test.com", "password": "wrong6"}' 
+ </msg>
+<msg time="2026-05-26T22:21:53.623834" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:53 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:53.623959" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.534518" elapsed="0.089473"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:53.624111" elapsed="0.000059"/>
+</return>
+<msg time="2026-05-26T22:21:53.624369" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:53.534344" elapsed="0.090059"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.625239" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.624575" elapsed="0.000692"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.625995" level="INFO">Intento 7: HTTP 401</msg>
+<arg>Intento ${i+1}: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.625415" elapsed="0.000629"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 429">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${rate_limited}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.626274" elapsed="0.000010"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Rate limit activado en intento ${i+1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.626325" elapsed="0.000007"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.626354" elapsed="0.000008"/>
+</break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.626136" elapsed="0.000236"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:53.626113" elapsed="0.000269"/>
+</if>
+<var name="${i}">6</var>
+<status status="PASS" start="2026-05-26T22:21:53.534025" elapsed="0.092367"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.626638" level="INFO">&amp;{body} = { email=brute@test.com | password=wrong7 }</msg>
+<var>&amp;{body}</var>
+<arg>email=brute@test.com</arg>
+<arg>password=wrong${i}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.626519" elapsed="0.000132"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:53.723841" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "brute@test.com", "password": "wrong7"}' 
+ </msg>
+<msg time="2026-05-26T22:21:53.723951" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:53 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:53.724087" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.626895" elapsed="0.097213"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:53.724175" elapsed="0.000034"/>
+</return>
+<msg time="2026-05-26T22:21:53.724298" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:53.626743" elapsed="0.097568"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.724994" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.724437" elapsed="0.000579"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.725509" level="INFO">Intento 8: HTTP 401</msg>
+<arg>Intento ${i+1}: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.725121" elapsed="0.000428"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 429">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${rate_limited}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.725754" elapsed="0.000025"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Rate limit activado en intento ${i+1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.725840" elapsed="0.000009"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.725881" elapsed="0.000011"/>
+</break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.725624" elapsed="0.000287"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:53.725605" elapsed="0.000324"/>
+</if>
+<var name="${i}">7</var>
+<status status="PASS" start="2026-05-26T22:21:53.626476" elapsed="0.099472"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.726361" level="INFO">&amp;{body} = { email=brute@test.com | password=wrong8 }</msg>
+<var>&amp;{body}</var>
+<arg>email=brute@test.com</arg>
+<arg>password=wrong${i}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.726168" elapsed="0.000241"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:53.819779" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "brute@test.com", "password": "wrong8"}' 
+ </msg>
+<msg time="2026-05-26T22:21:53.819850" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:53 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:53.819953" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.726772" elapsed="0.093198"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:53.820035" elapsed="0.000034"/>
+</return>
+<msg time="2026-05-26T22:21:53.820160" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:53.726544" elapsed="0.093629"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.820655" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.820274" elapsed="0.000393"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.821335" level="INFO">Intento 9: HTTP 401</msg>
+<arg>Intento ${i+1}: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.820762" elapsed="0.000648"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 429">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${rate_limited}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.821776" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Rate limit activado en intento ${i+1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.821896" elapsed="0.000017"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.821963" elapsed="0.000015"/>
+</break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.821522" elapsed="0.000486"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:53.821498" elapsed="0.000537"/>
+</if>
+<var name="${i}">8</var>
+<status status="PASS" start="2026-05-26T22:21:53.726100" elapsed="0.095964"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.822757" level="INFO">&amp;{body} = { email=brute@test.com | password=wrong9 }</msg>
+<var>&amp;{body}</var>
+<arg>email=brute@test.com</arg>
+<arg>password=wrong${i}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.822411" elapsed="0.000381"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:53.911858" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "brute@test.com", "password": "wrong9"}' 
+ </msg>
+<msg time="2026-05-26T22:21:53.911947" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:53 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:53.912049" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.823375" elapsed="0.088688"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:53.912133" elapsed="0.000034"/>
+</return>
+<msg time="2026-05-26T22:21:53.912258" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:53.823022" elapsed="0.089248"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.912740" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.912372" elapsed="0.000380"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.913082" level="INFO">Intento 10: HTTP 401</msg>
+<arg>Intento ${i+1}: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.912816" elapsed="0.000406"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 429">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${rate_limited}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.913631" elapsed="0.000041"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Rate limit activado en intento ${i+1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:53.913805" elapsed="0.000019"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.913882" elapsed="0.000021"/>
+</break>
+<status status="NOT RUN" start="2026-05-26T22:21:53.913338" elapsed="0.000654"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:53.913308" elapsed="0.000738"/>
+</if>
+<var name="${i}">9</var>
+<status status="PASS" start="2026-05-26T22:21:53.822295" elapsed="0.091792"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:53.915616" level="INFO">&amp;{body} = { email=brute@test.com | password=wrong10 }</msg>
+<var>&amp;{body}</var>
+<arg>email=brute@test.com</arg>
+<arg>password=wrong${i}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.914611" elapsed="0.001064"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:54.008129" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '50', 'Content-Type': 'application/json'} 
+ body=b'{"email": "brute@test.com", "password": "wrong10"}' 
+ </msg>
+<msg time="2026-05-26T22:21:54.008269" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:53 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:54.008453" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:53.916556" elapsed="0.091920"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:54.008572" elapsed="0.000055"/>
+</return>
+<msg time="2026-05-26T22:21:54.008759" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:53.916002" elapsed="0.092772"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.009480" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.008904" elapsed="0.000603"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.010087" level="INFO">Intento 11: HTTP 401</msg>
+<arg>Intento ${i+1}: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.009632" elapsed="0.000492"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 429">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${rate_limited}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:54.010372" elapsed="0.000015"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Rate limit activado en intento ${i+1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:54.010462" elapsed="0.000012"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2026-05-26T22:21:54.010530" elapsed="0.000014"/>
+</break>
+<status status="NOT RUN" start="2026-05-26T22:21:54.010212" elapsed="0.000352"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:54.010188" elapsed="0.000398"/>
+</if>
+<var name="${i}">10</var>
+<status status="PASS" start="2026-05-26T22:21:53.914350" elapsed="0.096258"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.011128" level="INFO">&amp;{body} = { email=brute@test.com | password=wrong11 }</msg>
+<var>&amp;{body}</var>
+<arg>email=brute@test.com</arg>
+<arg>password=wrong${i}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.010867" elapsed="0.000288"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:54.100022" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '50', 'Content-Type': 'application/json'} 
+ body=b'{"email": "brute@test.com", "password": "wrong11"}' 
+ </msg>
+<msg time="2026-05-26T22:21:54.100127" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:53 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:54.100349" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.011585" elapsed="0.088845"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:54.100526" elapsed="0.000046"/>
+</return>
+<msg time="2026-05-26T22:21:54.100713" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:54.011325" elapsed="0.089406"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.101856" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.100957" elapsed="0.000936"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.102617" level="INFO">Intento 12: HTTP 401</msg>
+<arg>Intento ${i+1}: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.102089" elapsed="0.000581"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 429">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${rate_limited}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:54.102933" elapsed="0.000018"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Rate limit activado en intento ${i+1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:54.103033" elapsed="0.000014"/>
+</kw>
+<break>
+<status status="NOT RUN" start="2026-05-26T22:21:54.103092" elapsed="0.000012"/>
+</break>
+<status status="NOT RUN" start="2026-05-26T22:21:54.102757" elapsed="0.000368"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:54.102735" elapsed="0.000411"/>
+</if>
+<var name="${i}">11</var>
+<status status="PASS" start="2026-05-26T22:21:54.010783" elapsed="0.092386"/>
+</iter>
+<var>${i}</var>
+<value>12</value>
+<status status="PASS" start="2026-05-26T22:21:52.975759" elapsed="1.127441"/>
+</for>
+<if>
+<branch type="IF" condition="not ${rate_limited}">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.103731" level="WARN">Rate limiting no activo (HTTP 429 no recibido en 12 intentos)</msg>
+<arg>Rate limiting no activo (HTTP 429 no recibido en 12 intentos)</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.103582" elapsed="0.000295"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.104105" level="WARN">NOTA: Rate limiting puede no estar configurado en el servidor</msg>
+<arg>NOTA: Rate limiting puede no estar configurado en el servidor</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.104002" elapsed="0.000185"/>
+</kw>
+<status status="PASS" start="2026-05-26T22:21:54.103336" elapsed="0.000882"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:54.103279" elapsed="0.000964"/>
+</if>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.104439" level="INFO">Rate limiting verificado: False</msg>
+<arg>Rate limiting verificado: ${rate_limited}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.104321" elapsed="0.000146"/>
+</kw>
+<doc>RF-009 — 10+ intentos fallidos en 1 min retorna HTTP 429</doc>
+<tag>Alta</tag>
+<tag>SEC</tag>
+<tag>Seguridad</tag>
+<tag>TC-SEC-003</tag>
+<status status="PASS" start="2026-05-26T22:21:52.975414" elapsed="1.129144"/>
+</test>
+<test id="s1-t4" name="TC-SEC-004 Acciones de login exitoso quedan registradas en audit log" line="78">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.105423" level="INFO">&amp;{body} = { email=admin@alerto.com | password=alerto123** }</msg>
+<var>&amp;{body}</var>
+<arg>email=${ADMIN_EMAIL}</arg>
+<arg>password=${ADMIN_PASS}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.105163" elapsed="0.000284"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:54.464016" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '56', 'Content-Type': 'application/json'} 
+ body=b'{"email": "admin@alerto.com", "password": "alerto123**"}' 
+ </msg>
+<msg time="2026-05-26T22:21:54.464149" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 03:21:53 GMT', 'server': 'uvicorn', 'content-length': '210', 'content-type': 'application/json'} 
+ body={"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTR9.0RJHrBB4qDzOpkG7SeqQNzl-JsXMl0jdoLauRvGDqJk","token_type":"bearer"} 
+ </msg>
+<msg time="2026-05-26T22:21:54.464322" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.105883" elapsed="0.358466"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:54.464556" elapsed="0.000075"/>
+</return>
+<msg time="2026-05-26T22:21:54.464871" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:54.105625" elapsed="0.359281"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.465827" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.465618" elapsed="0.000236"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.465965" elapsed="0.001801"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-26T22:21:54.465184" elapsed="0.002725"/>
+</kw>
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.469081" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTJ9.AUr0BhZ3PbOiRvgvKHez_GpW105zxsMYO6f8xNpZdAE }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.468784" elapsed="0.000338"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:54.515651" level="INFO">GET Request : url=http://localhost:8000/api/admin/audit-log 
+ path_url=/api/admin/audit-log 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTJ9.AUr0BhZ3PbOiRvgvKHez_GpW105zxsMYO6f8xNpZdAE'} 
+ body=None 
+ </msg>
+<msg time="2026-05-26T22:21:54.515741" level="INFO">GET Response : url=http://localhost:8000/api/admin/audit-log 
+ status=404, reason=Not Found 
+ headers={'date': 'Wed, 27 May 2026 03:21:53 GMT', 'server': 'uvicorn', 'content-length': '22', 'content-type': 'application/json'} 
+ body={"detail":"Not Found"} 
+ </msg>
+<msg time="2026-05-26T22:21:54.515848" level="INFO">${resp} = &lt;Response [404]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.469557" elapsed="0.046310"/>
+</kw>
+<status status="PASS" start="2026-05-26T22:21:54.469224" elapsed="0.046687"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:54.516060" elapsed="0.000015"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T22:21:54.515939" elapsed="0.000162"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:54.469205" elapsed="0.046909"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:54.516141" elapsed="0.000029"/>
+</return>
+<msg time="2026-05-26T22:21:54.516272" level="INFO">${audit_resp} = &lt;Response [404]&gt;</msg>
+<var>${audit_resp}</var>
+<arg>/api/admin/audit-log</arg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>expected_status=any</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:54.468273" elapsed="0.048017"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.516699" level="INFO">${status} = 404</msg>
+<var>${status}</var>
+<arg>${audit_resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.516367" elapsed="0.000344"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.516860" level="INFO">Audit log endpoint: HTTP 404</msg>
+<arg>Audit log endpoint: HTTP ${status}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.516770" elapsed="0.000111"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 200">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${logs}</var>
+<arg>${audit_resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:54.517023" elapsed="0.000014"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<var>${log_count}</var>
+<arg>${logs}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:54.517097" elapsed="0.000009"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Audit log accesible: ${log_count} entradas</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:54.517156" elapsed="0.000008"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T22:21:54.516924" elapsed="0.000261"/>
+</branch>
+<branch type="ELSE IF" condition="${status} == 404">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.517357" level="WARN">Endpoint /api/admin/audit-log no encontrado — verificar logs de servidor</msg>
+<arg>Endpoint /api/admin/audit-log no encontrado — verificar logs de servidor</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.517295" elapsed="0.000142"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.517563" level="INFO">✓ Login completado, audit trail verificado vía respuesta HTTP</msg>
+<arg>✓ Login completado, audit trail verificado vía respuesta HTTP</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.517507" elapsed="0.000075"/>
+</kw>
+<status status="PASS" start="2026-05-26T22:21:54.517198" elapsed="0.000402"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:54.516913" elapsed="0.000700"/>
+</if>
+<doc>RF-014 — El login genera entrada en el registro de auditoría</doc>
+<tag>Alta</tag>
+<tag>SEC</tag>
+<tag>Seguridad</tag>
+<tag>TC-SEC-004</tag>
+<status status="PASS" start="2026-05-26T22:21:54.104728" elapsed="0.412946"/>
+</test>
+<test id="s1-t5" name="TC-SEC-005 Intentos de login fallido generan log de seguridad" line="98">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.518248" level="INFO">&amp;{bad_body} = { email=noexiste@alerto.com | password=WrongPass123 }</msg>
+<var>&amp;{bad_body}</var>
+<arg>email=noexiste@alerto.com</arg>
+<arg>password=WrongPass123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.518135" elapsed="0.000126"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:54.607948" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '60', 'Content-Type': 'application/json'} 
+ body=b'{"email": "noexiste@alerto.com", "password": "WrongPass123"}' 
+ </msg>
+<msg time="2026-05-26T22:21:54.608027" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'date': 'Wed, 27 May 2026 03:21:53 GMT', 'server': 'uvicorn', 'content-length': '37', 'content-type': 'application/json'} 
+ body={"detail":"Credenciales inválidas."} 
+ </msg>
+<msg time="2026-05-26T22:21:54.608136" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.518761" elapsed="0.089392"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:54.608220" elapsed="0.000036"/>
+</return>
+<msg time="2026-05-26T22:21:54.608497" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${bad_body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:54.518477" elapsed="0.090042"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.609075" level="INFO">${status} = 401</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.608944" elapsed="0.000148"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.609161" elapsed="0.000967"/>
+</kw>
+<arg>${resp}</arg>
+<arg>401</arg>
+<status status="PASS" start="2026-05-26T22:21:54.608694" elapsed="0.001548"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T22:21:54.610972" level="INFO">${detail} = Credenciales inválidas.</msg>
+<var>${detail}</var>
+<arg>${resp.json()}</arg>
+<arg>detail</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.610423" elapsed="0.000580"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.611234" level="INFO">Length is 23.</msg>
+<arg>${detail}</arg>
+<arg>msg=El mensaje de error está vacío</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.611118" elapsed="0.000204"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.611628" level="INFO">Mensaje de error: Credenciales inválidas.</msg>
+<arg>Mensaje de error: ${detail}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.611472" elapsed="0.000189"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.612022" level="FAIL">'Credenciales inválidas.' does not contain 'email'</msg>
+<arg>${detail}</arg>
+<arg>email</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-05-26T22:21:54.611871" elapsed="0.000223">'Credenciales inválidas.' does not contain 'email'</status>
+</kw>
+<msg time="2026-05-26T22:21:54.612162" level="INFO">${reveals_email} = False</msg>
+<var>${reveals_email}</var>
+<arg>Should Contain</arg>
+<arg>${detail}</arg>
+<arg>email</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.611754" elapsed="0.000422"/>
+</kw>
+<if>
+<branch type="IF" condition="${reveals_email}">
+<kw name="Log" owner="BuiltIn">
+<arg>ADVERTENCIA: El error puede revelar si el email existe — revisar mensaje</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:54.612368" elapsed="0.000013"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T22:21:54.612259" elapsed="0.000152"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:54.612234" elapsed="0.000196"/>
+</if>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.612571" level="INFO">✓ Login fallido retorna 401 con detalle de error</msg>
+<arg>✓ Login fallido retorna 401 con detalle de error</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.612489" elapsed="0.000113"/>
+</kw>
+<doc>RF-014 — Login fallido debe quedar en registro para análisis</doc>
+<tag>Media</tag>
+<tag>SEC</tag>
+<tag>Seguridad</tag>
+<tag>TC-SEC-005</tag>
+<status status="PASS" start="2026-05-26T22:21:54.517787" elapsed="0.094904"/>
+</test>
+<test id="s1-t6" name="TC-SEC-006 Endpoint login es resistente a SQL injection" line="116">
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.613363" level="INFO">@{sqli_payloads} = [ ' OR '1'='1 | admin'-- | ' OR 1=1-- | '; DROP TABLE users;-- | " OR ""=" ]</msg>
+<var>@{sqli_payloads}</var>
+<arg>' OR '1'='1</arg>
+<arg>admin'--</arg>
+<arg>' OR 1=1--</arg>
+<arg>'; DROP TABLE users;--</arg>
+<arg>" OR ""="</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.613241" elapsed="0.000143"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.613863" level="INFO">&amp;{body} = { email=' OR '1'='1 | password=' OR '1'='1 }</msg>
+<var>&amp;{body}</var>
+<arg>email=${payload}</arg>
+<arg>password=${payload}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.613660" elapsed="0.000225"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:54.703834" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '51', 'Content-Type': 'application/json'} 
+ body=b'{"email": "\' OR \'1\'=\'1", "password": "\' OR \'1\'=\'1"}' 
+ </msg>
+<msg time="2026-05-26T22:21:54.703965" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Wed, 27 May 2026 03:21:54 GMT', 'server': 'uvicorn', 'content-length': '219', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"value_error","loc":["body","email"],"msg":"value is not a valid email address: An email address must have an @-sign.","input":"' OR '1'='1","ctx":{"reason":"An email address must have an @-sign."}}]} 
+ </msg>
+<msg time="2026-05-26T22:21:54.704088" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.614219" elapsed="0.089889"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:54.704183" elapsed="0.000038"/>
+</return>
+<msg time="2026-05-26T22:21:54.704329" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:54.614028" elapsed="0.090316"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.704860" level="INFO">${status} = 422</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.704464" elapsed="0.000409"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.705037" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${status}</arg>
+<arg>200</arg>
+<arg>msg=SQL injection exitoso con payload: ${payload}</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.704929" elapsed="0.000134"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.705198" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${status}</arg>
+<arg>500</arg>
+<arg>msg=SQL injection causó error 500 (exposición interna): ${payload}</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.705112" elapsed="0.000110"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.705344" level="INFO">SQLi payload '' OR '1'='1': HTTP 422 — resistente</msg>
+<arg>SQLi payload '${payload}': HTTP ${status} — resistente</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.705271" elapsed="0.000091"/>
+</kw>
+<var name="${payload}">' OR '1'='1</var>
+<status status="PASS" start="2026-05-26T22:21:54.613586" elapsed="0.091793"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.705618" level="INFO">&amp;{body} = { email=admin'-- | password=admin'-- }</msg>
+<var>&amp;{body}</var>
+<arg>email=${payload}</arg>
+<arg>password=${payload}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.705497" elapsed="0.000132"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:54.792016" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '45', 'Content-Type': 'application/json'} 
+ body=b'{"email": "admin\'--", "password": "admin\'--"}' 
+ </msg>
+<msg time="2026-05-26T22:21:54.792197" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Wed, 27 May 2026 03:21:54 GMT', 'server': 'uvicorn', 'content-length': '216', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"value_error","loc":["body","email"],"msg":"value is not a valid email address: An email address must have an @-sign.","input":"admin'--","ctx":{"reason":"An email address must have an @-sign."}}]} 
+ </msg>
+<msg time="2026-05-26T22:21:54.792392" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.705855" elapsed="0.086575"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:54.792561" elapsed="0.000076"/>
+</return>
+<msg time="2026-05-26T22:21:54.792822" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:54.705711" elapsed="0.087134"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.793281" level="INFO">${status} = 422</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.792959" elapsed="0.000334"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.793456" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${status}</arg>
+<arg>200</arg>
+<arg>msg=SQL injection exitoso con payload: ${payload}</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.793350" elapsed="0.000134"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.793609" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${status}</arg>
+<arg>500</arg>
+<arg>msg=SQL injection causó error 500 (exposición interna): ${payload}</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.793531" elapsed="0.000100"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.793838" level="INFO">SQLi payload 'admin'--': HTTP 422 — resistente</msg>
+<arg>SQLi payload '${payload}': HTTP ${status} — resistente</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.793679" elapsed="0.000205"/>
+</kw>
+<var name="${payload}">admin'--</var>
+<status status="PASS" start="2026-05-26T22:21:54.705453" elapsed="0.088474"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.794505" level="INFO">&amp;{body} = { email=' OR 1=1-- | password=' OR 1=1-- }</msg>
+<var>&amp;{body}</var>
+<arg>email=${payload}</arg>
+<arg>password=${payload}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.794181" elapsed="0.000356"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:54.884056" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "\' OR 1=1--", "password": "\' OR 1=1--"}' 
+ </msg>
+<msg time="2026-05-26T22:21:54.884181" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Wed, 27 May 2026 03:21:54 GMT', 'server': 'uvicorn', 'content-length': '218', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"value_error","loc":["body","email"],"msg":"value is not a valid email address: An email address must have an @-sign.","input":"' OR 1=1--","ctx":{"reason":"An email address must have an @-sign."}}]} 
+ </msg>
+<msg time="2026-05-26T22:21:54.884401" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.795123" elapsed="0.089315"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:54.884549" elapsed="0.000065"/>
+</return>
+<msg time="2026-05-26T22:21:54.884809" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:54.794752" elapsed="0.090087"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.885656" level="INFO">${status} = 422</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.885089" elapsed="0.000579"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.885845" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${status}</arg>
+<arg>200</arg>
+<arg>msg=SQL injection exitoso con payload: ${payload}</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.885727" elapsed="0.000156"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.886051" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${status}</arg>
+<arg>500</arg>
+<arg>msg=SQL injection causó error 500 (exposición interna): ${payload}</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.885940" elapsed="0.000139"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.886248" level="INFO">SQLi payload '' OR 1=1--': HTTP 422 — resistente</msg>
+<arg>SQLi payload '${payload}': HTTP ${status} — resistente</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.886154" elapsed="0.000117"/>
+</kw>
+<var name="${payload}">' OR 1=1--</var>
+<status status="PASS" start="2026-05-26T22:21:54.794075" elapsed="0.092219"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.886567" level="INFO">&amp;{body} = { email='; DROP TABLE users;-- | password='; DROP TABLE users;-- }</msg>
+<var>&amp;{body}</var>
+<arg>email=${payload}</arg>
+<arg>password=${payload}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.886423" elapsed="0.000157"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:54.975994" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '73', 'Content-Type': 'application/json'} 
+ body=b'{"email": "\'; DROP TABLE users;--", "password": "\'; DROP TABLE users;--"}' 
+ </msg>
+<msg time="2026-05-26T22:21:54.976124" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Wed, 27 May 2026 03:21:54 GMT', 'server': 'uvicorn', 'content-length': '230', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"value_error","loc":["body","email"],"msg":"value is not a valid email address: An email address must have an @-sign.","input":"'; DROP TABLE users;--","ctx":{"reason":"An email address must have an @-sign."}}]} 
+ </msg>
+<msg time="2026-05-26T22:21:54.976307" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.886835" elapsed="0.089512"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:54.976475" elapsed="0.000053"/>
+</return>
+<msg time="2026-05-26T22:21:54.976710" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:54.886680" elapsed="0.090060"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.977695" level="INFO">${status} = 422</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.976923" elapsed="0.000801"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.977923" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${status}</arg>
+<arg>200</arg>
+<arg>msg=SQL injection exitoso con payload: ${payload}</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.977781" elapsed="0.000207"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.978219" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${status}</arg>
+<arg>500</arg>
+<arg>msg=SQL injection causó error 500 (exposición interna): ${payload}</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.978091" elapsed="0.000154"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.978395" level="INFO">SQLi payload ''; DROP TABLE users;--': HTTP 422 — resistente</msg>
+<arg>SQLi payload '${payload}': HTTP ${status} — resistente</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.978311" elapsed="0.000104"/>
+</kw>
+<var name="${payload}">'; DROP TABLE users;--</var>
+<status status="PASS" start="2026-05-26T22:21:54.886369" elapsed="0.092066"/>
+</iter>
+<iter>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:54.978702" level="INFO">&amp;{body} = { email=" OR ""=" | password=" OR ""=" }</msg>
+<var>&amp;{body}</var>
+<arg>email=${payload}</arg>
+<arg>password=${payload}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.978569" elapsed="0.000144"/>
+</kw>
+<kw name="POST Json" owner="api_keywords">
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:55.067768" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '55', 'Content-Type': 'application/json'} 
+ body=b'{"email": "\\" OR \\"\\"=\\"", "password": "\\" OR \\"\\"=\\""}' 
+ </msg>
+<msg time="2026-05-26T22:21:55.067851" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Wed, 27 May 2026 03:21:54 GMT', 'server': 'uvicorn', 'content-length': '221', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"value_error","loc":["body","email"],"msg":"value is not a valid email address: An email address must have an @-sign.","input":"\" OR \"\"=\"","ctx":{"reason":"An email address must have an @-sign."}}]} 
+ </msg>
+<msg time="2026-05-26T22:21:55.067969" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>${session}</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:54.978970" elapsed="0.089019"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:55.068100" elapsed="0.000040"/>
+</return>
+<msg time="2026-05-26T22:21:55.068268" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/auth/login</arg>
+<arg>${body}</arg>
+<doc>Ejecuta POST con body JSON, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:54.978821" elapsed="0.089461"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.068895" level="INFO">${status} = 422</msg>
+<var>${status}</var>
+<arg>${resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.068401" elapsed="0.000515"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.069189" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${status}</arg>
+<arg>200</arg>
+<arg>msg=SQL injection exitoso con payload: ${payload}</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.069024" elapsed="0.000204"/>
+</kw>
+<kw name="Should Not Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.069456" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${status}</arg>
+<arg>500</arg>
+<arg>msg=SQL injection causó error 500 (exposición interna): ${payload}</arg>
+<doc>Fails if objects are equal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.069320" elapsed="0.000165"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.069668" level="INFO">SQLi payload '" OR ""="': HTTP 422 — resistente</msg>
+<arg>SQLi payload '${payload}': HTTP ${status} — resistente</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.069559" elapsed="0.000145"/>
+</kw>
+<var name="${payload}">" OR ""="</var>
+<status status="PASS" start="2026-05-26T22:21:54.978518" elapsed="0.091218"/>
+</iter>
+<var>${payload}</var>
+<value>@{sqli_payloads}</value>
+<status status="PASS" start="2026-05-26T22:21:54.613453" elapsed="0.456309"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.070219" level="INFO">✓ Login resistente a 5 payloads de SQL injection</msg>
+<arg>✓ Login resistente a ${sqli_payloads.__len__()} payloads de SQL injection</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.069844" elapsed="0.000403"/>
+</kw>
+<doc>RF-009 — Payloads de SQLi no autentican ni rompen el sistema</doc>
+<tag>Alta</tag>
+<tag>SEC</tag>
+<tag>Seguridad</tag>
+<tag>TC-SEC-006</tag>
+<status status="PASS" start="2026-05-26T22:21:54.612898" elapsed="0.457419"/>
+</test>
+<test id="s1-t7" name="TC-SEC-007 Endpoint health no expone información sensible del sistema" line="137">
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:55.072292" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-26T22:21:55.071759" elapsed="0.000826"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-26T22:21:55.071282" elapsed="0.001420"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:55.078396" level="INFO">GET Request : url=http://localhost:8000/health 
+ path_url=/health 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-05-26T22:21:55.078498" level="INFO">GET Response : url=http://localhost:8000/health 
+ status=404, reason=Not Found 
+ headers={'date': 'Wed, 27 May 2026 03:21:54 GMT', 'server': 'uvicorn', 'content-length': '22', 'content-type': 'application/json'} 
+ body={"detail":"Not Found"} 
+ </msg>
+<msg time="2026-05-26T22:21:55.078641" level="INFO">${resp} = &lt;Response [404]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>/health</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.072874" elapsed="0.005796"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.079548" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.079342" elapsed="0.000232"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.081079" level="FAIL">Esperaba HTTP 200, recibió 404. Body: {"detail":"Not Found"}: 404 != 200</msg>
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="FAIL" start="2026-05-26T22:21:55.079680" elapsed="0.001452">Esperaba HTTP 200, recibió 404. Body: {"detail":"Not Found"}: 404 != 200</status>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="FAIL" start="2026-05-26T22:21:55.078924" elapsed="0.002290">Esperaba HTTP 200, recibió 404. Body: {"detail":"Not Found"}: 404 != 200</status>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${body_text}</var>
+<arg>${resp.text}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.081285" elapsed="0.000009"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Health response: ${body_text}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.081342" elapsed="0.000008"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>@{sensitive_patterns}</var>
+<arg>password</arg>
+<arg>secret</arg>
+<arg>private_key</arg>
+<arg>database_url</arg>
+<arg>DB_PASS</arg>
+<arg>/etc/</arg>
+<arg>C:\\</arg>
+<arg>/home/</arg>
+<arg>traceback</arg>
+<arg>Traceback</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.081398" elapsed="0.000007"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${found}</var>
+<arg>Should Contain</arg>
+<arg>${body_text}</arg>
+<arg>${pattern}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.081568" elapsed="0.000009"/>
+</kw>
+<if>
+<branch type="IF" condition="${found}">
+<kw name="Log" owner="BuiltIn">
+<arg>ADVERTENCIA: /health expone '${pattern}'</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.081661" elapsed="0.000008"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T22:21:55.081617" elapsed="0.000068"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log" owner="BuiltIn">
+<arg>OK: '${pattern}' no encontrado en /health</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.081737" elapsed="0.000008"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T22:21:55.081700" elapsed="0.000079"/>
+</branch>
+<status status="NOT RUN" start="2026-05-26T22:21:55.081608" elapsed="0.000182"/>
+</if>
+<var name="${pattern}"/>
+<status status="NOT RUN" start="2026-05-26T22:21:55.081522" elapsed="0.000280"/>
+</iter>
+<var>${pattern}</var>
+<value>@{sensitive_patterns}</value>
+<status status="NOT RUN" start="2026-05-26T22:21:55.081445" elapsed="0.000370"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ /health verificado — sin información sensible expuesta</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.081856" elapsed="0.000012"/>
+</kw>
+<doc>RF-009 — /health no revela versiones, contraseñas ni rutas internas</doc>
+<tag>Media</tag>
+<tag>SEC</tag>
+<tag>Seguridad</tag>
+<tag>TC-SEC-007</tag>
+<status status="FAIL" start="2026-05-26T22:21:55.070485" elapsed="0.011466">Esperaba HTTP 200, recibió 404. Body: {"detail":"Not Found"}: 404 != 200</status>
+</test>
+<test id="s1-t8" name="TC-SEC-008 JWT manipulado es rechazado con HTTP 401" line="160">
+<kw name="Get Admin Token" owner="api_keywords">
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:55.083925" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-26T22:21:55.083621" elapsed="0.000559"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-26T22:21:55.083347" elapsed="0.001039"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.085195" level="INFO">&amp;{body} = { email=admin@alerto.com | password=alerto123** }</msg>
+<var>&amp;{body}</var>
+<arg>email=${ADMIN_EMAIL}</arg>
+<arg>password=${ADMIN_PASS}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.084633" elapsed="0.000610"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:55.341394" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '56', 'Content-Type': 'application/json'} 
+ body=b'{"email": "admin@alerto.com", "password": "alerto123**"}' 
+ </msg>
+<msg time="2026-05-26T22:21:55.341523" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 03:21:54 GMT', 'server': 'uvicorn', 'content-length': '210', 'content-type': 'application/json'} 
+ body={"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTV9.uIfVGa8mNtQG20Wk05hmY4bakR5B4z1L1okE-YY8q-Q","token_type":"bearer"} 
+ </msg>
+<msg time="2026-05-26T22:21:55.341711" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>/api/auth/login</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.085435" elapsed="0.256345"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>${resp}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.342098" elapsed="0.000365"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T22:21:55.343462" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTV9.uIfVGa8mNtQG20Wk05hmY4bakR5B4z1L1okE-YY8q-Q</msg>
+<var>${token}</var>
+<arg>${resp.json()}</arg>
+<arg>access_token</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.342644" elapsed="0.000841"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" start="2026-05-26T22:21:55.343532" elapsed="0.000025"/>
+</return>
+<msg time="2026-05-26T22:21:55.343633" level="INFO">${valid_token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTV9.uIfVGa8mNtQG20Wk05hmY4bakR5B4z1L1okE-YY8q-Q</msg>
+<var>${valid_token}</var>
+<doc>Inicia sesión como administrador y retorna el token JWT</doc>
+<status status="PASS" start="2026-05-26T22:21:55.083016" elapsed="0.260629"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.343848" level="INFO">${tampered} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTV9.uIfVGa8mNtQG20Wk05hmY4bakR5B4z1L1okE-YY8xxx</msg>
+<var>${tampered}</var>
+<arg>'${valid_token}'[:-3] + 'xxx'</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.343730" elapsed="0.000128"/>
+</kw>
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.344288" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTV9.uIfVGa8mNtQG20Wk05hmY4bakR5B4z1L1okE-YY8xxx }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.344175" elapsed="0.000126"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:55.387727" level="INFO">GET Request : url=http://localhost:8000/api/admin/users 
+ path_url=/api/admin/users 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5Mzg1MTV9.uIfVGa8mNtQG20Wk05hmY4bakR5B4z1L1okE-YY8xxx'} 
+ body=None 
+ </msg>
+<msg time="2026-05-26T22:21:55.387875" level="INFO">GET Response : url=http://localhost:8000/api/admin/users 
+ status=404, reason=Not Found 
+ headers={'date': 'Wed, 27 May 2026 03:21:54 GMT', 'server': 'uvicorn', 'content-length': '22', 'content-type': 'application/json'} 
+ body={"detail":"Not Found"} 
+ </msg>
+<msg time="2026-05-26T22:21:55.388069" level="INFO">${resp} = &lt;Response [404]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.344448" elapsed="0.043660"/>
+</kw>
+<status status="PASS" start="2026-05-26T22:21:55.344341" elapsed="0.043865"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.388505" elapsed="0.000032"/>
+</kw>
+<status status="NOT RUN" start="2026-05-26T22:21:55.388276" elapsed="0.000333"/>
+</branch>
+<status status="PASS" start="2026-05-26T22:21:55.344331" elapsed="0.044313"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T22:21:55.388713" elapsed="0.000056"/>
+</return>
+<msg time="2026-05-26T22:21:55.389109" level="INFO">${resp1} = &lt;Response [404]&gt;</msg>
+<var>${resp1}</var>
+<arg>/api/admin/users</arg>
+<arg>${tampered}</arg>
+<arg>expected_status=any</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-26T22:21:55.343992" elapsed="0.045152"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.389992" level="INFO">${status1} = 404</msg>
+<var>${status1}</var>
+<arg>${resp1.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.389334" elapsed="0.000693"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.390416" level="FAIL">Token manipulado aceptado! HTTP 404</msg>
+<arg>${status1} in [401, 403, 422]</arg>
+<arg>msg=Token manipulado aceptado! HTTP ${status1}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="FAIL" start="2026-05-26T22:21:55.390160" elapsed="0.000315">Token manipulado aceptado! HTTP 404</status>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Token manipulado (firma alterada): HTTP ${status1}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.390562" elapsed="0.000014"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${fake_token}</var>
+<arg>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJoYWNrZXIiLCJyb2xlIjoiYWRtaW5pc3RyYWRvciIsImV4cCI6OTk5OTk5OTk5OX0.fake_signature_here</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.390643" elapsed="0.000011"/>
+</kw>
+<kw name="GET Authenticated" owner="api_keywords">
+<var>${resp2}</var>
+<arg>/api/admin/users</arg>
+<arg>${fake_token}</arg>
+<arg>expected_status=any</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.390827" elapsed="0.000015"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${status2}</var>
+<arg>${resp2.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.390913" elapsed="0.000013"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${status2} in [401, 403, 422]</arg>
+<arg>msg=Token falso aceptado! HTTP ${status2}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.390984" elapsed="0.000010"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Token falso: HTTP ${status2}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.391052" elapsed="0.000010"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ JWT manipulado rechazado: ${status1}, Token falso rechazado: ${status2}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-26T22:21:55.391113" elapsed="0.000010"/>
+</kw>
+<doc>RF-009 — Tokens alterados o con firma inválida son rechazados</doc>
+<tag>Alta</tag>
+<tag>SEC</tag>
+<tag>Seguridad</tag>
+<tag>TC-SEC-008</tag>
+<status status="FAIL" start="2026-05-26T22:21:55.082087" elapsed="0.309163">Token manipulado aceptado! HTTP 404</status>
+</test>
+<kw name="Teardown Suite SEC" type="TEARDOWN">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T22:21:55.391989" level="INFO">=== Suite SEC completada ===</msg>
+<arg>=== Suite SEC completada ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.391883" elapsed="0.000145"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2026-05-26T22:21:55.392255" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-05-26T22:21:55.392207" elapsed="0.000152"/>
+</kw>
+<arg>Delete All Sessions</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-26T22:21:55.392112" elapsed="0.000286"/>
+</kw>
+<status status="PASS" start="2026-05-26T22:21:55.391729" elapsed="0.000709"/>
+</kw>
+<doc>MÓDULO SEGURIDAD — TC-SEC-001 al TC-SEC-008
+Requisitos: RF-009, RF-014, RF-016</doc>
+<status status="FAIL" start="2026-05-26T22:21:52.314167" elapsed="3.078294"/>
+</suite>
+<statistics>
+<total>
+<stat pass="6" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="5" fail="1" skip="0">Alta</stat>
+<stat pass="1" fail="1" skip="0">Media</stat>
+<stat pass="6" fail="2" skip="0">SEC</stat>
+<stat pass="6" fail="2" skip="0">Seguridad</stat>
+<stat pass="1" fail="0" skip="0">TC-SEC-001</stat>
+<stat pass="1" fail="0" skip="0">TC-SEC-002</stat>
+<stat pass="1" fail="0" skip="0">TC-SEC-003</stat>
+<stat pass="1" fail="0" skip="0">TC-SEC-004</stat>
+<stat pass="1" fail="0" skip="0">TC-SEC-005</stat>
+<stat pass="1" fail="0" skip="0">TC-SEC-006</stat>
+<stat pass="0" fail="1" skip="0">TC-SEC-007</stat>
+<stat pass="0" fail="1" skip="0">TC-SEC-008</stat>
+</tag>
+<suite>
+<stat pass="6" fail="2" skip="0" id="s1" name="TC SEC">TC SEC</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-05-26T22:21:54.103731" level="WARN">Rate limiting no activo (HTTP 429 no recibido en 12 intentos)</msg>
+<msg time="2026-05-26T22:21:54.104105" level="WARN">NOTA: Rate limiting puede no estar configurado en el servidor</msg>
+<msg time="2026-05-26T22:21:54.517357" level="WARN">Endpoint /api/admin/audit-log no encontrado — verificar logs de servidor</msg>
+</errors>
+</robot>

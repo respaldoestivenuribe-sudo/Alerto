@@ -1,0 +1,1072 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1 (Python 3.14.4 on win32)" generated="2026-05-27T03:52:24.423198" rpa="false" schemaversion="5">
+<suite id="s1" name="TC NOTIF" source="C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\tests\TC_NOTIF.robot">
+<kw name="Setup Suite NOTIF" type="SETUP">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.646995" level="INFO">=== Iniciando Suite NOTIF ===</msg>
+<arg>=== Iniciando Suite NOTIF ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.644777" elapsed="0.002261"/>
+</kw>
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:24.647510" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-27T03:52:24.647312" elapsed="0.000358"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-27T03:52:24.647177" elapsed="0.000551"/>
+</kw>
+<kw name="Get Admin Token" owner="api_keywords">
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:24.648147" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-27T03:52:24.648022" elapsed="0.000214"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-27T03:52:24.647936" elapsed="0.000345"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.648559" level="INFO">&amp;{body} = { email=admin@alerto.com | password=alerto123** }</msg>
+<var>&amp;{body}</var>
+<arg>email=${ADMIN_EMAIL}</arg>
+<arg>password=${ADMIN_PASS}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.648350" elapsed="0.000225"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:24.849571" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '56', 'Content-Type': 'application/json'} 
+ body=b'{"email": "admin@alerto.com", "password": "alerto123**"}' 
+ </msg>
+<msg time="2026-05-27T03:52:24.849653" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:52:24 GMT', 'server': 'uvicorn', 'content-length': '210', 'content-type': 'application/json'} 
+ body={"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94","token_type":"bearer"} 
+ </msg>
+<msg time="2026-05-27T03:52:24.849745" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>/api/auth/login</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.648641" elapsed="0.201122"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>${resp}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.849889" elapsed="0.000148"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:52:24.850432" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94</msg>
+<var>${token}</var>
+<arg>${resp.json()}</arg>
+<arg>access_token</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.850102" elapsed="0.000344"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" start="2026-05-27T03:52:24.850486" elapsed="0.000038"/>
+</return>
+<msg time="2026-05-27T03:52:24.850599" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94</msg>
+<var>${token}</var>
+<doc>Inicia sesión como administrador y retorna el token JWT</doc>
+<status status="PASS" start="2026-05-27T03:52:24.647834" elapsed="0.202779"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.850789" level="INFO">${SUITE_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94</msg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.850686" elapsed="0.000124"/>
+</kw>
+<status status="PASS" start="2026-05-27T03:52:24.644239" elapsed="0.206604"/>
+</kw>
+<test id="s1-t1" name="TC-NOTIF-001 Dashboard refleja nivel de riesgo actualizado tras simulación" line="16">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.851614" level="INFO">&amp;{sim_body} = { precip_1h=5 | precip_3h=10 | humedad=60 }</msg>
+<var>&amp;{sim_body}</var>
+<arg>precip_1h=${5}</arg>
+<arg>precip_3h=${10}</arg>
+<arg>humedad=${60}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.851154" elapsed="0.000480"/>
+</kw>
+<kw name="POST Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.851990" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.851892" elapsed="0.000114"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:24.972744" level="INFO">POST Request : url=http://localhost:8000/api/simulate 
+ path_url=/api/simulate 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94', 'Content-Length': '48', 'Content-Type': 'application/json'} 
+ body=b'{"precip_1h": 5, "precip_3h": 10, "humedad": 60}' 
+ </msg>
+<msg time="2026-05-27T03:52:24.972818" level="INFO">POST Response : url=http://localhost:8000/api/simulate 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:52:24 GMT', 'server': 'uvicorn', 'content-length': '89', 'content-type': 'application/json'} 
+ body={"status":"ok","message":"Simulación iniciada. El pipeline está procesando los datos."} 
+ </msg>
+<msg time="2026-05-27T03:52:24.972920" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.852060" elapsed="0.120880"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:52:24.973060" elapsed="0.000052"/>
+</return>
+<msg time="2026-05-27T03:52:24.973218" level="INFO">${sim_resp} = &lt;Response [200]&gt;</msg>
+<var>${sim_resp}</var>
+<arg>/api/simulate</arg>
+<arg>${sim_body}</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta POST con Bearer token y body JSON</doc>
+<status status="PASS" start="2026-05-27T03:52:24.851735" elapsed="0.121499"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${sim_resp.status_code} in [200, 202]</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.973349" elapsed="0.000375"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.973877" level="INFO">Simulación disparada</msg>
+<arg>Simulación disparada</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.973798" elapsed="0.000104"/>
+</kw>
+<kw name="Open And Login As Admin" owner="ui_keywords">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.975634" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x000002E55F9201A0&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.974282" elapsed="0.001380"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.975775" elapsed="0.000109"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.975956" elapsed="0.000081"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.976106" elapsed="0.000077"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.976256" elapsed="0.000234"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:24.980847" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.976619" elapsed="0.748250"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:25.725249" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T03:52:25.725069" elapsed="0.304771"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T03:52:26.030593" elapsed="0.036917"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T03:52:24.974158" elapsed="1.093542"/>
+</kw>
+<kw name="Login With Credentials" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-27T03:52:26.068174" elapsed="0.021612"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:26.090356" level="INFO">Typing text 'admin@alerto.com' into text field 'id=email'.</msg>
+<arg>id=email</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T03:52:26.090056" elapsed="0.151567"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:26.242024" level="INFO">Typing text 'alerto123**' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T03:52:26.241813" elapsed="0.098698"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:26.341041" level="INFO">Clicking button 'css:button.btn-primary'.</msg>
+<arg>css:button.btn-primary</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T03:52:26.340800" elapsed="0.065803"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:52:27.907536" level="INFO">Slept 1 second 500 milliseconds.</msg>
+<arg>1.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:26.406770" elapsed="1.500884"/>
+</kw>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASS}</arg>
+<doc>Rellena y envía el formulario de login</doc>
+<status status="PASS" start="2026-05-27T03:52:26.067884" elapsed="1.839859"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:.sidebar</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T03:52:27.907884" elapsed="0.010748"/>
+</kw>
+<doc>Abre el navegador y hace login como administrador</doc>
+<status status="PASS" start="2026-05-27T03:52:24.974005" elapsed="2.944820"/>
+</kw>
+<kw name="Navigate To Page" owner="ui_keywords">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:27.919722" level="INFO">Opening url 'http://localhost:3000/dashboard'</msg>
+<arg>${FRONTEND_URL}${page_path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T03:52:27.919454" elapsed="0.118551"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:52:29.039341" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:28.038387" elapsed="1.001136"/>
+</kw>
+<arg>/dashboard</arg>
+<doc>Navega a la página indicada</doc>
+<status status="PASS" start="2026-05-27T03:52:27.919083" elapsed="1.120610"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:52:31.040632" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:29.039942" elapsed="2.000815"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:31.045715" level="INFO">${url} = http://localhost:3000/login</msg>
+<var>${url}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-05-27T03:52:31.041070" elapsed="0.004680"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:31.046035" level="INFO">URL actual: http://localhost:3000/login</msg>
+<arg>URL actual: ${url}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:31.045895" elapsed="0.000167"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:31.066173" level="INFO">${page_text} = Sistema de Monitoreo
+Monitoreo de precipitación y alertas de riesgo en tiempo real
+Bienvenido de nuevo
+Ingresa tus credenciales para continuar
+Correo Electrónico
+Contraseña
+¿Olvidaste tu contraseña?
+I...</msg>
+<var>${page_text}</var>
+<arg>css:body</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T03:52:31.046140" elapsed="0.020093"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:52:31.066599" level="FAIL">Evaluating expression "any(l in 'Sistema de Monitoreo\nMonitoreo de precipitación y alertas de riesgo en tiempo real\nBienvenido de nuevo\nIngresa tus credenciales para continuar\nCorreo Electrónico\nContraseña\n¿Olvidaste tu contraseña?\nIngresar al Sistema\n¿No tienes cuenta? Regístrate' for l in ['VERDE','AMARILLO','NARANJA','ROJO'])" failed: SyntaxError: unterminated string literal (detected at line 1) (&lt;string&gt;, line 1)</msg>
+<var>${has_level}</var>
+<arg>any(l in '${page_text}' for l in ['VERDE','AMARILLO','NARANJA','ROJO'])</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="FAIL" start="2026-05-27T03:52:31.066381" elapsed="0.000365">Evaluating expression "any(l in 'Sistema de Monitoreo\nMonitoreo de precipitación y alertas de riesgo en tiempo real\nBienvenido de nuevo\nIngresa tus credenciales para continuar\nCorreo Electrónico\nContraseña\n¿Olvidaste tu contraseña?\nIngresar al Sistema\n¿No tienes cuenta? Regístrate' for l in ['VERDE','AMARILLO','NARANJA','ROJO'])" failed: SyntaxError: unterminated string literal (detected at line 1) (&lt;string&gt;, line 1)</status>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Nivel de riesgo visible: ${has_level}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:31.066826" elapsed="0.000014"/>
+</kw>
+<if>
+<branch type="IF" condition="not ${has_level}">
+<kw name="Navigate To Page" owner="ui_keywords">
+<arg>/risk</arg>
+<doc>Navega a la página indicada</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:31.066994" elapsed="0.000016"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:31.067059" elapsed="0.000011"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<var>${page_text}</var>
+<arg>css:body</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:31.067122" elapsed="0.000011"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${has_level}</var>
+<arg>any(l in '${page_text}' for l in ['VERDE','AMARILLO','NARANJA','ROJO'])</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:31.067177" elapsed="0.000011"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:52:31.066900" elapsed="0.000308"/>
+</branch>
+<status status="NOT RUN" start="2026-05-27T03:52:31.066881" elapsed="0.000353"/>
+</if>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${has_level}</arg>
+<arg>msg=Ningún nivel de riesgo visible en la UI tras simulación</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:31.067280" elapsed="0.000014"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<arg>TC-NOTIF-001</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:31.067362" elapsed="0.000014"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Nivel de riesgo visible en UI</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:31.067426" elapsed="0.000108"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T03:52:31.068159" elapsed="2.139417"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T03:52:31.068009" elapsed="2.139713"/>
+</kw>
+<doc>RF-008 — Un cambio en el nivel se refleja en la UI</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>NOTIF</tag>
+<tag>TC-NOTIF-001</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-27T03:52:24.850900" elapsed="8.356916">Evaluating expression "any(l in 'Sistema de Monitoreo\nMonitoreo de precipitación y alertas de riesgo en tiempo real\nBienvenido de nuevo\nIngresa tus credenciales para continuar\nCorreo Electrónico\nContraseña\n¿Olvidaste tu contraseña?\nIngresar al Sistema\n¿No tienes cuenta? Regístrate' for l in ['VERDE','AMARILLO','NARANJA','ROJO'])" failed: SyntaxError: unterminated string literal (detected at line 1) (&lt;string&gt;, line 1)</status>
+</test>
+<test id="s1-t2" name="TC-NOTIF-002 Nivel de alerta ROJO se destaca visualmente en la interfaz" line="49">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:33.210424" level="INFO">&amp;{sim_body} = { precip_1h=40 | precip_3h=75 | humedad=95 }</msg>
+<var>&amp;{sim_body}</var>
+<arg>precip_1h=${40}</arg>
+<arg>precip_3h=${75}</arg>
+<arg>humedad=${95}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:33.208852" elapsed="0.001643"/>
+</kw>
+<kw name="POST Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:33.211480" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:33.211245" elapsed="0.000268"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:33.295608" level="INFO">POST Request : url=http://localhost:8000/api/simulate 
+ path_url=/api/simulate 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"precip_1h": 40, "precip_3h": 75, "humedad": 95}' 
+ </msg>
+<msg time="2026-05-27T03:52:33.295668" level="INFO">POST Response : url=http://localhost:8000/api/simulate 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:52:32 GMT', 'server': 'uvicorn', 'content-length': '89', 'content-type': 'application/json'} 
+ body={"status":"ok","message":"Simulación iniciada. El pipeline está procesando los datos."} 
+ </msg>
+<msg time="2026-05-27T03:52:33.295746" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:52:33.211635" elapsed="0.084141"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:52:33.295840" elapsed="0.000035"/>
+</return>
+<msg time="2026-05-27T03:52:33.295955" level="INFO">${sim_resp} = &lt;Response [200]&gt;</msg>
+<var>${sim_resp}</var>
+<arg>/api/simulate</arg>
+<arg>${sim_body}</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta POST con Bearer token y body JSON</doc>
+<status status="PASS" start="2026-05-27T03:52:33.210852" elapsed="0.085115"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${sim_resp.status_code} in [200, 202]</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T03:52:33.296062" elapsed="0.000304"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:33.296511" level="INFO">Simulación ROJO disparada</msg>
+<arg>Simulación ROJO disparada</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:33.296446" elapsed="0.000084"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:52:38.297076" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:33.296581" elapsed="5.000688"/>
+</kw>
+<kw name="Open And Login As Admin" owner="ui_keywords">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:52:38.298954" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x000002E55F971D10&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:52:38.298436" elapsed="0.000593"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T03:52:38.299274" elapsed="0.000264"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T03:52:38.299703" elapsed="0.000097"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T03:52:38.299864" elapsed="0.000066"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T03:52:38.299984" elapsed="0.000058"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:38.300201" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T03:52:38.300106" elapsed="1.107917"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:39.408617" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.408324" elapsed="0.190102"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.598742" elapsed="0.037178"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T03:52:38.298075" elapsed="1.337998"/>
+</kw>
+<kw name="Login With Credentials" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.636715" elapsed="0.014180"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:39.651503" level="INFO">Typing text 'admin@alerto.com' into text field 'id=email'.</msg>
+<arg>id=email</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.651158" elapsed="0.092790"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:39.744773" level="INFO">Typing text 'alerto123**' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.744151" elapsed="0.074819"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:39.819296" level="INFO">Clicking button 'css:button.btn-primary'.</msg>
+<arg>css:button.btn-primary</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.819129" elapsed="0.058379"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:52:41.378376" level="INFO">Slept 1 second 500 milliseconds.</msg>
+<arg>1.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.877668" elapsed="1.500876"/>
+</kw>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASS}</arg>
+<doc>Rellena y envía el formulario de login</doc>
+<status status="PASS" start="2026-05-27T03:52:39.636305" elapsed="1.742390"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:.sidebar</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T03:52:41.378926" elapsed="0.010249"/>
+</kw>
+<doc>Abre el navegador y hace login como administrador</doc>
+<status status="PASS" start="2026-05-27T03:52:38.297631" elapsed="3.091714"/>
+</kw>
+<kw name="Navigate To Page" owner="ui_keywords">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:41.390393" level="INFO">Opening url 'http://localhost:3000/risk'</msg>
+<arg>${FRONTEND_URL}${page_path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T03:52:41.390140" elapsed="0.087725"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:52:42.478627" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:41.478157" elapsed="1.000580"/>
+</kw>
+<arg>/risk</arg>
+<doc>Navega a la página indicada</doc>
+<status status="PASS" start="2026-05-27T03:52:41.389602" elapsed="1.089232"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:52:44.479489" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:42.478979" elapsed="2.000621"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:44.529047" level="INFO">${page_text} = Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Riesgo
+Hola, Administrador
+Usuario
+Salir
+Riesgo
+Nivel de riesgo actual e histórico
+Nivel de Riesgo
+AMARILLO
+Score: 36%
+Nivel de Lluvia
+0.16
+Últi...</msg>
+<var>${page_text}</var>
+<arg>css:body</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T03:52:44.479773" elapsed="0.049314"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:44.529640" level="INFO">Página /risk texto: Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Riesgo
+Hola, Administrador
+Usuario
+Salir
+Riesgo
+Nivel de riesgo actual e histórico
+Nivel de Riesgo
+AMARILLO
+Score: 36%
+Nivel de Lluvia
+0.16
+Última evaluación: 27/5/2026, 3:52:39
+Histórico de Riesgo (últimos 50 registros)
+FECHA Y HORA NIVEL SCOR</msg>
+<arg>Página /risk texto: ${page_text[:300]}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:44.529242" elapsed="0.000434"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T03:52:44.530533" level="INFO" html="true">Created directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\aa522b63\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\aa522b63\screenshots&lt;/a&gt;'.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T03:52:44.529947" elapsed="0.000634"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:44.592199" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-NOTIF-002_risk.png"&gt;&lt;img src="screenshots/TC-NOTIF-002_risk.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T03:52:44.530671" elapsed="0.061675"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:44.592842" level="INFO">Evidencia capturada: TC-NOTIF-002_risk.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:44.592584" elapsed="0.000318"/>
+</kw>
+<arg>TC-NOTIF-002_risk</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T03:52:44.529803" elapsed="0.063203"/>
+</kw>
+<kw name="Navigate To Page" owner="ui_keywords">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:44.593739" level="INFO">Opening url 'http://localhost:3000/alerts'</msg>
+<arg>${FRONTEND_URL}${page_path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T03:52:44.593554" elapsed="0.068460"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:52:45.662928" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:44.662339" elapsed="1.000751"/>
+</kw>
+<arg>/alerts</arg>
+<doc>Navega a la página indicada</doc>
+<status status="PASS" start="2026-05-27T03:52:44.593213" elapsed="1.070040"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:52:47.663973" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:45.663467" elapsed="2.000627"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T03:52:47.664871" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\aa522b63\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\aa522b63\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T03:52:47.664672" elapsed="0.000238"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:47.745423" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-NOTIF-002_alerts.png"&gt;&lt;img src="screenshots/TC-NOTIF-002_alerts.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T03:52:47.664985" elapsed="0.080535"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:47.745869" level="INFO">Evidencia capturada: TC-NOTIF-002_alerts.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:47.745688" elapsed="0.000217"/>
+</kw>
+<arg>TC-NOTIF-002_alerts</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T03:52:47.664358" elapsed="0.081607"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-05-27T03:52:47.750993" level="INFO">${url} = http://localhost:3000/alerts</msg>
+<var>${url}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-05-27T03:52:47.746069" elapsed="0.004966"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${url}</arg>
+<arg>alerts</arg>
+<arg>msg=No navegó a /alerts. URL: ${url}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-05-27T03:52:47.751180" elapsed="0.000196"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:47.751539" level="INFO">✓ UI cargada con datos de nivel</msg>
+<arg>✓ UI cargada con datos de nivel</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:47.751456" elapsed="0.000111"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T03:52:47.751828" elapsed="2.153616"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T03:52:47.751708" elapsed="2.153877"/>
+</kw>
+<doc>RF-008 — El nivel ROJO usa color rojo en los componentes UI</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>NOTIF</tag>
+<tag>TC-NOTIF-002</tag>
+<tag>UI</tag>
+<status status="PASS" start="2026-05-27T03:52:33.208320" elapsed="16.697356"/>
+</test>
+<test id="s1-t3" name="TC-NOTIF-003 Sistema no genera alertas duplicadas por el mismo evento" line="73">
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:49.907520" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:49.907227" elapsed="0.000331"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:49.907990" elapsed="0.000066"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:52:49.907682" elapsed="0.000434"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:49.917793" level="INFO">GET Request : url=http://localhost:8000/api/risk/history?limit=100 
+ path_url=/api/risk/history?limit=100 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94'} 
+ body=None 
+ </msg>
+<msg time="2026-05-27T03:52:49.917923" level="INFO">GET Response : url=http://localhost:8000/api/risk/history?limit=100 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:52:49 GMT', 'server': 'uvicorn', 'content-length': '5643', 'content-type': 'application/json'} 
+ body=[{"evaluated_at":"2026-05-27T08:52:46.192936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:39.004770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:49:54.693981+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:46:43.999056+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:40.594845+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:39.526517+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:04.237781+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:03.147039+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:48.995170+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:47.220142+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:36.283141+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:20.475614+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:08.835455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:24.388703+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:09.203761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:07.310914+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:45:57.195770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:32:30.217716+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:43.318620+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:35.371158+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:45.842710+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:32.603252+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:15:21.423552+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:02:25.069359+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:45:25.538078+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:38:04.354120+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:36:01.114910+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:15:19.794617+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:00:20.021922+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:45:18.711238+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:30:18.274250+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:15:18.475074+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:00:21.001662+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:45:19.509455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:30:20.998231+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:15:19.666687+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:00:23.702427+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:45:23.314060+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:30:27.326591+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:15:24.060476+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:00:25.665545+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:45:19.412919+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:42:59.295940+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:59.944505+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:55.979270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:45:21.389879+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:30:19.112951+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:15:21.009534+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:00:22.881747+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:45:21.700270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:30:20.038657+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:15:21.850761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:00:20.722205+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:45:20.618936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:30:21.595745+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:15:22.557473+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T13:25:09.806870+00:00","riesgo_score":60.66,"nivel_riesgo":"NARANJA"}] 
+ </msg>
+<msg time="2026-05-27T03:52:49.918173" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:52:49.908291" elapsed="0.009924"/>
+</kw>
+<status status="PASS" start="2026-05-27T03:52:49.908176" elapsed="0.010166"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:52:49.907654" elapsed="0.010756"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:52:49.918484" elapsed="0.000060"/>
+</return>
+<msg time="2026-05-27T03:52:49.918740" level="INFO">${resp_before} = &lt;Response [200]&gt;</msg>
+<var>${resp_before}</var>
+<arg>/api/risk/history</arg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>params=limit=100</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-27T03:52:49.906809" elapsed="0.011969"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-27T03:52:49.919731" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-27T03:52:49.919468" elapsed="0.000300"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-27T03:52:49.919919" elapsed="0.002616"/>
+</kw>
+<arg>${resp_before}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-27T03:52:49.919050" elapsed="0.003663"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-05-27T03:52:49.923692" level="INFO">Length is 57.</msg>
+<msg time="2026-05-27T03:52:49.923814" level="INFO">${count_before} = 57</msg>
+<var>${count_before}</var>
+<arg>${resp_before.json()}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-05-27T03:52:49.922933" elapsed="0.000919"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:49.924261" level="INFO">Alertas antes de simulación: 57</msg>
+<arg>Alertas antes de simulación: ${count_before}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:49.924038" elapsed="0.000288"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:49.925726" level="INFO">&amp;{sim_body} = { precip_1h=10 | precip_3h=20 | humedad=65 }</msg>
+<var>&amp;{sim_body}</var>
+<arg>precip_1h=${10}</arg>
+<arg>precip_3h=${20}</arg>
+<arg>humedad=${65}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:49.924497" elapsed="0.001274"/>
+</kw>
+<kw name="POST Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:49.926756" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:49.926470" elapsed="0.000327"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:50.091379" level="INFO">POST Request : url=http://localhost:8000/api/simulate 
+ path_url=/api/simulate 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"precip_1h": 10, "precip_3h": 20, "humedad": 65}' 
+ </msg>
+<msg time="2026-05-27T03:52:50.091481" level="INFO">POST Response : url=http://localhost:8000/api/simulate 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:52:49 GMT', 'server': 'uvicorn', 'content-length': '89', 'content-type': 'application/json'} 
+ body={"status":"ok","message":"Simulación iniciada. El pipeline está procesando los datos."} 
+ </msg>
+<msg time="2026-05-27T03:52:50.091625" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:52:49.926953" elapsed="0.164700"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:52:50.091753" elapsed="0.000051"/>
+</return>
+<msg time="2026-05-27T03:52:50.091941" level="INFO">${sim_resp} = &lt;Response [200]&gt;</msg>
+<var>${sim_resp}</var>
+<arg>/api/simulate</arg>
+<arg>${sim_body}</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta POST con Bearer token y body JSON</doc>
+<status status="PASS" start="2026-05-27T03:52:49.926026" elapsed="0.165938"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${sim_resp.status_code} in [200, 202]</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T03:52:50.092115" elapsed="0.000526"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:52:58.093105" level="INFO">Slept 8 seconds.</msg>
+<arg>8s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:50.092747" elapsed="8.000455"/>
+</kw>
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:58.093813" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:58.093682" elapsed="0.000145"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:58.094022" elapsed="0.000014"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:52:58.093877" elapsed="0.000182"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:58.100633" level="INFO">GET Request : url=http://localhost:8000/api/risk/history?limit=100 
+ path_url=/api/risk/history?limit=100 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94'} 
+ body=None 
+ </msg>
+<msg time="2026-05-27T03:52:58.100770" level="INFO">GET Response : url=http://localhost:8000/api/risk/history?limit=100 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:52:57 GMT', 'server': 'uvicorn', 'content-length': '5742', 'content-type': 'application/json'} 
+ body=[{"evaluated_at":"2026-05-27T08:52:53.180737+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:46.192936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:39.004770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:49:54.693981+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:46:43.999056+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:40.594845+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:39.526517+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:04.237781+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:03.147039+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:48.995170+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:47.220142+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:36.283141+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:20.475614+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:08.835455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:24.388703+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:09.203761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:07.310914+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:45:57.195770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:32:30.217716+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:43.318620+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:35.371158+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:45.842710+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:32.603252+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:15:21.423552+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:02:25.069359+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:45:25.538078+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:38:04.354120+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:36:01.114910+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:15:19.794617+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:00:20.021922+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:45:18.711238+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:30:18.274250+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:15:18.475074+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:00:21.001662+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:45:19.509455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:30:20.998231+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:15:19.666687+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:00:23.702427+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:45:23.314060+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:30:27.326591+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:15:24.060476+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:00:25.665545+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:45:19.412919+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:42:59.295940+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:59.944505+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:55.979270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:45:21.389879+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:30:19.112951+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:15:21.009534+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:00:22.881747+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:45:21.700270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:30:20.038657+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:15:21.850761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:00:20.722205+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:45:20.618936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:30:21.595745+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:15:22.557473+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T13:25:09.806870+00:00","riesgo_score":60.66,"nivel_riesgo":"NARANJA"}] 
+ </msg>
+<msg time="2026-05-27T03:52:58.100939" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:52:58.094127" elapsed="0.006831"/>
+</kw>
+<status status="PASS" start="2026-05-27T03:52:58.094080" elapsed="0.006933"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:52:58.093866" elapsed="0.007178"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:52:58.101080" elapsed="0.000034"/>
+</return>
+<msg time="2026-05-27T03:52:58.101197" level="INFO">${resp_after} = &lt;Response [200]&gt;</msg>
+<var>${resp_after}</var>
+<arg>/api/risk/history</arg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>params=limit=100</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-27T03:52:58.093436" elapsed="0.007776"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-27T03:52:58.101624" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-27T03:52:58.101526" elapsed="0.000111"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-27T03:52:58.101691" elapsed="0.000821"/>
+</kw>
+<arg>${resp_after}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-27T03:52:58.101344" elapsed="0.001228"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-05-27T03:52:58.103091" level="INFO">Length is 58.</msg>
+<msg time="2026-05-27T03:52:58.103139" level="INFO">${count_after} = 58</msg>
+<var>${count_after}</var>
+<arg>${resp_after.json()}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-05-27T03:52:58.102649" elapsed="0.000504"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:52:58.103353" level="INFO">${new_alerts} = 1</msg>
+<var>${new_alerts}</var>
+<arg>${count_after} - ${count_before}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:52:58.103223" elapsed="0.000148"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:58.103529" level="INFO">Nuevas alertas generadas: 1</msg>
+<arg>Nuevas alertas generadas: ${new_alerts}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:58.103440" elapsed="0.000113"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${new_alerts} &lt;= 3</arg>
+<arg>msg=Posibles alertas duplicadas: ${new_alerts} nuevas en un solo evento</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T03:52:58.103620" elapsed="0.000131"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${new_alerts} &gt;= 0</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T03:52:58.103810" elapsed="0.000094"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:58.104286" level="INFO">✓ Simulación generó 1 alerta(s) — sin duplicación masiva</msg>
+<arg>✓ Simulación generó ${new_alerts} alerta(s) — sin duplicación masiva</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:58.103960" elapsed="0.000418"/>
+</kw>
+<doc>RF-008 — Una simulación genera a lo sumo 1-2 nuevas alertas</doc>
+<tag>Funcional</tag>
+<tag>Media</tag>
+<tag>NOTIF</tag>
+<tag>TC-NOTIF-003</tag>
+<status status="PASS" start="2026-05-27T03:52:49.906129" elapsed="8.198446"/>
+</test>
+<kw name="Teardown Suite NOTIF" type="TEARDOWN">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:58.105902" level="INFO">=== Suite NOTIF completada ===</msg>
+<arg>=== Suite NOTIF completada ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:58.105651" elapsed="0.000317"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:58.106466" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-05-27T03:52:58.106396" elapsed="0.000129"/>
+</kw>
+<arg>Delete All Sessions</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T03:52:58.106137" elapsed="0.000424"/>
+</kw>
+<status status="PASS" start="2026-05-27T03:52:58.105342" elapsed="0.001252"/>
+</kw>
+<doc>MÓDULO NOTIFICACIONES — TC-NOTIF-001 al TC-NOTIF-003
+Requisito: RF-008</doc>
+<status status="FAIL" start="2026-05-27T03:52:24.424670" elapsed="33.681943"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="1" skip="0">Alta</stat>
+<stat pass="2" fail="1" skip="0">Funcional</stat>
+<stat pass="1" fail="0" skip="0">Media</stat>
+<stat pass="2" fail="1" skip="0">NOTIF</stat>
+<stat pass="0" fail="1" skip="0">TC-NOTIF-001</stat>
+<stat pass="1" fail="0" skip="0">TC-NOTIF-002</stat>
+<stat pass="1" fail="0" skip="0">TC-NOTIF-003</stat>
+<stat pass="1" fail="1" skip="0">UI</stat>
+</tag>
+<suite>
+<stat pass="2" fail="1" skip="0" id="s1" name="TC NOTIF">TC NOTIF</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

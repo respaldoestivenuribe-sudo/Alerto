@@ -1,0 +1,106 @@
+.preset-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+}
+
+.preset-btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 2px solid transparent;
+    transition: all var(--transition-speed) ease;
+    cursor: pointer;
+}
+
+.preset-verde    { background: rgba(16,185,129,0.12); color: #059669; border-color: rgba(16,185,129,0.3); }
+.preset-amarillo { background: rgba(245,158,11,0.12); color: #d97706; border-color: rgba(245,158,11,0.3); }
+.preset-naranja  { background: rgba(249,115,22,0.12); color: #ea580c; border-color: rgba(249,115,22,0.3); }
+.preset-rojo     { background: rgba(239,68,68,0.12);  color: #dc2626; border-color: rgba(239,68,68,0.3);  }
+
+.preset-verde.active    { background: rgba(16,185,129,0.25);  border-color: #059669; }
+.preset-amarillo.active { background: rgba(245,158,11,0.25);  border-color: #d97706; }
+.preset-naranja.active  { background: rgba(249,115,22,0.25);  border-color: #ea580c; }
+.preset-rojo.active     { background: rgba(239,68,68,0.25);   border-color: #dc2626; }
+
+.preset-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.preset-hint {
+    font-size: 0.8rem;
+}
+
+.sim-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    margin-bottom: 2rem;
+}
+
+.sim-field-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+}
+
+.sim-field-header label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.sim-field-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    min-width: 5rem;
+    text-align: right;
+}
+
+.sim-slider {
+    width: 100%;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+    height: 6px;
+}
+
+.sim-range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.sim-execute-btn {
+    width: 100%;
+    padding: 0.9rem;
+    font-size: 1rem;
+}
+
+.sim-execute-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.sim-status {
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    line-height: 1.7;
+}
+
+.sim-status-loading { background: rgba(37,99,235,0.08);  color: var(--primary-color); }
+.sim-status-ok      { background: rgba(16,185,129,0.08); color: #059669; }
+.sim-status-error   { background: rgba(239,68,68,0.08);  color: #dc2626; }
+
+.sim-status-hint {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}

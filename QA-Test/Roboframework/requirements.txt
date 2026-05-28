@@ -1,0 +1,10 @@
+robotframework>=7.0
+robotframework-requests>=0.9.7
+robotframework-seleniumlibrary>=6.3.0
+robotframework-databaselibrary>=1.4.4
+psycopg2-binary>=2.9
+Flask>=3.0
+Flask-Cors>=4.0
+selenium>=4.20
+webdriver-manager>=4.0
+requests>=2.31

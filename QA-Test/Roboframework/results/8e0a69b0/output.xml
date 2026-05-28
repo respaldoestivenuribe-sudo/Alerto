@@ -1,0 +1,4203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1 (Python 3.14.4 on win32)" generated="2026-05-27T04:24:23.223269" rpa="false" schemaversion="5">
+<suite id="s1" name="TC UI" source="C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\tests\TC_UI.robot">
+<kw name="Setup Suite UI" type="SETUP">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:23.450238" level="INFO">=== Iniciando Suite UI ===</msg>
+<arg>=== Iniciando Suite UI ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.450085" elapsed="0.000194"/>
+</kw>
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-27T04:24:23.453119" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-27T04:24:23.452871" elapsed="0.000425"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-27T04:24:23.450406" elapsed="0.002973"/>
+</kw>
+<kw name="Get Admin Token" owner="api_keywords">
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-27T04:24:23.453859" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-27T04:24:23.453722" elapsed="0.000230"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-27T04:24:23.453628" elapsed="0.000373"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T04:24:23.454312" level="INFO">&amp;{body} = { email=admin@alerto.com | password=alerto123** }</msg>
+<var>&amp;{body}</var>
+<arg>email=${ADMIN_EMAIL}</arg>
+<arg>password=${ADMIN_PASS}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.454074" elapsed="0.000255"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T04:24:23.655562" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '56', 'Content-Type': 'application/json'} 
+ body=b'{"email": "admin@alerto.com", "password": "alerto123**"}' 
+ </msg>
+<msg time="2026-05-27T04:24:23.655642" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 09:24:23 GMT', 'server': 'uvicorn', 'content-length': '210', 'content-type': 'application/json'} 
+ body={"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NjAyNjN9.q-yBFKUfyXVpXDMFjQ2pKNk5lc2v2Qtpon73EBBXYlw","token_type":"bearer"} 
+ </msg>
+<msg time="2026-05-27T04:24:23.655734" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>/api/auth/login</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.454396" elapsed="0.201356"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>${resp}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.655888" elapsed="0.000142"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T04:24:23.656412" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NjAyNjN9.q-yBFKUfyXVpXDMFjQ2pKNk5lc2v2Qtpon73EBBXYlw</msg>
+<var>${token}</var>
+<arg>${resp.json()}</arg>
+<arg>access_token</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.656093" elapsed="0.000334"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" start="2026-05-27T04:24:23.656465" elapsed="0.000038"/>
+</return>
+<msg time="2026-05-27T04:24:23.656577" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NjAyNjN9.q-yBFKUfyXVpXDMFjQ2pKNk5lc2v2Qtpon73EBBXYlw</msg>
+<var>${token}</var>
+<doc>Inicia sesión como administrador y retorna el token JWT</doc>
+<status status="PASS" start="2026-05-27T04:24:23.453509" elapsed="0.203081"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2026-05-27T04:24:23.656766" level="INFO">${SUITE_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NjAyNjN9.q-yBFKUfyXVpXDMFjQ2pKNk5lc2v2Qtpon73EBBXYlw</msg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.656664" elapsed="0.000123"/>
+</kw>
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:24:23.657275" level="INFO" html="true">Created directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;'.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.656838" elapsed="0.000488"/>
+</kw>
+<status status="PASS" start="2026-05-27T04:24:23.449396" elapsed="0.207976"/>
+</kw>
+<test id="s1-t1" name="TC-UI-001 Página login muestra formulario de autenticación correctamente" line="16">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:24:23.659395" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x00000180F9000590&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.658088" elapsed="0.001330"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.659502" elapsed="0.000094"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.659660" elapsed="0.000071"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.659792" elapsed="0.000066"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.659917" elapsed="0.000064"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:23.663754" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T04:24:23.660052" elapsed="0.655796"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:24.316425" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:24:24.316142" elapsed="0.390434"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:24:24.706778" elapsed="0.083576"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T04:24:23.657876" elapsed="1.132922"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:25.791960" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:24.791179" elapsed="1.001010"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:input[type="email"], input[name="email"], input[id="email"]</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:24:25.792624" elapsed="0.017423"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:input[type="password"], input[name="password"]</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:24:25.810925" elapsed="0.012339"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:26.091649" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-05-27T04:24:26.092075" level="FAIL">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</msg>
+<arg>css:button[type="submit"], css:button.btn-primary, css:form button</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2026-05-27T04:24:25.823822" elapsed="0.273749">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</status>
+</kw>
+<msg time="2026-05-27T04:24:26.097774" level="INFO">${submit} = False</msg>
+<var>${submit}</var>
+<arg>Page Should Contain Element</arg>
+<arg>css:button[type="submit"], css:button.btn-primary, css:form button</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:24:25.823616" elapsed="0.274191"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:26.098457" level="INFO">Botón de submit presente: False</msg>
+<arg>Botón de submit presente: ${submit}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:26.098099" elapsed="0.000446"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:24:26.099715" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:24:26.099314" elapsed="0.000452"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:26.309337" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-001_desktop.png"&gt;&lt;img src="screenshots/TC-UI-001_desktop.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:24:26.099869" elapsed="0.209586"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:26.309842" level="INFO">Evidencia capturada: TC-UI-001_desktop.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:26.309650" elapsed="0.000233"/>
+</kw>
+<arg>TC-UI-001_desktop</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:24:26.098844" elapsed="0.211106"/>
+</kw>
+<kw name="Simulate Mobile Viewport" owner="ui_keywords">
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>375</arg>
+<arg>667</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:24:26.310303" elapsed="0.374121"/>
+</kw>
+<status status="PASS" start="2026-05-27T04:24:26.310113" elapsed="0.374435"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:27.185318" level="INFO">Slept 500 milliseconds.</msg>
+<arg>0.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:26.684729" elapsed="0.500753"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:24:27.187214" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:24:27.186388" elapsed="0.001334"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:27.242453" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-001_mobile.png"&gt;&lt;img src="screenshots/TC-UI-001_mobile.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:24:27.188349" elapsed="0.054225"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:27.242987" level="INFO">Evidencia capturada: TC-UI-001_mobile.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:27.242774" elapsed="0.000252"/>
+</kw>
+<arg>TC-UI-001_mobile</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:24:27.185854" elapsed="0.057237"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:27.243309" level="INFO">✓ Formulario de login visible en escritorio y móvil</msg>
+<arg>✓ Formulario de login visible en escritorio y móvil</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:27.243202" elapsed="0.000158"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T04:24:27.243671" elapsed="2.177261"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:24:27.243522" elapsed="2.177589"/>
+</kw>
+<doc>RF-IU-001 — Página /login contiene formulario con email, password y botón</doc>
+<tag>Media</tag>
+<tag>TC-UI-001</tag>
+<tag>UI</tag>
+<tag>Visual</tag>
+<status status="PASS" start="2026-05-27T04:24:23.657443" elapsed="5.763784"/>
+</test>
+<test id="s1-t2" name="TC-UI-002 Navegación sidebar funciona correctamente" line="40">
+<kw name="Open And Login As Admin" owner="ui_keywords">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:24:29.423027" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x00000180FA501590&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:24:29.422827" elapsed="0.000246"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:29.423153" elapsed="0.000078"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:29.423293" elapsed="0.000064"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:29.423413" elapsed="0.000062"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:29.423529" elapsed="0.000077"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:29.423782" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T04:24:29.423675" elapsed="0.611152"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:30.035465" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:24:30.035159" elapsed="0.217474"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:24:30.252907" elapsed="0.039606"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T04:24:29.422668" elapsed="0.870047"/>
+</kw>
+<kw name="Login With Credentials" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-27T04:24:30.293622" elapsed="0.017051"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:30.312353" level="INFO">Typing text 'admin@alerto.com' into text field 'id=email'.</msg>
+<arg>id=email</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:30.311446" elapsed="0.082812"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:30.395532" level="INFO">Typing text 'alerto123**' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:30.394579" elapsed="0.087238"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:30.482693" level="INFO">Clicking button 'css:button.btn-primary'.</msg>
+<arg>css:button.btn-primary</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:30.482294" elapsed="0.094742"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:32.077924" level="INFO">Slept 1 second 500 milliseconds.</msg>
+<arg>1.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:30.577267" elapsed="1.500791"/>
+</kw>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASS}</arg>
+<doc>Rellena y envía el formulario de login</doc>
+<status status="PASS" start="2026-05-27T04:24:30.293028" elapsed="1.785160"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:.sidebar</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:24:32.078400" elapsed="0.009631"/>
+</kw>
+<doc>Abre el navegador y hace login como administrador</doc>
+<status status="PASS" start="2026-05-27T04:24:29.422416" elapsed="2.665760"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:33.088706" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:32.088399" elapsed="1.000490"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:33.206124" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-05-27T04:24:33.206313" level="FAIL">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</msg>
+<arg>css:nav a, css:.sidebar a, css:[class*="nav"] a, css:.menu a</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2026-05-27T04:24:33.089480" elapsed="0.118772">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</status>
+</kw>
+<msg time="2026-05-27T04:24:33.208431" level="INFO">${nav_present} = False</msg>
+<var>${nav_present}</var>
+<arg>Page Should Contain Element</arg>
+<arg>css:nav a, css:.sidebar a, css:[class*="nav"] a, css:.menu a</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:24:33.089210" elapsed="0.119251"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:33.208876" level="INFO">Navegación presente: False</msg>
+<arg>Navegación presente: ${nav_present}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:33.208640" elapsed="0.000290"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:33.287570" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-05-27T04:24:33.287728" level="FAIL">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</msg>
+<arg>css:a[href*="admin"], xpath=//a[contains(.,'Admin') or contains(.,'admin')]</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2026-05-27T04:24:33.209242" elapsed="0.079493">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</status>
+</kw>
+<msg time="2026-05-27T04:24:33.288845" level="INFO">${admin_link} = False</msg>
+<var>${admin_link}</var>
+<arg>Page Should Contain Element</arg>
+<arg>css:a[href*="admin"], xpath=//a[contains(.,'Admin') or contains(.,'admin')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:24:33.209072" elapsed="0.079788"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:33.289110" level="INFO">Enlace admin visible: False</msg>
+<arg>Enlace admin visible: ${admin_link}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:33.288987" elapsed="0.000148"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:24:33.289500" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:24:33.289370" elapsed="0.000159"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:33.363178" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-002.png"&gt;&lt;img src="screenshots/TC-UI-002.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:24:33.289597" elapsed="0.073698"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:33.363675" level="INFO">Evidencia capturada: TC-UI-002.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:33.363477" elapsed="0.000240"/>
+</kw>
+<arg>TC-UI-002</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:24:33.289234" elapsed="0.074554"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:33.364275" level="INFO">Clicking element 'xpath=//a[contains(.,'Precipitación') or contains(.,'precipitation') or contains(@href,'/precipitation')]'.</msg>
+<arg>xpath=//a[contains(.,'Precipitación') or contains(.,'precipitation') or contains(@href,'/precipitation')]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:33.364121" elapsed="0.074752"/>
+</kw>
+<msg time="2026-05-27T04:24:33.439139" level="INFO">${nav_ok} = True</msg>
+<var>${nav_ok}</var>
+<arg>Click Element</arg>
+<arg>xpath=//a[contains(.,'Precipitación') or contains(.,'precipitation') or contains(@href,'/precipitation')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:24:33.363944" elapsed="0.075254"/>
+</kw>
+<if>
+<branch type="IF" condition="${nav_ok}">
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:34.440456" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:33.439730" elapsed="1.000875"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:34.445696" level="INFO">${url} = http://localhost:3000/precipitation</msg>
+<var>${url}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-05-27T04:24:34.440821" elapsed="0.004952"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:34.446342" level="INFO">Navegó a: http://localhost:3000/precipitation</msg>
+<arg>Navegó a: ${url}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:34.446054" elapsed="0.000372"/>
+</kw>
+<status status="PASS" start="2026-05-27T04:24:33.439409" elapsed="1.007107"/>
+</branch>
+<status status="PASS" start="2026-05-27T04:24:33.439353" elapsed="1.007252"/>
+</if>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:24:34.447728" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:24:34.447285" elapsed="0.000544"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:34.522414" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-002_nav.png"&gt;&lt;img src="screenshots/TC-UI-002_nav.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:24:34.448024" elapsed="0.074500"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:34.522828" level="INFO">Evidencia capturada: TC-UI-002_nav.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:34.522683" elapsed="0.000172"/>
+</kw>
+<arg>TC-UI-002_nav</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:24:34.446907" elapsed="0.076257"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:34.523428" level="INFO">✓ Sidebar con navegación funcional</msg>
+<arg>✓ Sidebar con navegación funcional</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:34.523296" elapsed="0.000186"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T04:24:34.524093" elapsed="2.172192"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:24:34.523813" elapsed="2.172558"/>
+</kw>
+<doc>RF-IU-001 — El sidebar permite navegar entre páginas principales</doc>
+<tag>Funcional</tag>
+<tag>Media</tag>
+<tag>TC-UI-002</tag>
+<tag>UI</tag>
+<status status="PASS" start="2026-05-27T04:24:29.421702" elapsed="7.274791"/>
+</test>
+<test id="s1-t3" name="TC-UI-003 Topbar muestra información del usuario autenticado" line="69">
+<kw name="Open And Login As Admin" owner="ui_keywords">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:24:36.697631" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x00000180FA503B10&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:24:36.697475" elapsed="0.000173"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:36.697707" elapsed="0.000074"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:36.697834" elapsed="0.000056"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:36.697957" elapsed="0.000056"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:36.698062" elapsed="0.000055"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:36.698269" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T04:24:36.698177" elapsed="1.052093"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:37.750778" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:24:37.750533" elapsed="0.206179"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:24:37.957145" elapsed="0.034590"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T04:24:36.697340" elapsed="1.294504"/>
+</kw>
+<kw name="Login With Credentials" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-27T04:24:37.992238" elapsed="0.016499"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:38.009663" level="INFO">Typing text 'admin@alerto.com' into text field 'id=email'.</msg>
+<arg>id=email</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:38.009189" elapsed="0.096139"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:38.105696" level="INFO">Typing text 'alerto123**' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:38.105506" elapsed="0.058835"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:38.164974" level="INFO">Clicking button 'css:button.btn-primary'.</msg>
+<arg>css:button.btn-primary</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:38.164661" elapsed="0.068317"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:39.733930" level="INFO">Slept 1 second 500 milliseconds.</msg>
+<arg>1.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:38.233273" elapsed="1.500846"/>
+</kw>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASS}</arg>
+<doc>Rellena y envía el formulario de login</doc>
+<status status="PASS" start="2026-05-27T04:24:37.991995" elapsed="1.742282"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:.sidebar</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:24:39.734525" elapsed="0.028395"/>
+</kw>
+<doc>Abre el navegador y hace login como administrador</doc>
+<status status="PASS" start="2026-05-27T04:24:36.697181" elapsed="3.065888"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:40.763775" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:39.763255" elapsed="1.000678"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:40.769114" level="INFO">${current_url} = http://localhost:3000/precipitation</msg>
+<var>${current_url}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.764233" elapsed="0.004919"/>
+</kw>
+<kw name="Should Not Contain" owner="BuiltIn">
+<arg>${current_url}</arg>
+<arg>/login</arg>
+<arg>msg=Sigue en /login — el login no fue exitoso</arg>
+<doc>Fails if ``container`` contains ``item`` one or more times.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.769305" elapsed="0.000203"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:40.851181" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-05-27T04:24:40.851311" level="FAIL">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</msg>
+<arg>css:header, css:.topbar, css:nav, css:[class*="header"]</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2026-05-27T04:24:40.769761" elapsed="0.082645">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</status>
+</kw>
+<msg time="2026-05-27T04:24:40.852527" level="INFO">${header} = False</msg>
+<var>${header}</var>
+<arg>Page Should Contain Element</arg>
+<arg>css:header, css:.topbar, css:nav, css:[class*="header"]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.769623" elapsed="0.082919"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:40.852792" level="INFO">Header/topbar presente: False</msg>
+<arg>Header/topbar presente: ${header}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.852669" elapsed="0.000149"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:40.879474" level="INFO">${page_text} = Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Precipitación
+Hola, Administrador
+Usuario
+Salir
+Precipitación
+Datos actuales e histórico de lluvia
+Última hora
+0 mm
+Precipitación 1h
+Últimas 3 h...</msg>
+<var>${page_text}</var>
+<arg>css:body</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.852910" elapsed="0.026599"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-05-27T04:24:40.879912" level="FAIL">'Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Precipitación
+Hola, Administrador
+Usuario
+Salir
+Precipitación
+Datos actuales e histórico de lluvia
+Última hora
+0 mm
+Precipitación 1h
+Últimas 3 horas
+0 mm
+Precipitación 3h
+Últimas 6 horas
+0.2 mm
+Precipitación 6h
+Humedad promedio 6h
+93.67%
+Tendencia: estable
+Histórico de Precipitación (últimas 72h)
+02:24
+10:00
+18:00
+02:00
+10:00
+18:00
+02:00
+10:00
+18:00
+02:00
+10:00
+18:00
+02:00
+10:00
+18:00
+02:00
+10:00
+18:00
+02:00
+10:00
+18:00
+0
+3
+6
+9
+12' does not contain 'admin'</msg>
+<arg>${page_text}</arg>
+<arg>admin</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-05-27T04:24:40.879761" elapsed="0.000205">'Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Precipitación
+Hola, Administrador
+Usuario
+Salir
+Precipitación
+Datos actuales e histórico de lluvia
+Última hora
+0 mm
+Precipitación 1h
+Últimas 3 horas
+0 mm
+Precipitación 3h
+Últimas 6 horas
+0.2 mm
+Precipitación 6h
+    [ Message content over the limit has been removed. ]
+02:00
+10:00
+18:00
+02:00
+10:00
+18:00
+02:00
+10:00
+18:00
+02:00
+10:00
+18:00
+02:00
+10:00
+18:00
+0
+3
+6
+9
+12' does not contain 'admin'</status>
+</kw>
+<msg time="2026-05-27T04:24:40.880021" level="INFO">${has_user} = False</msg>
+<var>${has_user}</var>
+<arg>Should Contain</arg>
+<arg>${page_text}</arg>
+<arg>admin</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.879650" elapsed="0.000382"/>
+</kw>
+<if>
+<branch type="IF" condition="not ${has_user}">
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${page_text}</arg>
+<arg>Admin</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.880292" elapsed="0.000069"/>
+</kw>
+<msg time="2026-05-27T04:24:40.880403" level="INFO">${has_user} = True</msg>
+<var>${has_user}</var>
+<arg>Should Contain</arg>
+<arg>${page_text}</arg>
+<arg>Admin</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.880223" elapsed="0.000191"/>
+</kw>
+<status status="PASS" start="2026-05-27T04:24:40.880095" elapsed="0.000342"/>
+</branch>
+<status status="PASS" start="2026-05-27T04:24:40.880077" elapsed="0.000382"/>
+</if>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:40.880581" level="INFO">Información de usuario visible: True</msg>
+<arg>Información de usuario visible: ${has_user}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.880503" elapsed="0.000097"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:24:40.881075" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.880801" elapsed="0.000327"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:40.949311" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-003.png"&gt;&lt;img src="screenshots/TC-UI-003.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.881245" elapsed="0.068149"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:40.949656" level="INFO">Evidencia capturada: TC-UI-003.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.949531" elapsed="0.000148"/>
+</kw>
+<arg>TC-UI-003</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:24:40.880682" elapsed="0.069041"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:40.949847" level="INFO">✓ Topbar con información de usuario</msg>
+<arg>✓ Topbar con información de usuario</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.949788" elapsed="0.000079"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.950138" elapsed="2.117133"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:24:40.949966" elapsed="2.117485"/>
+</kw>
+<doc>RF-IU-001 — Header muestra nombre/rol del usuario logueado</doc>
+<tag>Funcional</tag>
+<tag>Media</tag>
+<tag>TC-UI-003</tag>
+<tag>UI</tag>
+<status status="PASS" start="2026-05-27T04:24:36.696775" elapsed="6.370772"/>
+</test>
+<test id="s1-t4" name="TC-UI-004 Interfaz tiene etiquetas ARIA y navegación por teclado" line="96">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:24:43.069665" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x00000180FA525A70&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:24:43.069300" elapsed="0.000414"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:43.069892" elapsed="0.000195"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:43.070243" elapsed="0.000167"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:43.070614" elapsed="0.000174"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:43.070937" elapsed="0.000166"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:43.071528" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T04:24:43.071276" elapsed="0.645975"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:43.717683" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:24:43.717525" elapsed="0.229557"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:24:43.947396" elapsed="0.040890"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T04:24:43.068882" elapsed="0.919636"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:44.989310" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:43.988781" elapsed="1.000703"/>
+</kw>
+<kw name="Get WebElements" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:45.000488" level="INFO">@{inputs} = [ &lt;selenium.webdriver.remote.webelement.WebElement (session="86725f44de4344faf33fc83d9c2cb87d", element="f.2CE18E41F8A9C01798021C092404516E.d.1D085365EA653C01A805B8DF9A93D0D1.e.13")&gt; | &lt;selenium.webdr...</msg>
+<var>@{inputs}</var>
+<arg>css:input[id]</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:44.989807" elapsed="0.010749"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-05-27T04:24:45.001025" level="INFO">Length is 2.</msg>
+<msg time="2026-05-27T04:24:45.001117" level="INFO">${input_count} = 2</msg>
+<var>${input_count}</var>
+<arg>${inputs}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.000826" elapsed="0.000319"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:45.001511" level="INFO">Inputs con id: 2</msg>
+<arg>Inputs con id: ${input_count}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.001307" elapsed="0.000256"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:45.007953" level="INFO">Current page contains element 'css:input[type="email"], input[name="email"], input[id="email"]'.</msg>
+<arg>css:input[type="email"], input[name="email"], input[id="email"]</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.001934" elapsed="0.006139"/>
+</kw>
+<msg time="2026-05-27T04:24:45.008243" level="INFO">${email_input} = True</msg>
+<var>${email_input}</var>
+<arg>Page Should Contain Element</arg>
+<arg>css:input[type="email"], input[name="email"], input[id="email"]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.001738" elapsed="0.006540"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${email_input}</arg>
+<arg>msg=No se encontró campo de email</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.008479" elapsed="0.000316"/>
+</kw>
+<kw name="Get WebElement" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:45.014028" level="INFO">${email_el} = &lt;selenium.webdriver.remote.webelement.WebElement (session="86725f44de4344faf33fc83d9c2cb87d", element="f.2CE18E41F8A9C01798021C092404516E.d.1D085365EA653C01A805B8DF9A93D0D1.e.13")&gt;</msg>
+<var>${email_el}</var>
+<arg>css:input[type="email"], input[name="email"], input[id="email"]</arg>
+<doc>Returns the first WebElement matching the given ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.008977" elapsed="0.005082"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:45.014330" level="INFO">Clicking element '&lt;selenium.webdriver.remote.webelement.WebElement (session="86725f44de4344faf33fc83d9c2cb87d", element="f.2CE18E41F8A9C01798021C092404516E.d.1D085365EA653C01A805B8DF9A93D0D1.e.13")&gt;'.</msg>
+<arg>${email_el}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.014187" elapsed="0.043871"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:45.058980" level="INFO">Sending key(s) ('TAB',) to &lt;selenium.webdriver.remote.webelement.WebElement (session="86725f44de4344faf33fc83d9c2cb87d", element="f.2CE18E41F8A9C01798021C092404516E.d.1D085365EA653C01A805B8DF9A93D0D1.e.13")&gt; element.</msg>
+<msg time="2026-05-27T04:24:45.343889" level="INFO">Pressing special key TAB to element.</msg>
+<msg time="2026-05-27T04:24:45.344021" level="INFO">Releasing special key TAB.</msg>
+<arg>${email_el}</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.058480" elapsed="0.292339"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:45.651639" level="INFO">Slept 300 milliseconds.</msg>
+<arg>0.3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.351109" elapsed="0.300835"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:24:45.653588" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.653028" elapsed="0.000689"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:45.827287" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-004.png"&gt;&lt;img src="screenshots/TC-UI-004.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.653987" elapsed="0.173380"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:45.827947" level="INFO">Evidencia capturada: TC-UI-004.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.827670" elapsed="0.000310"/>
+</kw>
+<arg>TC-UI-004</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:24:45.652268" elapsed="0.175805"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:45.828542" level="INFO">✓ Inputs encontrados: 2, navegación por teclado OK</msg>
+<arg>✓ Inputs encontrados: ${input_count}, navegación por teclado OK</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.828309" elapsed="0.000335"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.829073" elapsed="2.104939"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:24:45.828878" elapsed="2.105388"/>
+</kw>
+<doc>RF-IU-002 — Inputs con label, navegación con teclado funcional</doc>
+<tag>Accesibilidad</tag>
+<tag>Alta</tag>
+<tag>TC-UI-004</tag>
+<tag>UI</tag>
+<status status="PASS" start="2026-05-27T04:24:43.068039" elapsed="4.866337"/>
+</test>
+<test id="s1-t5" name="TC-UI-005 Interfaz responsiva en resolución tablet 1024x768" line="120">
+<kw name="Open And Login As Admin" owner="ui_keywords">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:24:47.936748" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x00000180FA5250F0&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:24:47.936115" elapsed="0.000681"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:47.936964" elapsed="0.000173"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:47.937276" elapsed="0.000099"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:47.937438" elapsed="0.000065"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:47.937556" elapsed="0.000057"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:47.937765" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T04:24:47.937676" elapsed="0.563582"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:48.501679" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:24:48.501472" elapsed="0.187790"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:24:48.689621" elapsed="0.038265"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T04:24:47.935734" elapsed="0.792327"/>
+</kw>
+<kw name="Login With Credentials" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-27T04:24:48.728766" elapsed="0.017615"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:48.746875" level="INFO">Typing text 'admin@alerto.com' into text field 'id=email'.</msg>
+<arg>id=email</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:48.746614" elapsed="0.100719"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:48.848006" level="INFO">Typing text 'alerto123**' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:48.847643" elapsed="0.064259"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:48.912667" level="INFO">Clicking button 'css:button.btn-primary'.</msg>
+<arg>css:button.btn-primary</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:48.912290" elapsed="0.073208"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:50.486678" level="INFO">Slept 1 second 500 milliseconds.</msg>
+<arg>1.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:48.985826" elapsed="1.500993"/>
+</kw>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASS}</arg>
+<doc>Rellena y envía el formulario de login</doc>
+<status status="PASS" start="2026-05-27T04:24:48.728338" elapsed="1.758673"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:.sidebar</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:24:50.487413" elapsed="0.008508"/>
+</kw>
+<doc>Abre el navegador y hace login como administrador</doc>
+<status status="PASS" start="2026-05-27T04:24:47.935394" elapsed="2.560617"/>
+</kw>
+<kw name="Simulate Tablet Viewport" owner="ui_keywords">
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1024</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:24:50.496388" elapsed="0.033957"/>
+</kw>
+<status status="PASS" start="2026-05-27T04:24:50.496157" elapsed="0.034360"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:51.031026" level="INFO">Slept 500 milliseconds.</msg>
+<arg>0.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:50.530721" elapsed="0.500463"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:51.032767" level="INFO">Opening url 'http://localhost:3000/precipitation'</msg>
+<arg>${FRONTEND_URL}${page}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:24:51.032196" elapsed="0.091085"/>
+</kw>
+<msg time="2026-05-27T04:24:51.123411" level="INFO">${nav_ok} = True</msg>
+<var>${nav_ok}</var>
+<arg>Go To</arg>
+<arg>${FRONTEND_URL}${page}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:24:51.031956" elapsed="0.091471"/>
+</kw>
+<if>
+<branch type="IF" condition="${nav_ok}">
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:52.124380" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:51.123646" elapsed="1.000889"/>
+</kw>
+<kw name="Execute Javascript" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:52.125389" level="INFO">Executing JavaScript:
+return document.documentElement.scrollWidth &gt; window.innerWidth;
+Without any arguments.</msg>
+<msg time="2026-05-27T04:24:52.132703" level="INFO">${overflow} = False</msg>
+<var>${overflow}</var>
+<arg>return document.documentElement.scrollWidth &gt; window.innerWidth;</arg>
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:52.124834" elapsed="0.007926"/>
+</kw>
+<if>
+<branch type="IF" condition="${overflow}">
+<kw name="Log" owner="BuiltIn">
+<arg>Desbordamiento detectado en ${page}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T04:24:52.133167" elapsed="0.000045"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T04:24:52.132928" elapsed="0.000345"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:52.133686" level="INFO">Sin desbordamiento en /precipitation</msg>
+<arg>Sin desbordamiento en ${page}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:52.133457" elapsed="0.000286"/>
+</kw>
+<status status="PASS" start="2026-05-27T04:24:52.133325" elapsed="0.000482"/>
+</branch>
+<status status="PASS" start="2026-05-27T04:24:52.132900" elapsed="0.000952"/>
+</if>
+<status status="PASS" start="2026-05-27T04:24:51.123503" elapsed="1.010381"/>
+</branch>
+<status status="PASS" start="2026-05-27T04:24:51.123486" elapsed="1.010441"/>
+</if>
+<var name="${page}">/precipitation</var>
+<status status="PASS" start="2026-05-27T04:24:51.031742" elapsed="1.102210"/>
+</iter>
+<iter>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:52.134774" level="INFO">Opening url 'http://localhost:3000/risk'</msg>
+<arg>${FRONTEND_URL}${page}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:24:52.134584" elapsed="0.066792"/>
+</kw>
+<msg time="2026-05-27T04:24:52.201653" level="INFO">${nav_ok} = True</msg>
+<var>${nav_ok}</var>
+<arg>Go To</arg>
+<arg>${FRONTEND_URL}${page}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:24:52.134388" elapsed="0.067349"/>
+</kw>
+<if>
+<branch type="IF" condition="${nav_ok}">
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:53.202962" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:52.202096" elapsed="1.000962"/>
+</kw>
+<kw name="Execute Javascript" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:53.203491" level="INFO">Executing JavaScript:
+return document.documentElement.scrollWidth &gt; window.innerWidth;
+Without any arguments.</msg>
+<msg time="2026-05-27T04:24:53.207160" level="INFO">${overflow} = False</msg>
+<var>${overflow}</var>
+<arg>return document.documentElement.scrollWidth &gt; window.innerWidth;</arg>
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:53.203216" elapsed="0.003999"/>
+</kw>
+<if>
+<branch type="IF" condition="${overflow}">
+<kw name="Log" owner="BuiltIn">
+<arg>Desbordamiento detectado en ${page}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T04:24:53.207847" elapsed="0.000029"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T04:24:53.207362" elapsed="0.000546"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:53.208114" level="INFO">Sin desbordamiento en /risk</msg>
+<arg>Sin desbordamiento en ${page}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:53.208000" elapsed="0.000138"/>
+</kw>
+<status status="PASS" start="2026-05-27T04:24:53.207932" elapsed="0.000231"/>
+</branch>
+<status status="PASS" start="2026-05-27T04:24:53.207335" elapsed="0.000846"/>
+</if>
+<status status="PASS" start="2026-05-27T04:24:52.201841" elapsed="1.006352"/>
+</branch>
+<status status="PASS" start="2026-05-27T04:24:52.201823" elapsed="1.006385"/>
+</if>
+<var name="${page}">/risk</var>
+<status status="PASS" start="2026-05-27T04:24:52.134242" elapsed="1.073992"/>
+</iter>
+<iter>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:53.208572" level="INFO">Opening url 'http://localhost:3000/simulator'</msg>
+<arg>${FRONTEND_URL}${page}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:24:53.208499" elapsed="0.069698"/>
+</kw>
+<msg time="2026-05-27T04:24:53.278421" level="INFO">${nav_ok} = True</msg>
+<var>${nav_ok}</var>
+<arg>Go To</arg>
+<arg>${FRONTEND_URL}${page}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:24:53.208418" elapsed="0.070044"/>
+</kw>
+<if>
+<branch type="IF" condition="${nav_ok}">
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:54.279345" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:53.278873" elapsed="1.000634"/>
+</kw>
+<kw name="Execute Javascript" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:54.280809" level="INFO">Executing JavaScript:
+return document.documentElement.scrollWidth &gt; window.innerWidth;
+Without any arguments.</msg>
+<msg time="2026-05-27T04:24:54.285565" level="INFO">${overflow} = False</msg>
+<var>${overflow}</var>
+<arg>return document.documentElement.scrollWidth &gt; window.innerWidth;</arg>
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:54.279797" elapsed="0.005813"/>
+</kw>
+<if>
+<branch type="IF" condition="${overflow}">
+<kw name="Log" owner="BuiltIn">
+<arg>Desbordamiento detectado en ${page}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T04:24:54.286120" elapsed="0.000078"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T04:24:54.285760" elapsed="0.000521"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:54.286771" level="INFO">Sin desbordamiento en /simulator</msg>
+<arg>Sin desbordamiento en ${page}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:54.286573" elapsed="0.000259"/>
+</kw>
+<status status="PASS" start="2026-05-27T04:24:54.286392" elapsed="0.000498"/>
+</branch>
+<status status="PASS" start="2026-05-27T04:24:54.285734" elapsed="0.001193"/>
+</if>
+<status status="PASS" start="2026-05-27T04:24:53.278604" elapsed="1.008347"/>
+</branch>
+<status status="PASS" start="2026-05-27T04:24:53.278575" elapsed="1.008408"/>
+</if>
+<var name="${page}">/simulator</var>
+<status status="PASS" start="2026-05-27T04:24:53.208360" elapsed="1.078642"/>
+</iter>
+<var>${page}</var>
+<value>/precipitation</value>
+<value>/risk</value>
+<value>/simulator</value>
+<status status="PASS" start="2026-05-27T04:24:51.031340" elapsed="3.255708"/>
+</for>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:24:54.287828" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:24:54.287474" elapsed="0.000413"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:54.343205" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-005.png"&gt;&lt;img src="screenshots/TC-UI-005.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:24:54.288027" elapsed="0.055272"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:54.343605" level="INFO">Evidencia capturada: TC-UI-005.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:54.343485" elapsed="0.000146"/>
+</kw>
+<arg>TC-UI-005</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:24:54.287235" elapsed="0.056438"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:54.343792" level="INFO">✓ Verificación responsiva tablet completada</msg>
+<arg>✓ Verificación responsiva tablet completada</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:54.343734" elapsed="0.000078"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T04:24:54.343998" elapsed="2.112606"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:24:54.343912" elapsed="2.112851"/>
+</kw>
+<doc>RF-IU-002 — Sin desbordamiento horizontal en tablet</doc>
+<tag>Media</tag>
+<tag>Responsividad</tag>
+<tag>TC-UI-005</tag>
+<tag>UI</tag>
+<status status="PASS" start="2026-05-27T04:24:47.934779" elapsed="8.522081"/>
+</test>
+<test id="s1-t6" name="TC-UI-006 Variables CSS de contraste están definidas en el sistema" line="143">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:24:56.458645" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x00000180FA578170&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:24:56.458351" elapsed="0.000332"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:56.458833" elapsed="0.000169"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:56.459138" elapsed="0.000144"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:56.459407" elapsed="0.000139"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:56.459666" elapsed="0.000132"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:56.460165" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T04:24:56.459930" elapsed="1.043123"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:57.503455" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:24:57.503242" elapsed="0.199277"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:24:57.702824" elapsed="0.029848"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T04:24:56.457998" elapsed="1.274860"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:24:58.733785" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:24:57.733081" elapsed="1.000827"/>
+</kw>
+<kw name="Execute Javascript" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:58.734521" level="INFO">Executing JavaScript:
+return getComputedStyle(document.documentElement).getPropertyValue('--text-main').trim() ||getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim() ||getComputedStyle(document.body).color || 'rgb(0, 0, 0)';
+Without any arguments.</msg>
+<msg time="2026-05-27T04:24:58.738401" level="INFO">${main_color} = #1e293b</msg>
+<var>${main_color}</var>
+<arg>return getComputedStyle(document.documentElement).getPropertyValue('--text-main').trim() ||</arg>
+<arg>getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim() ||</arg>
+<arg>getComputedStyle(document.body).color || 'rgb(0, 0, 0)';</arg>
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<status status="PASS" start="2026-05-27T04:24:58.734118" elapsed="0.004318"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:58.738724" level="INFO">Color de texto principal: #1e293b</msg>
+<arg>Color de texto principal: ${main_color}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:58.738579" elapsed="0.000176"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-05-27T04:24:58.738958" level="INFO">Length is 7.</msg>
+<arg>${main_color}</arg>
+<arg>msg=No se encontró definición de color de texto</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-05-27T04:24:58.738838" elapsed="0.000149"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:58.753594" level="INFO">${body_text} = Sistema de Monitoreo
+Monitoreo de precipitación y alertas de riesgo en tiempo real
+Bienvenido de nuevo
+Ingresa tus credenciales para continuar
+Correo Electrónico
+Contraseña
+¿Olvidaste tu contraseña?
+I...</msg>
+<var>${body_text}</var>
+<arg>css:body</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:24:58.739072" elapsed="0.014591"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-05-27T04:24:58.754161" level="INFO">Length is 248.</msg>
+<arg>${body_text}</arg>
+<arg>msg=No hay texto visible en la página</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-05-27T04:24:58.753899" elapsed="0.000322"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:24:58.755152" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:24:58.754737" elapsed="0.000479"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:24:58.903576" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-006.png"&gt;&lt;img src="screenshots/TC-UI-006.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:24:58.755327" elapsed="0.148359"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:58.903942" level="INFO">Evidencia capturada: TC-UI-006.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:58.903823" elapsed="0.000141"/>
+</kw>
+<arg>TC-UI-006</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:24:58.754434" elapsed="0.149572"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:24:58.904140" level="INFO">✓ Color de texto definido: #1e293b</msg>
+<arg>✓ Color de texto definido: ${main_color}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:24:58.904067" elapsed="0.000094"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T04:24:58.904344" elapsed="2.102187"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:24:58.904258" elapsed="2.102419"/>
+</kw>
+<doc>RF-IU-002 (WCAG AA) — Variables CSS de texto cumplen contraste mínimo</doc>
+<tag>Accesibilidad</tag>
+<tag>Media</tag>
+<tag>TC-UI-006</tag>
+<tag>UI</tag>
+<status status="PASS" start="2026-05-27T04:24:56.457307" elapsed="4.549447"/>
+</test>
+<test id="s1-t7" name="TC-UI-007 Página Precipitación muestra métricas climáticas y gráfico" line="164">
+<kw name="Open And Login As Admin" owner="ui_keywords">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:25:01.008642" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x00000180F9027680&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:25:01.008358" elapsed="0.000322"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:01.008817" elapsed="0.000152"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:01.009101" elapsed="0.000144"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:01.009368" elapsed="0.000134"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:01.009625" elapsed="0.000132"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:01.010105" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T04:25:01.009890" elapsed="1.105841"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:02.116294" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:25:02.116026" elapsed="0.192530"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:25:02.308897" elapsed="0.034292"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T04:25:01.008058" elapsed="1.335237"/>
+</kw>
+<kw name="Login With Credentials" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-27T04:25:02.344118" elapsed="0.013888"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:02.358651" level="INFO">Typing text 'admin@alerto.com' into text field 'id=email'.</msg>
+<arg>id=email</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:02.358308" elapsed="0.078589"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:02.437539" level="INFO">Typing text 'alerto123**' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:02.437196" elapsed="0.056286"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:02.494142" level="INFO">Clicking button 'css:button.btn-primary'.</msg>
+<arg>css:button.btn-primary</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:02.493840" elapsed="0.049021"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:04.044109" level="INFO">Slept 1 second 500 milliseconds.</msg>
+<arg>1.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:02.543149" elapsed="1.501122"/>
+</kw>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASS}</arg>
+<doc>Rellena y envía el formulario de login</doc>
+<status status="PASS" start="2026-05-27T04:25:02.343523" elapsed="1.700900"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:.sidebar</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:25:04.044653" elapsed="0.008009"/>
+</kw>
+<doc>Abre el navegador y hace login como administrador</doc>
+<status status="PASS" start="2026-05-27T04:25:01.007716" elapsed="3.045119"/>
+</kw>
+<kw name="Navigate To Page" owner="ui_keywords">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:04.053694" level="INFO">Opening url 'http://localhost:3000/precipitation'</msg>
+<arg>${FRONTEND_URL}${page_path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:25:04.053540" elapsed="0.085055"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:05.139331" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:04.138781" elapsed="1.000717"/>
+</kw>
+<arg>/precipitation</arg>
+<doc>Navega a la página indicada</doc>
+<status status="PASS" start="2026-05-27T04:25:04.053046" elapsed="1.086598"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:07.140633" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:05.139851" elapsed="2.000946"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:07.147564" level="INFO">${url} = http://localhost:3000/precipitation</msg>
+<var>${url}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.141084" elapsed="0.006538"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:07.148107" level="INFO">URL actual: http://localhost:3000/precipitation</msg>
+<arg>URL actual: ${url}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.147844" elapsed="0.000326"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:07.243633" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-05-27T04:25:07.243785" level="FAIL">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</msg>
+<arg>css:.metric-card, css:[class*="metric"], css:[class*="card"], css:.stat-card</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2026-05-27T04:25:07.148540" elapsed="0.096436">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</status>
+</kw>
+<msg time="2026-05-27T04:25:07.245094" level="INFO">${cards} = False</msg>
+<var>${cards}</var>
+<arg>Page Should Contain Element</arg>
+<arg>css:.metric-card, css:[class*="metric"], css:[class*="card"], css:.stat-card</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.148339" elapsed="0.096771"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:07.245372" level="INFO">Tarjetas de métricas: False</msg>
+<arg>Tarjetas de métricas: ${cards}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.245237" elapsed="0.000163"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:07.325985" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-6.png"&gt;&lt;img src="selenium-screenshot-6.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-05-27T04:25:07.326187" level="FAIL">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</msg>
+<arg>css:.recharts-responsive-container, css:svg, css:canvas, css:[class*="chart"]</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2026-05-27T04:25:07.245586" elapsed="0.082633">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</status>
+</kw>
+<msg time="2026-05-27T04:25:07.328409" level="INFO">${chart} = False</msg>
+<var>${chart}</var>
+<arg>Page Should Contain Element</arg>
+<arg>css:.recharts-responsive-container, css:svg, css:canvas, css:[class*="chart"]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.245484" elapsed="0.082955"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:07.328821" level="INFO">Gráfico presente: False</msg>
+<arg>Gráfico presente: ${chart}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.328617" elapsed="0.000253"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:07.360318" level="INFO">${page_text} = Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Precipitación
+Hola, Administrador
+Usuario
+Salir
+Precipitación
+Datos actuales e histórico de lluvia
+Última hora
+0 mm
+Precipitación 1h
+Últimas 3 h...</msg>
+<var>${page_text}</var>
+<arg>css:body</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.329000" elapsed="0.031375"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Match Regexp" owner="BuiltIn">
+<arg>${page_text}</arg>
+<arg>\\d+(\\.\\d+)?</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.360809" elapsed="0.000351"/>
+</kw>
+<msg time="2026-05-27T04:25:07.361276" level="INFO">${has_numbers} = True</msg>
+<var>${has_numbers}</var>
+<arg>Should Match Regexp</arg>
+<arg>${page_text}</arg>
+<arg>\\d+(\\.\\d+)?</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.360600" elapsed="0.000705"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:07.361769" level="INFO">Números visibles en página: True</msg>
+<arg>Números visibles en página: ${has_numbers}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.361534" elapsed="0.000274"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:25:07.362290" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.362086" elapsed="0.000237"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:07.420629" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-007.png"&gt;&lt;img src="screenshots/TC-UI-007.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.362387" elapsed="0.058319"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:07.420952" level="INFO">Evidencia capturada: TC-UI-007.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.420837" elapsed="0.000136"/>
+</kw>
+<arg>TC-UI-007</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:25:07.361937" elapsed="0.059076"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:07.421164" level="INFO">✓ Página precipitación: tarjetas=False, gráfico=False</msg>
+<arg>✓ Página precipitación: tarjetas=${cards}, gráfico=${chart}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.421075" elapsed="0.000110"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.421376" elapsed="2.120432"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:25:07.421291" elapsed="2.120649"/>
+</kw>
+<doc>RF-IU-003 — Tarjetas de métricas + gráfico de línea visible</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>TC-UI-007</tag>
+<tag>UI</tag>
+<status status="PASS" start="2026-05-27T04:25:01.007124" elapsed="8.534884"/>
+</test>
+<test id="s1-t8" name="TC-UI-008 Página Precipitación muestra histórico de datos" line="192">
+<kw name="Open And Login As Admin" owner="ui_keywords">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:25:09.543833" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x00000180FA5C4050&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:25:09.543575" elapsed="0.000291"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:09.543981" elapsed="0.000124"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:09.544221" elapsed="0.000116"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:09.544433" elapsed="0.000111"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:09.544637" elapsed="0.000125"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:09.545019" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T04:25:09.544868" elapsed="0.630594"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:10.175968" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:25:10.175723" elapsed="0.176805"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:25:10.352940" elapsed="0.035296"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T04:25:09.543330" elapsed="0.845096"/>
+</kw>
+<kw name="Login With Credentials" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-27T04:25:10.389247" elapsed="0.016199"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:10.406215" level="INFO">Typing text 'admin@alerto.com' into text field 'id=email'.</msg>
+<arg>id=email</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:10.405828" elapsed="0.094490"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:10.501142" level="INFO">Typing text 'alerto123**' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:10.500772" elapsed="0.055189"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:10.556679" level="INFO">Clicking button 'css:button.btn-primary'.</msg>
+<arg>css:button.btn-primary</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:10.556359" elapsed="0.100533"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:12.157532" level="INFO">Slept 1 second 500 milliseconds.</msg>
+<arg>1.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:10.657125" elapsed="1.500573"/>
+</kw>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASS}</arg>
+<doc>Rellena y envía el formulario de login</doc>
+<status status="PASS" start="2026-05-27T04:25:10.388731" elapsed="1.769109"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:.sidebar</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:25:12.158056" elapsed="0.014737"/>
+</kw>
+<doc>Abre el navegador y hace login como administrador</doc>
+<status status="PASS" start="2026-05-27T04:25:09.542980" elapsed="2.629927"/>
+</kw>
+<kw name="Navigate To Page" owner="ui_keywords">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:12.173518" level="INFO">Opening url 'http://localhost:3000/precipitation'</msg>
+<arg>${FRONTEND_URL}${page_path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:25:12.173384" elapsed="0.086711"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:13.260663" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:12.260359" elapsed="1.000456"/>
+</kw>
+<arg>/precipitation</arg>
+<doc>Navega a la página indicada</doc>
+<status status="PASS" start="2026-05-27T04:25:12.173070" elapsed="1.087883"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:15.261878" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:13.261150" elapsed="2.000899"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:15.353096" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-7.png"&gt;&lt;img src="selenium-screenshot-7.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-05-27T04:25:15.353299" level="FAIL">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</msg>
+<arg>css:svg, css:canvas, css:[class*="chart"], css:table</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2026-05-27T04:25:15.263135" elapsed="0.091543">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</status>
+</kw>
+<msg time="2026-05-27T04:25:15.354779" level="INFO">${prec_ok} = False</msg>
+<var>${prec_ok}</var>
+<arg>Page Should Contain Element</arg>
+<arg>css:svg, css:canvas, css:[class*="chart"], css:table</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:25:15.262338" elapsed="0.092455"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:15.355012" level="INFO">Visualización de datos presente: False</msg>
+<arg>Visualización de datos presente: ${prec_ok}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:15.354897" elapsed="0.000139"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:15.384629" level="INFO">${page_text} = Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Precipitación
+Hola, Administrador
+Usuario
+Salir
+Precipitación
+Datos actuales e histórico de lluvia
+Última hora
+0 mm
+Precipitación 1h
+Últimas 3 h...</msg>
+<var>${page_text}</var>
+<arg>css:body</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:15.355115" elapsed="0.029546"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Match Regexp" owner="BuiltIn">
+<arg>${page_text}</arg>
+<arg>(72h|72 h|histórico|histór|history|últimas)</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<status status="PASS" start="2026-05-27T04:25:15.384902" elapsed="0.000178"/>
+</kw>
+<msg time="2026-05-27T04:25:15.385145" level="INFO">${has_hours} = True</msg>
+<var>${has_hours}</var>
+<arg>Should Match Regexp</arg>
+<arg>${page_text}</arg>
+<arg>(72h|72 h|histórico|histór|history|últimas)</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:25:15.384793" elapsed="0.000364"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:15.385293" level="INFO">Indicador de histórico presente: True</msg>
+<arg>Indicador de histórico presente: ${has_hours}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:15.385212" elapsed="0.000101"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:25:15.385712" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:25:15.385519" elapsed="0.000219"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:15.468921" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-008.png"&gt;&lt;img src="screenshots/TC-UI-008.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:25:15.385801" elapsed="0.083253"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:15.469564" level="INFO">Evidencia capturada: TC-UI-008.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:15.469294" elapsed="0.000341"/>
+</kw>
+<arg>TC-UI-008</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:25:15.385397" elapsed="0.084331"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:15.470003" level="INFO">✓ Página de precipitación con datos históricos</msg>
+<arg>✓ Página de precipitación con datos históricos</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:15.469863" elapsed="0.000191"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T04:25:15.470488" elapsed="2.103126"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:25:15.470291" elapsed="2.103476"/>
+</kw>
+<doc>RF-IU-003 — Histórico de precipitación disponible en la vista</doc>
+<tag>Funcional</tag>
+<tag>Media</tag>
+<tag>TC-UI-008</tag>
+<tag>UI</tag>
+<status status="PASS" start="2026-05-27T04:25:09.542357" elapsed="8.031481"/>
+</test>
+<test id="s1-t9" name="TC-UI-009 Página Riesgo muestra nivel de alerta actual" line="212">
+<kw name="Open And Login As Admin" owner="ui_keywords">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:25:17.575647" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x00000180FA608050&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:25:17.575372" elapsed="0.000308"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:17.575804" elapsed="0.000142"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:17.576071" elapsed="0.000129"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:17.576311" elapsed="0.000122"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:17.576538" elapsed="0.000117"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:17.576956" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T04:25:17.576780" elapsed="0.585845"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:18.162937" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:25:18.162794" elapsed="0.158783"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:25:18.321761" elapsed="0.034122"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T04:25:17.575101" elapsed="0.780916"/>
+</kw>
+<kw name="Login With Credentials" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-27T04:25:18.356544" elapsed="0.013346"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:18.370518" level="INFO">Typing text 'admin@alerto.com' into text field 'id=email'.</msg>
+<arg>id=email</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:18.370185" elapsed="0.086647"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:18.457513" level="INFO">Typing text 'alerto123**' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:18.457132" elapsed="0.054283"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:18.512184" level="INFO">Clicking button 'css:button.btn-primary'.</msg>
+<arg>css:button.btn-primary</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:18.511915" elapsed="0.045871"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:20.058414" level="INFO">Slept 1 second 500 milliseconds.</msg>
+<arg>1.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:18.557938" elapsed="1.500627"/>
+</kw>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASS}</arg>
+<doc>Rellena y envía el formulario de login</doc>
+<status status="PASS" start="2026-05-27T04:25:18.356205" elapsed="1.702497"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:.sidebar</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:25:20.059195" elapsed="0.007667"/>
+</kw>
+<doc>Abre el navegador y hace login como administrador</doc>
+<status status="PASS" start="2026-05-27T04:25:17.574771" elapsed="2.492217"/>
+</kw>
+<kw name="Navigate To Page" owner="ui_keywords">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:20.068172" level="INFO">Opening url 'http://localhost:3000/risk'</msg>
+<arg>${FRONTEND_URL}${page_path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:25:20.067915" elapsed="0.086306"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:21.155227" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:20.154499" elapsed="1.000875"/>
+</kw>
+<arg>/risk</arg>
+<doc>Navega a la página indicada</doc>
+<status status="PASS" start="2026-05-27T04:25:20.067185" elapsed="1.088342"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:23.156383" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:21.155744" elapsed="2.000805"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:23.213725" level="INFO">${page_text} = Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Riesgo
+Hola, Administrador
+Usuario
+Salir
+Riesgo
+Nivel de riesgo actual e histórico
+Nivel de Riesgo
+AMARILLO
+Score: 36%
+Nivel de Lluvia
+0.16
+Últi...</msg>
+<var>${page_text}</var>
+<arg>css:body</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.156798" elapsed="0.056962"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:23.214242" level="INFO">Texto en página /risk: Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Riesgo
+Hola, Administrador
+Usuario
+Salir
+Riesgo
+Nivel de riesgo actual e histórico
+Nivel de Riesgo
+AMARILLO
+Score: 36%
+Nivel de Lluvia
+0.16
+Últi</msg>
+<arg>Texto en página /risk: ${page_text[:200]}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.213895" elapsed="0.000374"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-05-27T04:25:23.214583" level="FAIL">'Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Riesgo
+Hola, Administrador
+Usuario
+Salir
+Riesgo
+Nivel de riesgo actual e histórico
+Nivel de Riesgo
+AMARILLO
+Score: 36%
+Nivel de Lluvia
+0.16
+Última evaluación: 27/5/2026, 4:25:06
+Histórico de Riesgo (últimos 50 registros)
+FECHA Y HORA NIVEL SCORE PRECIP. 1H HUMEDAD 6H
+27/5/2026, 4:25:06
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 4:25:04
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 4:24:51
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 4:24:48
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 4:24:38
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:53:42
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:53:40
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:53:08
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:53:02
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:52:53
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:52:46
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:52:39
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:49:54
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:46:43
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:45:40
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:45:39
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:45:04
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:45:03
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:44:48
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:44:47
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 22:22:36
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 22:22:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 22:22:08
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 21:46:24
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 21:46:09
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 21:46:07
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 21:45:57
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:32:30
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:29:43
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:29:35
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:28:45
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:28:32
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:15:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:02:25
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 19:45:25
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 19:38:04
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 19:36:01
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 17:15:19
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 17:00:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 16:45:18
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 16:30:18
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 16:15:18
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 16:00:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 15:45:19
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 15:30:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 15:15:19
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 15:00:23
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 14:45:23
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 14:30:27
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 14:15:24
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 14:00:25
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 13:45:19
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 13:42:59
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 13:40:59
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 13:40:55
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 12:45:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 12:30:19
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 12:15:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 12:00:22
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 11:45:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 11:30:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 11:15:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 11:00:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 10:45:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 10:30:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 10:15:22
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 8:25:09
+NARANJA
+61% 0.0 mm 0%' does not contain 'VERDE'</msg>
+<arg>${page_text}</arg>
+<arg>VERDE</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-05-27T04:25:23.214425" elapsed="0.000224">'Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Riesgo
+Hola, Administrador
+Usuario
+Salir
+Riesgo
+Nivel de riesgo actual e histórico
+Nivel de Riesgo
+AMARILLO
+Score: 36%
+Nivel de Lluvia
+0.16
+Última evaluación: 27/5/2026, 4:25:06
+Histórico de Riesgo (últimos 50 registros)
+FECHA Y HORA NIVEL SCORE PRECIP. 1H HUMEDAD 6H
+27/5/2026, 4:25:06
+    [ Message content over the limit has been removed. ]
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 11:15:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 11:00:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 10:45:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 10:30:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 10:15:22
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 8:25:09
+NARANJA
+61% 0.0 mm 0%' does not contain 'VERDE'</status>
+</kw>
+<msg time="2026-05-27T04:25:23.214701" level="INFO">${has_verde} = False</msg>
+<var>${has_verde}</var>
+<arg>Should Contain</arg>
+<arg>${page_text}</arg>
+<arg>VERDE</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.214343" elapsed="0.000369"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${page_text}</arg>
+<arg>AMARILLO</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.214831" elapsed="0.000058"/>
+</kw>
+<msg time="2026-05-27T04:25:23.214928" level="INFO">${has_amar} = True</msg>
+<var>${has_amar}</var>
+<arg>Should Contain</arg>
+<arg>${page_text}</arg>
+<arg>AMARILLO</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.214767" elapsed="0.000171"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${page_text}</arg>
+<arg>NARANJA</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.215058" elapsed="0.000067"/>
+</kw>
+<msg time="2026-05-27T04:25:23.215162" level="INFO">${has_nar} = True</msg>
+<var>${has_nar}</var>
+<arg>Should Contain</arg>
+<arg>${page_text}</arg>
+<arg>NARANJA</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.214999" elapsed="0.000173"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-05-27T04:25:23.215397" level="FAIL">'Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Riesgo
+Hola, Administrador
+Usuario
+Salir
+Riesgo
+Nivel de riesgo actual e histórico
+Nivel de Riesgo
+AMARILLO
+Score: 36%
+Nivel de Lluvia
+0.16
+Última evaluación: 27/5/2026, 4:25:06
+Histórico de Riesgo (últimos 50 registros)
+FECHA Y HORA NIVEL SCORE PRECIP. 1H HUMEDAD 6H
+27/5/2026, 4:25:06
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 4:25:04
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 4:24:51
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 4:24:48
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 4:24:38
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:53:42
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:53:40
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:53:08
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:53:02
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:52:53
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:52:46
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:52:39
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:49:54
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:46:43
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:45:40
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:45:39
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:45:04
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:45:03
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:44:48
+AMARILLO
+36% 0.0 mm 0%
+27/5/2026, 3:44:47
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 22:22:36
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 22:22:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 22:22:08
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 21:46:24
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 21:46:09
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 21:46:07
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 21:45:57
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:32:30
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:29:43
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:29:35
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:28:45
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:28:32
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:15:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 20:02:25
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 19:45:25
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 19:38:04
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 19:36:01
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 17:15:19
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 17:00:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 16:45:18
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 16:30:18
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 16:15:18
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 16:00:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 15:45:19
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 15:30:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 15:15:19
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 15:00:23
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 14:45:23
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 14:30:27
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 14:15:24
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 14:00:25
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 13:45:19
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 13:42:59
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 13:40:59
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 13:40:55
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 12:45:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 12:30:19
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 12:15:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 12:00:22
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 11:45:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 11:30:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 11:15:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 11:00:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 10:45:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 10:30:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 10:15:22
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 8:25:09
+NARANJA
+61% 0.0 mm 0%' does not contain 'ROJO'</msg>
+<arg>${page_text}</arg>
+<arg>ROJO</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-05-27T04:25:23.215277" elapsed="0.000162">'Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Riesgo
+Hola, Administrador
+Usuario
+Salir
+Riesgo
+Nivel de riesgo actual e histórico
+Nivel de Riesgo
+AMARILLO
+Score: 36%
+Nivel de Lluvia
+0.16
+Última evaluación: 27/5/2026, 4:25:06
+Histórico de Riesgo (últimos 50 registros)
+FECHA Y HORA NIVEL SCORE PRECIP. 1H HUMEDAD 6H
+27/5/2026, 4:25:06
+    [ Message content over the limit has been removed. ]
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 11:15:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 11:00:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 10:45:20
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 10:30:21
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 10:15:22
+AMARILLO
+36% 0.0 mm 0%
+26/5/2026, 8:25:09
+NARANJA
+61% 0.0 mm 0%' does not contain 'ROJO'</status>
+</kw>
+<msg time="2026-05-27T04:25:23.215483" level="INFO">${has_rojo} = False</msg>
+<var>${has_rojo}</var>
+<arg>Should Contain</arg>
+<arg>${page_text}</arg>
+<arg>ROJO</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.215220" elapsed="0.000273"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:25:23.215655" level="INFO">${level_visible} = True</msg>
+<var>${level_visible}</var>
+<arg>${has_verde} or ${has_amar} or ${has_nar} or ${has_rojo}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.215542" elapsed="0.000124"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${level_visible}</arg>
+<arg>msg=Ningún nivel de riesgo (VERDE/AMARILLO/NARANJA/ROJO) visible en /risk</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.215712" elapsed="0.000078"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:25:23.216158" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.215982" elapsed="0.000204"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:23.294162" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-009.png"&gt;&lt;img src="screenshots/TC-UI-009.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.216248" elapsed="0.078049"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:23.294795" level="INFO">Evidencia capturada: TC-UI-009.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.294527" elapsed="0.000326"/>
+</kw>
+<arg>TC-UI-009</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:25:23.215870" elapsed="0.079083"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:23.295384" level="INFO">✓ Nivel de riesgo visible: VERDE=False AMARILLO=True NARANJA=True ROJO=False</msg>
+<arg>✓ Nivel de riesgo visible: VERDE=${has_verde} AMARILLO=${has_amar} NARANJA=${has_nar} ROJO=${has_rojo}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.295096" elapsed="0.000363"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.295908" elapsed="2.112559"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:25:23.295710" elapsed="2.112902"/>
+</kw>
+<doc>RF-IU-004 — Nivel de riesgo (VERDE/AMARILLO/NARANJA/ROJO) visible</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>TC-UI-009</tag>
+<tag>UI</tag>
+<status status="PASS" start="2026-05-27T04:25:17.574217" elapsed="7.834476"/>
+</test>
+<test id="s1-t10" name="TC-UI-010 Tabla histórico de riesgo tiene registros" line="232">
+<kw name="Open And Login As Admin" owner="ui_keywords">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:25:25.410459" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x00000180F90BB450&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:25:25.410193" elapsed="0.000303"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:25.410626" elapsed="0.000138"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:25.410881" elapsed="0.000133"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:25.411127" elapsed="0.000125"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:25.411365" elapsed="0.000232"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:25.412371" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T04:25:25.411871" elapsed="1.111665"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:26.523941" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:25:26.523752" elapsed="0.177408"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:25:26.701400" elapsed="0.034474"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T04:25:25.409916" elapsed="1.326098"/>
+</kw>
+<kw name="Login With Credentials" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-27T04:25:26.736596" elapsed="0.013929"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:26.751219" level="INFO">Typing text 'admin@alerto.com' into text field 'id=email'.</msg>
+<arg>id=email</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:26.750859" elapsed="0.085969"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:26.837509" level="INFO">Typing text 'alerto123**' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:26.837139" elapsed="0.058941"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:26.897050" level="INFO">Clicking button 'css:button.btn-primary'.</msg>
+<arg>css:button.btn-primary</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:26.896628" elapsed="0.053649"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:28.451766" level="INFO">Slept 1 second 500 milliseconds.</msg>
+<arg>1.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:26.950611" elapsed="1.501293"/>
+</kw>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASS}</arg>
+<doc>Rellena y envía el formulario de login</doc>
+<status status="PASS" start="2026-05-27T04:25:26.736228" elapsed="1.715807"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:.sidebar</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:25:28.452252" elapsed="0.009451"/>
+</kw>
+<doc>Abre el navegador y hace login como administrador</doc>
+<status status="PASS" start="2026-05-27T04:25:25.409616" elapsed="3.052215"/>
+</kw>
+<kw name="Navigate To Page" owner="ui_keywords">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:28.462828" level="INFO">Opening url 'http://localhost:3000/risk'</msg>
+<arg>${FRONTEND_URL}${page_path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:25:28.462647" elapsed="0.087844"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:29.551055" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:28.550653" elapsed="1.000557"/>
+</kw>
+<arg>/risk</arg>
+<doc>Navega a la página indicada</doc>
+<status status="PASS" start="2026-05-27T04:25:28.462035" elapsed="1.089311"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:31.551937" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:29.551576" elapsed="2.000514"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:31.643640" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-8.png"&gt;&lt;img src="selenium-screenshot-8.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-05-27T04:25:31.643835" level="FAIL">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</msg>
+<arg>css:table, css:[class*="table"], css:tbody</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2026-05-27T04:25:31.552630" elapsed="0.093875">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</status>
+</kw>
+<msg time="2026-05-27T04:25:31.646630" level="INFO">${has_table} = False</msg>
+<var>${has_table}</var>
+<arg>Page Should Contain Element</arg>
+<arg>css:table, css:[class*="table"], css:tbody</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:25:31.552373" elapsed="0.094275"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:31.721006" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-9.png"&gt;&lt;img src="selenium-screenshot-9.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-05-27T04:25:31.721143" level="FAIL">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</msg>
+<arg>css:tr, css:li, css:[class*="row"]</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="FAIL" start="2026-05-27T04:25:31.646917" elapsed="0.075483">InvalidSelectorException: Message: invalid selector: An invalid or illegal selector was specified
+  (Session info: chrome=148.0.7778.179); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidselectorexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff617ac7de5+14895]
+	chromedriver!GetHandleVerifier [0x7ff617ac7e50+14900]
+	chromedriver!(No symbol) [0x7ff61782d5ad]
+	chromedriver!(No symbol) [0x7ff617835521]
+	chromedriver!(No symbol) [0x7ff6178385e5]
+	chromedriver!(No symbol) [0x7ff6178386af]
+	chromedriver!(No symbol) [0x7ff617886f9e]
+	chromedriver!(No symbol) [0x7ff617887b2c]
+	chromedriver!(No symbol) [0x7ff6178d7d47]
+	chromedriver!(No symbol) [0x7ff6178d486f]
+	chromedriver!(No symbol) [0x7ff617879df8]
+	chromedriver!(No symbol) [0x7ff61787ace3]
+	chromedriver!GetHandleVerifier [0x7ff617ddcc49+3296f9]
+	chromedriver!GetHandleVerifier [0x7ff617dd7375+323e25]
+	chromedriver!GetHandleVerifier [0x7ff617dfbc82+348732]
+	chromedriver!GetHandleVerifier [0x7ff617ae6045+32af5]
+	chromedriver!GetHandleVerifier [0x7ff617aeecec+3b79c]
+	chromedriver!GetHandleVerifier [0x7ff617ad1bc4+1e674]
+	chromedriver!GetHandleVerifier [0x7ff617ad1d54+1e804]
+	chromedriver!GetHandleVerifier [0x7ff617ab60e7+2b97]
+	KERNEL32!BaseThreadInitThunk [0x7ffad4ace957+17]
+	ntdll!RtlUserThreadStart [0x7ffad664427c+2c]
+</status>
+</kw>
+<msg time="2026-05-27T04:25:31.722518" level="INFO">${has_rows} = False</msg>
+<var>${has_rows}</var>
+<arg>Page Should Contain Element</arg>
+<arg>css:tr, css:li, css:[class*="row"]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:25:31.646784" elapsed="0.075750"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:31.722794" level="INFO">Tabla presente: False, Filas: False</msg>
+<arg>Tabla presente: ${has_table}, Filas: ${has_rows}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:31.722657" elapsed="0.000165"/>
+</kw>
+<if>
+<branch type="IF" condition="${has_table}">
+<kw name="Get WebElements" owner="SeleniumLibrary">
+<var>@{rows}</var>
+<arg>css:tbody tr, css:table tr</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<status status="NOT RUN" start="2026-05-27T04:25:31.722981" elapsed="0.000015"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<var>${row_count}</var>
+<arg>${rows}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="NOT RUN" start="2026-05-27T04:25:31.723057" elapsed="0.000014"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Filas en tabla: ${row_count}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T04:25:31.723124" elapsed="0.000012"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${row_count} &gt; 0</arg>
+<arg>msg=La tabla no tiene filas de datos</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2026-05-27T04:25:31.723188" elapsed="0.000013"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T04:25:31.722884" elapsed="0.000340"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:31.723355" level="WARN">No hay tabla HTML, verificando presencia de datos en la página</msg>
+<arg>No hay tabla HTML, verificando presencia de datos en la página</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:31.723294" elapsed="0.000152"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:31.784531" level="INFO">${page_text} = Precipitación
+Riesgo
+Alertas
+Simulador
+Sistema en línea
+Riesgo
+Hola, Administrador
+Usuario
+Salir
+Riesgo
+Nivel de riesgo actual e histórico
+Nivel de Riesgo
+AMARILLO
+Score: 36%
+Nivel de Lluvia
+0.16
+Últi...</msg>
+<var>${page_text}</var>
+<arg>css:body</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:31.723511" elapsed="0.061081"/>
+</kw>
+<kw name="Should Match Regexp" owner="BuiltIn">
+<arg>${page_text}</arg>
+<arg>(VERDE|AMARILLO|NARANJA|ROJO)</arg>
+<arg>msg=No hay datos de riesgo visibles en la página</arg>
+<doc>Fails if ``string`` does not match ``pattern`` as a regular expression.</doc>
+<status status="PASS" start="2026-05-27T04:25:31.784829" elapsed="0.000398"/>
+</kw>
+<status status="PASS" start="2026-05-27T04:25:31.723247" elapsed="0.062048"/>
+</branch>
+<status status="PASS" start="2026-05-27T04:25:31.722868" elapsed="0.062482"/>
+</if>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:25:31.786041" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:25:31.785798" elapsed="0.000278"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:31.848916" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-010.png"&gt;&lt;img src="screenshots/TC-UI-010.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:25:31.786151" elapsed="0.062906"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:31.849513" level="INFO">Evidencia capturada: TC-UI-010.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:31.849286" elapsed="0.000280"/>
+</kw>
+<arg>TC-UI-010</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:25:31.785513" elapsed="0.064142"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:31.849928" level="INFO">✓ Datos históricos de riesgo visibles</msg>
+<arg>✓ Datos históricos de riesgo visibles</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:31.849794" elapsed="0.000181"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T04:25:31.850377" elapsed="2.105570"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:25:31.850199" elapsed="2.105908"/>
+</kw>
+<doc>RF-IU-004 — Tabla con historial de evaluaciones de riesgo visible</doc>
+<tag>Media</tag>
+<tag>TC-UI-010</tag>
+<tag>UI</tag>
+<tag>Visual</tag>
+<status status="PASS" start="2026-05-27T04:25:25.409074" elapsed="8.547123"/>
+</test>
+<test id="s1-t11" name="TC-UI-011 Aplicación carga correctamente en Chrome" line="259">
+<kw name="Open And Login As Admin" owner="ui_keywords">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:25:33.958179" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x00000180F901B890&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:25:33.957885" elapsed="0.000332"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:33.958359" elapsed="0.000156"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:33.958646" elapsed="0.000152"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:33.958964" elapsed="0.000155"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:33.959250" elapsed="0.000139"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:33.959780" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T04:25:33.959570" elapsed="1.142273"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:35.102162" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:25:35.102018" elapsed="0.187992"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:25:35.290321" elapsed="0.041414"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T04:25:33.957583" elapsed="1.374350"/>
+</kw>
+<kw name="Login With Credentials" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-27T04:25:35.332937" elapsed="0.015576"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:35.349247" level="INFO">Typing text 'admin@alerto.com' into text field 'id=email'.</msg>
+<arg>id=email</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:35.348847" elapsed="0.105390"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:35.454906" level="INFO">Typing text 'alerto123**' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:35.454556" elapsed="0.056301"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:35.511454" level="INFO">Clicking button 'css:button.btn-primary'.</msg>
+<arg>css:button.btn-primary</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:35.511160" elapsed="0.051790"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:37.063719" level="INFO">Slept 1 second 500 milliseconds.</msg>
+<arg>1.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:35.563207" elapsed="1.500964"/>
+</kw>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASS}</arg>
+<doc>Rellena y envía el formulario de login</doc>
+<status status="PASS" start="2026-05-27T04:25:35.332278" elapsed="1.732150"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:.sidebar</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:25:37.064698" elapsed="0.027495"/>
+</kw>
+<doc>Abre el navegador y hace login como administrador</doc>
+<status status="PASS" start="2026-05-27T04:25:33.957220" elapsed="3.135114"/>
+</kw>
+<kw name="Navigate To Page" owner="ui_keywords">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:37.092854" level="INFO">Opening url 'http://localhost:3000/precipitation'</msg>
+<arg>${FRONTEND_URL}${page_path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:25:37.092735" elapsed="0.083918"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:38.178229" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:37.177601" elapsed="1.000794"/>
+</kw>
+<arg>/precipitation</arg>
+<doc>Navega a la página indicada</doc>
+<status status="PASS" start="2026-05-27T04:25:37.092503" elapsed="1.086039"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:40.179437" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:38.178757" elapsed="2.000821"/>
+</kw>
+<kw name="Get Location" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:40.184078" level="INFO">${url} = http://localhost:3000/precipitation</msg>
+<var>${url}</var>
+<doc>Returns the current browser window URL.</doc>
+<status status="PASS" start="2026-05-27T04:25:40.179820" elapsed="0.004318"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:40.184368" level="INFO">URL después de navegar a /precipitation: http://localhost:3000/precipitation</msg>
+<arg>URL después de navegar a /precipitation: ${url}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:40.184252" elapsed="0.000140"/>
+</kw>
+<kw name="Get Title" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:40.187960" level="INFO">${title} = Alerto</msg>
+<var>${title}</var>
+<doc>Returns the title of the current page.</doc>
+<status status="PASS" start="2026-05-27T04:25:40.184456" elapsed="0.003551"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:40.188364" level="INFO">Título de página: Alerto</msg>
+<arg>Título de página: ${title}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:40.188170" elapsed="0.000243"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:25:40.189153" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:25:40.188844" elapsed="0.000371"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:40.283798" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-011_chrome.png"&gt;&lt;img src="screenshots/TC-UI-011_chrome.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:25:40.189353" elapsed="0.094576"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:40.284397" level="INFO">Evidencia capturada: TC-UI-011_chrome.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:40.284154" elapsed="0.000306"/>
+</kw>
+<arg>TC-UI-011_chrome</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:25:40.188592" elapsed="0.095970"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:40.284849" level="INFO">✓ Chrome: carga correcta</msg>
+<arg>✓ Chrome: carga correcta</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:40.284714" elapsed="0.000192"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:40.285210" level="WARN">NOTA: Firefox y Edge requieren drivers adicionales.</msg>
+<arg>NOTA: Firefox y Edge requieren drivers adicionales.</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:40.285073" elapsed="0.000300"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T04:25:40.285818" elapsed="2.100764"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:25:40.285621" elapsed="2.101103"/>
+</kw>
+<doc>RF-IH-001, RNF-PORT-002 — Login y navegación funcionan en Chrome</doc>
+<tag>Alta</tag>
+<tag>Compatibilidad</tag>
+<tag>TC-UI-011</tag>
+<tag>UI</tag>
+<status status="PASS" start="2026-05-27T04:25:33.956610" elapsed="8.430194"/>
+</test>
+<test id="s1-t12" name="TC-UI-012 Campana de notificaciones o elemento de alerta está presente" line="275">
+<kw name="Open And Login As Admin" owner="ui_keywords">
+<kw name="Open Alerto Browser" owner="ui_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T04:25:42.388517" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x00000180F901BB60&gt;</msg>
+<var>${options}</var>
+<arg>__import__('selenium.webdriver').webdriver.chrome.options.Options()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T04:25:42.388243" elapsed="0.000309"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--start-maximized</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:42.388685" elapsed="0.000140"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-notifications</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:42.389373" elapsed="0.000347"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:42.389916" elapsed="0.000160"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-05-27T04:25:42.390330" elapsed="0.000160"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:42.390829" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-05-27T04:25:42.390633" elapsed="1.081443"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:43.472525" level="INFO">Opening url 'http://localhost:3000/login'</msg>
+<arg>${FRONTEND_URL}${path}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-05-27T04:25:43.472310" elapsed="0.168303"/>
+</kw>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1366</arg>
+<arg>768</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="PASS" start="2026-05-27T04:25:43.640852" elapsed="0.027688"/>
+</kw>
+<arg>/login</arg>
+<doc>Abre Chrome navegando a la URL indicada</doc>
+<status status="PASS" start="2026-05-27T04:25:42.387945" elapsed="1.280744"/>
+</kw>
+<kw name="Login With Credentials" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=email</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-27T04:25:43.669307" elapsed="0.012559"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:43.682448" level="INFO">Typing text 'admin@alerto.com' into text field 'id=email'.</msg>
+<arg>id=email</arg>
+<arg>${email}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:43.682135" elapsed="0.080431"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:43.763187" level="INFO">Typing text 'alerto123**' into text field 'id=password'.</msg>
+<arg>id=password</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:43.762859" elapsed="0.056975"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:43.820502" level="INFO">Clicking button 'css:button.btn-primary'.</msg>
+<arg>css:button.btn-primary</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:43.820147" elapsed="0.043727"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:45.364770" level="INFO">Slept 1 second 500 milliseconds.</msg>
+<arg>1.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:43.864156" elapsed="1.501053"/>
+</kw>
+<arg>${ADMIN_EMAIL}</arg>
+<arg>${ADMIN_PASS}</arg>
+<doc>Rellena y envía el formulario de login</doc>
+<status status="PASS" start="2026-05-27T04:25:43.668909" elapsed="1.696453"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>css:.sidebar</arg>
+<arg>timeout=${UI_TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:25:45.365571" elapsed="0.013469"/>
+</kw>
+<doc>Abre el navegador y hace login como administrador</doc>
+<status status="PASS" start="2026-05-27T04:25:42.387637" elapsed="2.991506"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:46.379586" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:45.379269" elapsed="1.000471"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:46.394208" level="INFO">Current page contains element 'xpath=//button[@aria-label[contains(.,'otificaci')] or @title[contains(.,'otificaci')] or contains(@class,'bell') or contains(@class,'notif')]'.</msg>
+<arg>xpath=//button[@aria-label[contains(.,'otificaci')] or @title[contains(.,'otificaci')] or contains(@class,'bell') or contains(@class,'notif')]</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="PASS" start="2026-05-27T04:25:46.380306" elapsed="0.014116"/>
+</kw>
+<msg time="2026-05-27T04:25:46.394594" level="INFO">${bell_present} = True</msg>
+<var>${bell_present}</var>
+<arg>Page Should Contain Element</arg>
+<arg>xpath=//button[@aria-label[contains(.,'otificaci')] or @title[contains(.,'otificaci')] or contains(@class,'bell') or contains(@class,'notif')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-05-27T04:25:46.380031" elapsed="0.014595"/>
+</kw>
+<if>
+<branch type="IF" condition="not ${bell_present}">
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${bell_present}</var>
+<arg>Page Should Contain Element</arg>
+<arg>css:[class*="notif"], css:[class*="bell"], css:[class*="alert-btn"]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2026-05-27T04:25:46.395119" elapsed="0.000039"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T04:25:46.394773" elapsed="0.000443"/>
+</branch>
+<status status="PASS" start="2026-05-27T04:25:46.394740" elapsed="0.000523"/>
+</if>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:46.395616" level="INFO">Elemento de notificación presente: True</msg>
+<arg>Elemento de notificación presente: ${bell_present}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:46.395377" elapsed="0.000293"/>
+</kw>
+<if>
+<branch type="IF" condition="${bell_present}">
+<kw name="Get WebElement" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:46.418126" level="INFO">${bell_el} = &lt;selenium.webdriver.remote.webelement.WebElement (session="b40078097997003a3bd98e8ded9cafb0", element="f.E81378375858574F638C99CA8E48E313.d.646B6C91EDED4F4A6D432A3D4D179385.e.23")&gt;</msg>
+<var>${bell_el}</var>
+<arg>xpath=//button[@aria-label[contains(.,'otificaci')] or @title[contains(.,'otificaci')] or contains(@class,'bell') or contains(@class,'notif')]</arg>
+<doc>Returns the first WebElement matching the given ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:46.395922" elapsed="0.022261"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:46.419110" level="INFO">Clicking element '&lt;selenium.webdriver.remote.webelement.WebElement (session="b40078097997003a3bd98e8ded9cafb0", element="f.E81378375858574F638C99CA8E48E313.d.646B6C91EDED4F4A6D432A3D4D179385.e.23")&gt;'.</msg>
+<arg>${bell_el}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-27T04:25:46.418702" elapsed="0.040565"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T04:25:46.959831" level="INFO">Slept 500 milliseconds.</msg>
+<arg>0.5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T04:25:46.459418" elapsed="0.500586"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2026-05-27T04:25:46.961119" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots"&gt;C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\results\8e0a69b0\screenshots&lt;/a&gt;' already exists.</msg>
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-05-27T04:25:46.960703" elapsed="0.000502"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2026-05-27T04:25:47.036387" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="screenshots/TC-UI-012_open.png"&gt;&lt;img src="screenshots/TC-UI-012_open.png" width="800px"&gt;&lt;/a&gt;</msg>
+<arg>filename=${SCREENSHOTS_DIR}/${tc_id}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2026-05-27T04:25:46.961370" elapsed="0.075096"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:47.037195" level="INFO">Evidencia capturada: TC-UI-012_open.png</msg>
+<arg>Evidencia capturada: ${tc_id}.png</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:47.036769" elapsed="0.000502"/>
+</kw>
+<arg>TC-UI-012_open</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="PASS" start="2026-05-27T04:25:46.960350" elapsed="0.077068"/>
+</kw>
+<status status="PASS" start="2026-05-27T04:25:46.395760" elapsed="0.641723"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log" owner="BuiltIn">
+<arg>Campana no encontrada con selectores conocidos — verificando header</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T04:25:47.037705" elapsed="0.000034"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${header_el}</var>
+<arg>Page Should Contain Element</arg>
+<arg>css:header button, css:nav button</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2026-05-27T04:25:47.037890" elapsed="0.000031"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Botones en header: ${header_el}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T04:25:47.038044" elapsed="0.000028"/>
+</kw>
+<kw name="Capture Evidence Screenshot" owner="ui_keywords">
+<arg>TC-UI-012</arg>
+<doc>Captura screenshot de evidencia con nombre basado en el TC ID</doc>
+<status status="NOT RUN" start="2026-05-27T04:25:47.038256" elapsed="0.000034"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T04:25:47.037548" elapsed="0.000790"/>
+</branch>
+<status status="PASS" start="2026-05-27T04:25:46.395743" elapsed="0.642639"/>
+</if>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:47.038636" level="INFO">✓ TC-UI-012 completado</msg>
+<arg>✓ TC-UI-012 completado</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:47.038489" elapsed="0.000201"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-27T04:25:47.039130" elapsed="2.102002"/>
+</kw>
+<arg>SeleniumLibrary.Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:25:47.038937" elapsed="2.102378"/>
+</kw>
+<doc>RF-IU-001, RF-008 — Elemento de notificación accesible en el header</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>TC-UI-012</tag>
+<tag>UI</tag>
+<status status="PASS" start="2026-05-27T04:25:42.387167" elapsed="6.754232"/>
+</test>
+<kw name="Teardown Suite UI" type="TEARDOWN">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T04:25:49.142837" level="INFO">=== Suite UI completada ===</msg>
+<arg>=== Suite UI completada ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T04:25:49.142666" elapsed="0.000221"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2026-05-27T04:25:49.143296" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-05-27T04:25:49.143206" elapsed="0.000191"/>
+</kw>
+<arg>Delete All Sessions</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T04:25:49.143024" elapsed="0.000439"/>
+</kw>
+<status status="PASS" start="2026-05-27T04:25:49.142360" elapsed="0.001166"/>
+</kw>
+<doc>MÓDULO INTERFAZ DE USUARIO — TC-UI-001 al TC-UI-012
+Requisitos: RF-IU-001 a RF-IU-004, RF-IH-001, RNF-PORT-002</doc>
+<status status="PASS" start="2026-05-27T04:24:23.224921" elapsed="85.918655"/>
+</suite>
+<statistics>
+<total>
+<stat pass="12" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="2" fail="0" skip="0">Accesibilidad</stat>
+<stat pass="5" fail="0" skip="0">Alta</stat>
+<stat pass="1" fail="0" skip="0">Compatibilidad</stat>
+<stat pass="6" fail="0" skip="0">Funcional</stat>
+<stat pass="7" fail="0" skip="0">Media</stat>
+<stat pass="1" fail="0" skip="0">Responsividad</stat>
+<stat pass="1" fail="0" skip="0">TC-UI-001</stat>
+<stat pass="1" fail="0" skip="0">TC-UI-002</stat>
+<stat pass="1" fail="0" skip="0">TC-UI-003</stat>
+<stat pass="1" fail="0" skip="0">TC-UI-004</stat>
+<stat pass="1" fail="0" skip="0">TC-UI-005</stat>
+<stat pass="1" fail="0" skip="0">TC-UI-006</stat>
+<stat pass="1" fail="0" skip="0">TC-UI-007</stat>
+<stat pass="1" fail="0" skip="0">TC-UI-008</stat>
+<stat pass="1" fail="0" skip="0">TC-UI-009</stat>
+<stat pass="1" fail="0" skip="0">TC-UI-010</stat>
+<stat pass="1" fail="0" skip="0">TC-UI-011</stat>
+<stat pass="1" fail="0" skip="0">TC-UI-012</stat>
+<stat pass="12" fail="0" skip="0">UI</stat>
+<stat pass="2" fail="0" skip="0">Visual</stat>
+</tag>
+<suite>
+<stat pass="12" fail="0" skip="0" id="s1" name="TC UI">TC UI</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-05-27T04:25:31.723355" level="WARN">No hay tabla HTML, verificando presencia de datos en la página</msg>
+<msg time="2026-05-27T04:25:40.285210" level="WARN">NOTA: Firefox y Edge requieren drivers adicionales.</msg>
+</errors>
+</robot>

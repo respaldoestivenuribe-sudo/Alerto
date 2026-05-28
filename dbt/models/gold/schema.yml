@@ -1,0 +1,54 @@
+version: 2
+
+models:
+
+  - name: gold_risk_features_latest
+    description: "Features agregadas para el motor difuso. Una sola fila con el snapshot más reciente."
+    columns:
+      - name: as_of_time
+        description: "Timestamp del dato más reciente disponible"
+        tests:
+          - not_null
+      - name: precipitation_1h
+        description: "Precipitación acumulada última hora (mm)"
+        tests:
+          - not_null
+      - name: precipitation_24h
+        description: "Precipitación acumulada últimas 24h (mm)"
+        tests:
+          - not_null
+      - name: precipitation_72h
+        description: "Precipitación acumulada últimas 72h, proxy de saturación del suelo (mm)"
+        tests:
+          - not_null
+      - name: trend_1h
+        description: "Tendencia de precipitación: subiendo, estable o bajando"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['subiendo', 'estable', 'bajando']
+
+  - name: gold_precipitation_history
+    description: "Histórico horario de precipitación para gráfico de series de tiempo"
+    columns:
+      - name: time_local
+        tests:
+          - not_null
+          - unique
+      - name: precipitation_mm
+        tests:
+          - not_null
+
+  - name: gold_daily_summary
+    description: "Resumen agregado por día"
+    columns:
+      - name: date_local
+        tests:
+          - not_null
+          - unique
+      - name: total_precipitation_mm
+        tests:
+          - not_null
+      - name: hours_recorded
+        tests:
+          - not_null

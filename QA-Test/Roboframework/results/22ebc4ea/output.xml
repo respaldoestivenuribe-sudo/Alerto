@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.14.4 on win32)" generated="2026-05-26T17:03:36.439618" rpa="false" schemaversion="5">
+<suite id="s1" name="TC PERF" source="C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\tests\TC_PERF.robot">
+<kw name="Setup Suite PERF" type="SETUP">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T17:03:36.669290" level="INFO">=== Iniciando Suite PERF ===</msg>
+<arg>=== Iniciando Suite PERF ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T17:03:36.669092" elapsed="0.000235"/>
+</kw>
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session">
+<msg time="2026-05-26T17:03:36.670526" level="FAIL">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<status status="FAIL" start="2026-05-26T17:03:36.670497" elapsed="0.000062">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="FAIL" start="2026-05-26T17:03:36.669557" elapsed="0.001094">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</kw>
+<kw name="Get Admin Token" owner="api_keywords">
+<var>${token}</var>
+<doc>Inicia sesión como administrador y retorna el token JWT</doc>
+<status status="NOT RUN" start="2026-05-26T17:03:36.670755" elapsed="0.000017"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<arg>${SUITE_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" start="2026-05-26T17:03:36.670839" elapsed="0.000015"/>
+</kw>
+<status status="FAIL" start="2026-05-26T17:03:36.668636" elapsed="0.002266">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</kw>
+<test id="s1-t1" name="TC-PERF-001 Tiempo de carga inicial de la aplicación es menor a 3 segundos" line="18">
+<doc>RF-017 — La página principal carga en menos de 3000ms</doc>
+<tag>Alta</tag>
+<tag>PERF</tag>
+<tag>Rendimiento</tag>
+<tag>TC-PERF-001</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:03:36.670949" elapsed="0.000232">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t2" name="TC-PERF-002 API responde en menos de 500ms bajo carga normal" line="37">
+<doc>RF-017 — Endpoints críticos responden en &lt; 500ms</doc>
+<tag>Alta</tag>
+<tag>PERF</tag>
+<tag>Rendimiento</tag>
+<tag>TC-PERF-002</tag>
+<status status="FAIL" start="2026-05-26T17:03:36.671299" elapsed="0.000462">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t3" name="TC-PERF-003 Sistema soporta 20 peticiones concurrentes sin degradación" line="56">
+<doc>RF-018 — 20 requests simultáneos al mismo endpoint no generan errores</doc>
+<tag>Alta</tag>
+<tag>PERF</tag>
+<tag>Rendimiento</tag>
+<tag>TC-PERF-003</tag>
+<status status="FAIL" start="2026-05-26T17:03:36.672027" elapsed="0.000190">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t4" name="TC-PERF-004 Dashboard se refresca automáticamente sin degradar el rendimiento" line="80">
+<doc>RF-018 — El auto-refresh de 60s no acumula memory leaks</doc>
+<tag>Media</tag>
+<tag>PERF</tag>
+<tag>Rendimiento</tag>
+<tag>TC-PERF-004</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:03:36.672449" elapsed="0.000437">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<kw name="Teardown Suite PERF" type="TEARDOWN">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T17:03:36.673552" level="INFO">=== Suite PERF completada ===</msg>
+<arg>=== Suite PERF completada ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T17:03:36.673404" elapsed="0.000176"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Delete All Sessions">
+<msg time="2026-05-26T17:03:36.676195" level="FAIL">No keyword with name 'Delete All Sessions' found.</msg>
+<status status="FAIL" start="2026-05-26T17:03:36.676166" elapsed="0.000053">No keyword with name 'Delete All Sessions' found.</status>
+</kw>
+<arg>Delete All Sessions</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-26T17:03:36.673640" elapsed="0.002618"/>
+</kw>
+<status status="PASS" start="2026-05-26T17:03:36.673304" elapsed="0.003001"/>
+</kw>
+<doc>MÓDULO RENDIMIENTO — TC-PERF-001 al TC-PERF-004
+Requisitos: RF-017, RF-018</doc>
+<status status="FAIL" start="2026-05-26T17:03:36.440575" elapsed="0.235747">Suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="4" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="3" skip="0">Alta</stat>
+<stat pass="0" fail="1" skip="0">Media</stat>
+<stat pass="0" fail="4" skip="0">PERF</stat>
+<stat pass="0" fail="4" skip="0">Rendimiento</stat>
+<stat pass="0" fail="1" skip="0">TC-PERF-001</stat>
+<stat pass="0" fail="1" skip="0">TC-PERF-002</stat>
+<stat pass="0" fail="1" skip="0">TC-PERF-003</stat>
+<stat pass="0" fail="1" skip="0">TC-PERF-004</stat>
+<stat pass="0" fail="2" skip="0">UI</stat>
+</tag>
+<suite>
+<stat name="TC PERF" id="s1" pass="0" fail="4" skip="0">TC PERF</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-05-26T17:03:36.462280" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 35: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:36.462486" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 45: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:36.462613" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 60: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:36.462738" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 74: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:36.462855" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 87: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:36.462920" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 95: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:36.462984" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 103: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:36.463158" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 141: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:36.463220" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 154: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:36.463990" level="ERROR">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 3: Importing library 'RequestsLibrary' failed: ModuleNotFoundError: No module named 'RequestsLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\python314.zip
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\DLLs
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\Lib
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages</msg>
+<msg time="2026-05-26T17:03:36.476506" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\ui_keywords.robot' on line 121: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+</errors>
+</robot>

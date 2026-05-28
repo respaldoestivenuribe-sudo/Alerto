@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.14.4 on win32)" generated="2026-05-26T17:03:26.705849" rpa="false" schemaversion="5">
+<suite id="s1" name="TC RISK" source="C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\tests\TC_RISK.robot">
+<kw name="Setup Suite RISK" type="SETUP">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T17:03:26.741930" level="INFO">=== Iniciando Suite RISK ===</msg>
+<arg>=== Iniciando Suite RISK ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T17:03:26.741686" elapsed="0.000283"/>
+</kw>
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session">
+<msg time="2026-05-26T17:03:26.742622" level="FAIL">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<status status="FAIL" start="2026-05-26T17:03:26.742604" elapsed="0.000044">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="FAIL" start="2026-05-26T17:03:26.742076" elapsed="0.000650">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</kw>
+<kw name="Get Admin Token" owner="api_keywords">
+<var>${token}</var>
+<doc>Inicia sesión como administrador y retorna el token JWT</doc>
+<status status="NOT RUN" start="2026-05-26T17:03:26.742813" elapsed="0.000012"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<arg>${SUITE_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" start="2026-05-26T17:03:26.742879" elapsed="0.000009"/>
+</kw>
+<status status="FAIL" start="2026-05-26T17:03:26.741234" elapsed="0.001697">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</kw>
+<test id="s1-t1" name="TC-RISK-001 Escenario VERDE produce nivel VERDE y score menor a 25" line="15">
+<doc>RF-008, RF-010 — Preset Verde (precip=0, humedad=30) → VERDE</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>RISK</tag>
+<tag>TC-RISK-001</tag>
+<status status="FAIL" start="2026-05-26T17:03:26.742973" elapsed="0.000262">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t2" name="TC-RISK-002 Escenario ROJO produce nivel ROJO y score mayor a 75" line="37">
+<doc>RF-008, RF-010 — Preset Rojo (precip_1h=40, precip_3h=75, humedad=95) → ROJO</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>RISK</tag>
+<tag>TC-RISK-002</tag>
+<status status="FAIL" start="2026-05-26T17:03:26.743335" elapsed="0.000241">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t3" name="TC-RISK-003 Escenario NARANJA produce score entre 50 y 75" line="54">
+<doc>RF-008, RF-010 — Preset Naranja (precip_1h=18, precip_3h=35, humedad=85) → NARANJA</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>RISK</tag>
+<tag>TC-RISK-003</tag>
+<status status="FAIL" start="2026-05-26T17:03:26.743731" elapsed="0.000413">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t4" name="TC-RISK-004 Score de riesgo siempre en rango 0 a 100" line="70">
+<doc>RF-010 — Ningún registro tiene score fuera de [0, 100]</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>RISK</tag>
+<tag>TC-RISK-004</tag>
+<status status="FAIL" start="2026-05-26T17:03:26.744251" elapsed="0.000165">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t5" name="TC-RISK-005 Clasificación es consistente con el score y los umbrales" line="89">
+<doc>RF-010 — nivel_riesgo coherente con riesgo_score para cada umbral</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>RISK</tag>
+<tag>TC-RISK-005</tag>
+<status status="FAIL" start="2026-05-26T17:03:26.744490" elapsed="0.000160">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t6" name="TC-RISK-006 Endpoint api risk current retorna el resultado más reciente" line="113">
+<doc>RF-008 — /api/risk/current devuelve los campos requeridos</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>RISK</tag>
+<tag>TC-RISK-006</tag>
+<status status="FAIL" start="2026-05-26T17:03:26.744724" elapsed="0.000118">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<kw name="Teardown Suite RISK" type="TEARDOWN">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T17:03:26.745304" level="INFO">=== Suite RISK completada ===</msg>
+<arg>=== Suite RISK completada ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T17:03:26.745147" elapsed="0.000181"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Delete All Sessions">
+<msg time="2026-05-26T17:03:26.746043" level="FAIL">No keyword with name 'Delete All Sessions' found.</msg>
+<status status="FAIL" start="2026-05-26T17:03:26.746026" elapsed="0.000037">No keyword with name 'Delete All Sessions' found.</status>
+</kw>
+<arg>Delete All Sessions</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-26T17:03:26.745377" elapsed="0.000715"/>
+</kw>
+<status status="PASS" start="2026-05-26T17:03:26.745068" elapsed="0.001050"/>
+</kw>
+<doc>MÓDULO MOTOR DE RIESGO — TC-RISK-001 al TC-RISK-006
+Requisitos: RF-005, RF-008, RF-010</doc>
+<status status="FAIL" start="2026-05-26T17:03:26.706807" elapsed="0.039324">Suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="6" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="6" skip="0">Alta</stat>
+<stat pass="0" fail="6" skip="0">Funcional</stat>
+<stat pass="0" fail="6" skip="0">RISK</stat>
+<stat pass="0" fail="1" skip="0">TC-RISK-001</stat>
+<stat pass="0" fail="1" skip="0">TC-RISK-002</stat>
+<stat pass="0" fail="1" skip="0">TC-RISK-003</stat>
+<stat pass="0" fail="1" skip="0">TC-RISK-004</stat>
+<stat pass="0" fail="1" skip="0">TC-RISK-005</stat>
+<stat pass="0" fail="1" skip="0">TC-RISK-006</stat>
+</tag>
+<suite>
+<stat name="TC RISK" id="s1" pass="0" fail="6" skip="0">TC RISK</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-05-26T17:03:26.727143" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 35: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:26.727264" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 45: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:26.727355" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 60: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:26.727465" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 74: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:26.727572" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 87: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:26.727636" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 95: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:26.727695" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 103: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:26.727859" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 141: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:26.727919" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 154: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:03:26.728709" level="ERROR">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 3: Importing library 'RequestsLibrary' failed: ModuleNotFoundError: No module named 'RequestsLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\python314.zip
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\DLLs
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\Lib
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages</msg>
+</errors>
+</robot>

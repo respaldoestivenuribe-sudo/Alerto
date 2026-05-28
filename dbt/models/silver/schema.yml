@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: silver_weather_hourly
+    description: "Datos horarios limpios, con timezone normalizado y métricas tipadas"
+    columns:
+      - name: time_local
+        description: "Timestamp en hora de Bogotá"
+        tests:
+          - not_null
+          - unique
+      - name: time_utc
+        description: "Timestamp en UTC"
+        tests:
+          - not_null
+      - name: precipitation_mm
+        description: "Precipitación total en mm"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 500
+      - name: humidity_pct
+        tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 100
+
+  - name: silver_weather_current
+    description: "Snapshots del clima actual, uno por extracción"
+    columns:
+      - name: bronze_id
+        tests:
+          - not_null
+          - unique
+      - name: fetched_at
+        tests:
+          - not_null
+      - name: precipitation_mm
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 500

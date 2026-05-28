@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.14.4 on win32)" generated="2026-05-26T17:04:32.926033" rpa="false" schemaversion="5">
+<suite id="s1" name="TC UI" source="C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\tests\TC_UI.robot">
+<kw name="Setup Suite UI" type="SETUP">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T17:04:33.076223" level="INFO">=== Iniciando Suite UI ===</msg>
+<arg>=== Iniciando Suite UI ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T17:04:33.075997" elapsed="0.000267"/>
+</kw>
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session">
+<msg time="2026-05-26T17:04:33.077323" level="FAIL">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<status status="FAIL" start="2026-05-26T17:04:33.077297" elapsed="0.000059">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="FAIL" start="2026-05-26T17:04:33.076371" elapsed="0.001083">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</kw>
+<kw name="Get Admin Token" owner="api_keywords">
+<var>${token}</var>
+<doc>Inicia sesión como administrador y retorna el token JWT</doc>
+<status status="NOT RUN" start="2026-05-26T17:04:33.077563" elapsed="0.000017"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<arg>${SUITE_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" start="2026-05-26T17:04:33.077645" elapsed="0.000015"/>
+</kw>
+<kw name="Create Directory" owner="OperatingSystem">
+<arg>${SCREENSHOTS_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="NOT RUN" start="2026-05-26T17:04:33.077707" elapsed="0.000013"/>
+</kw>
+<status status="FAIL" start="2026-05-26T17:04:33.075485" elapsed="0.002283">No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</kw>
+<test id="s1-t1" name="TC-UI-001 Página login muestra layout split-panel correctamente" line="17">
+<doc>RF-IU-001 — Panel izquierdo azul + panel derecho blanco en escritorio y móvil</doc>
+<tag>Media</tag>
+<tag>TC-UI-001</tag>
+<tag>UI</tag>
+<tag>Visual</tag>
+<status status="FAIL" start="2026-05-26T17:04:33.077813" elapsed="0.000287">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t2" name="TC-UI-002 Navegación sidebar muestra enlace activo correcto" line="37">
+<doc>RF-IU-001 — Enlace activo resaltado, Administración solo para admin</doc>
+<tag>Funcional</tag>
+<tag>Media</tag>
+<tag>TC-UI-002</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:04:33.078224" elapsed="0.000401">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t3" name="TC-UI-003 Topbar muestra nombre real del usuario autenticado" line="55">
+<doc>RF-IU-001 — Nombre e info del usuario leídos del JWT (no hardcoded)</doc>
+<tag>Funcional</tag>
+<tag>Media</tag>
+<tag>TC-UI-003</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:04:33.078889" elapsed="0.000292">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t4" name="TC-UI-004 Interfaz cumple WCAG 2.1 — etiquetas ARIA y navegación por teclado" line="67">
+<doc>RF-IU-002 — Todos los inputs con label, botones con aria-label</doc>
+<tag>Accesibilidad</tag>
+<tag>Alta</tag>
+<tag>TC-UI-004</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:04:33.079304" elapsed="0.000460">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t5" name="TC-UI-005 Interfaz responsiva en resolución tablet 1024x768" line="84">
+<doc>RF-IU-002 — Todos los elementos visibles sin desbordamiento horizontal</doc>
+<tag>Media</tag>
+<tag>Responsividad</tag>
+<tag>TC-UI-005</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:04:33.079960" elapsed="0.000317">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t6" name="TC-UI-006 Contraste mínimo 4.5:1 en textos principales" line="103">
+<doc>RF-IU-002 (WCAG AA) — Variables CSS de texto cumplen ratio mínimo</doc>
+<tag>Accesibilidad</tag>
+<tag>Media</tag>
+<tag>TC-UI-006</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:04:33.080433" elapsed="0.000418">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t7" name="TC-UI-007 Página Precipitación muestra las 4 métricas climáticas" line="120">
+<doc>RF-IU-003 — 4 tarjetas métricas + gráfico de línea visible</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>TC-UI-007</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:04:33.081016" elapsed="0.000421">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t8" name="TC-UI-008 Gráfico precipitación muestra hasta 72h de histórico" line="136">
+<doc>RF-IU-003 — API llama ?limit=72, datos en orden cronológico</doc>
+<tag>Funcional</tag>
+<tag>Media</tag>
+<tag>TC-UI-008</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:04:33.081592" elapsed="0.000271">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t9" name="TC-UI-009 Página Riesgo muestra badge con color correcto según nivel" line="150">
+<doc>RF-IU-004 — Badge con color VERDE/AMARILLO/NARANJA/ROJO</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>TC-UI-009</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:04:33.081997" elapsed="0.000288">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t10" name="TC-UI-010 Tabla histórico de riesgo muestra colores en filas por nivel" line="168">
+<doc>RF-IU-004 — Filas de la tabla con borde izquierdo de color por nivel</doc>
+<tag>Media</tag>
+<tag>TC-UI-010</tag>
+<tag>UI</tag>
+<tag>Visual</tag>
+<status status="FAIL" start="2026-05-26T17:04:33.082426" elapsed="0.000230">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t11" name="TC-UI-011 Aplicación carga correctamente en Chrome Firefox y Edge" line="182">
+<doc>RF-IH-001, RNF-PORT-002 — Login, gráfico y tabla en 3 navegadores</doc>
+<tag>Alta</tag>
+<tag>Compatibilidad</tag>
+<tag>TC-UI-011</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:04:33.082789" elapsed="0.000264">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<test id="s1-t12" name="TC-UI-012 Campana de notificaciones muestra alertas recientes" line="195">
+<doc>RF-IU-001, RF-008 — Badge numérico y dropdown con alertas críticas</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>TC-UI-012</tag>
+<tag>UI</tag>
+<status status="FAIL" start="2026-05-26T17:04:33.083185" elapsed="0.000285">Parent suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</test>
+<kw name="Teardown Suite UI" type="TEARDOWN">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T17:04:33.084411" level="INFO">=== Suite UI completada ===</msg>
+<arg>=== Suite UI completada ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T17:04:33.084160" elapsed="0.000291"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Delete All Sessions">
+<msg time="2026-05-26T17:04:33.087626" level="FAIL">No keyword with name 'Delete All Sessions' found.</msg>
+<status status="FAIL" start="2026-05-26T17:04:33.087595" elapsed="0.000060">No keyword with name 'Delete All Sessions' found.</status>
+</kw>
+<arg>Delete All Sessions</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-26T17:04:33.084567" elapsed="0.003133"/>
+</kw>
+<status status="PASS" start="2026-05-26T17:04:33.083903" elapsed="0.003834"/>
+</kw>
+<doc>MÓDULO INTERFAZ DE USUARIO — TC-UI-001 al TC-UI-012
+Requisitos: RF-IU-001 a RF-IU-004, RF-IH-001, RNF-PORT-002
+Herramienta: SeleniumLibrary (Chrome)</doc>
+<status status="FAIL" start="2026-05-26T17:04:32.927386" elapsed="0.160370">Suite setup failed:
+No keyword with name 'Create Session' found. Did you mean:
+    api_keywords.Create API Session
+    api_keywords.Create Auth Session</status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="12" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="2" skip="0">Accesibilidad</stat>
+<stat pass="0" fail="5" skip="0">Alta</stat>
+<stat pass="0" fail="1" skip="0">Compatibilidad</stat>
+<stat pass="0" fail="6" skip="0">Funcional</stat>
+<stat pass="0" fail="7" skip="0">Media</stat>
+<stat pass="0" fail="1" skip="0">Responsividad</stat>
+<stat pass="0" fail="1" skip="0">TC-UI-001</stat>
+<stat pass="0" fail="1" skip="0">TC-UI-002</stat>
+<stat pass="0" fail="1" skip="0">TC-UI-003</stat>
+<stat pass="0" fail="1" skip="0">TC-UI-004</stat>
+<stat pass="0" fail="1" skip="0">TC-UI-005</stat>
+<stat pass="0" fail="1" skip="0">TC-UI-006</stat>
+<stat pass="0" fail="1" skip="0">TC-UI-007</stat>
+<stat pass="0" fail="1" skip="0">TC-UI-008</stat>
+<stat pass="0" fail="1" skip="0">TC-UI-009</stat>
+<stat pass="0" fail="1" skip="0">TC-UI-010</stat>
+<stat pass="0" fail="1" skip="0">TC-UI-011</stat>
+<stat pass="0" fail="1" skip="0">TC-UI-012</stat>
+<stat pass="0" fail="12" skip="0">UI</stat>
+<stat pass="0" fail="2" skip="0">Visual</stat>
+</tag>
+<suite>
+<stat name="TC UI" id="s1" pass="0" fail="12" skip="0">TC UI</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-05-26T17:04:32.955114" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 35: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:04:32.955390" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 45: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:04:32.955620" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 60: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:04:32.955911" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 74: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:04:32.956213" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 87: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:04:32.956386" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 95: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:04:32.956547" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 103: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:04:32.956983" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 141: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:04:32.957130" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 154: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-05-26T17:04:32.958989" level="ERROR">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\api_keywords.robot' on line 3: Importing library 'RequestsLibrary' failed: ModuleNotFoundError: No module named 'RequestsLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\python314.zip
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\DLLs
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\Lib
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64
+  C:\Users\cipap\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages</msg>
+<msg time="2026-05-26T17:04:32.972280" level="WARN">Error in file 'C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\resources\ui_keywords.robot' on line 121: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+</errors>
+</robot>

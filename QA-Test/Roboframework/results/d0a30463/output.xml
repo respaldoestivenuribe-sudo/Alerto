@@ -1,0 +1,3424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1 (Python 3.14.4 on win32)" generated="2026-05-27T03:52:24.417968" rpa="false" schemaversion="5">
+<suite id="s1" name="TC RISK" source="C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\tests\TC_RISK.robot">
+<kw name="Setup Suite RISK" type="SETUP">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.545279" level="INFO">=== Iniciando Suite RISK ===</msg>
+<arg>=== Iniciando Suite RISK ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.545123" elapsed="0.000206"/>
+</kw>
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:24.545817" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-27T03:52:24.545585" elapsed="0.000426"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-27T03:52:24.545466" elapsed="0.000607"/>
+</kw>
+<kw name="Get Admin Token" owner="api_keywords">
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:24.546592" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-27T03:52:24.546433" elapsed="0.000266"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-27T03:52:24.546325" elapsed="0.000424"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.547112" level="INFO">&amp;{body} = { email=admin@alerto.com | password=alerto123** }</msg>
+<var>&amp;{body}</var>
+<arg>email=${ADMIN_EMAIL}</arg>
+<arg>password=${ADMIN_PASS}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.546828" elapsed="0.000301"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:24.759509" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '56', 'Content-Type': 'application/json'} 
+ body=b'{"email": "admin@alerto.com", "password": "alerto123**"}' 
+ </msg>
+<msg time="2026-05-27T03:52:24.759590" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:52:23 GMT', 'server': 'uvicorn', 'content-length': '210', 'content-type': 'application/json'} 
+ body={"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94","token_type":"bearer"} 
+ </msg>
+<msg time="2026-05-27T03:52:24.759687" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>/api/auth/login</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.547203" elapsed="0.212501"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>${resp}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.759829" elapsed="0.000157"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:52:24.760438" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94</msg>
+<var>${token}</var>
+<arg>${resp.json()}</arg>
+<arg>access_token</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.760054" elapsed="0.000398"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" start="2026-05-27T03:52:24.760491" elapsed="0.000039"/>
+</return>
+<msg time="2026-05-27T03:52:24.760610" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94</msg>
+<var>${token}</var>
+<doc>Inicia sesión como administrador y retorna el token JWT</doc>
+<status status="PASS" start="2026-05-27T03:52:24.546205" elapsed="0.214418"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.760880" level="INFO">${SUITE_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94</msg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.760698" elapsed="0.000210"/>
+</kw>
+<status status="PASS" start="2026-05-27T03:52:24.544595" elapsed="0.216352"/>
+</kw>
+<test id="s1-t1" name="TC-RISK-001 Escenario VERDE produce nivel VERDE y score bajo" line="16">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.765793" level="INFO">&amp;{sim_body} = { precip_1h=0 | precip_3h=0 | humedad=30 }</msg>
+<var>&amp;{sim_body}</var>
+<arg>precip_1h=${0}</arg>
+<arg>precip_3h=${0}</arg>
+<arg>humedad=${30}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.761301" elapsed="0.004516"/>
+</kw>
+<kw name="POST Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.766274" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.766155" elapsed="0.000134"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:24.904641" level="INFO">POST Request : url=http://localhost:8000/api/simulate 
+ path_url=/api/simulate 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"precip_1h": 0, "precip_3h": 0, "humedad": 30}' 
+ </msg>
+<msg time="2026-05-27T03:52:24.904702" level="INFO">POST Response : url=http://localhost:8000/api/simulate 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:52:24 GMT', 'server': 'uvicorn', 'content-length': '89', 'content-type': 'application/json'} 
+ body={"status":"ok","message":"Simulación iniciada. El pipeline está procesando los datos."} 
+ </msg>
+<msg time="2026-05-27T03:52:24.904808" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.766345" elapsed="0.138478"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:52:24.904908" elapsed="0.000044"/>
+</return>
+<msg time="2026-05-27T03:52:24.905053" level="INFO">${sim_resp} = &lt;Response [200]&gt;</msg>
+<var>${sim_resp}</var>
+<arg>/api/simulate</arg>
+<arg>${sim_body}</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta POST con Bearer token y body JSON</doc>
+<status status="PASS" start="2026-05-27T03:52:24.765956" elapsed="0.139112"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${sim_resp.status_code} in [200, 202]</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.905174" elapsed="0.000327"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:24.905642" level="INFO">Simulación VERDE disparada. Esperando 15s...</msg>
+<arg>Simulación VERDE disparada. Esperando ${PIPELINE_WAIT_S}s...</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.905560" elapsed="0.000103"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:52:39.906239" level="INFO">Slept 15 seconds.</msg>
+<arg>${PIPELINE_WAIT_S}s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:24.905715" elapsed="15.000648"/>
+</kw>
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:39.907351" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.907135" elapsed="0.000238"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:39.907727" elapsed="0.000012"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:52:39.907512" elapsed="0.000250"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:39.914759" level="INFO">GET Request : url=http://localhost:8000/api/risk/history?limit=1 
+ path_url=/api/risk/history?limit=1 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94'} 
+ body=None 
+ </msg>
+<msg time="2026-05-27T03:52:39.914822" level="INFO">GET Response : url=http://localhost:8000/api/risk/history?limit=1 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:52:39 GMT', 'server': 'uvicorn', 'content-length': '5544', 'content-type': 'application/json'} 
+ body=[{"evaluated_at":"2026-05-27T08:52:39.004770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:49:54.693981+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:46:43.999056+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:40.594845+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:39.526517+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:04.237781+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:03.147039+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:48.995170+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:47.220142+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:36.283141+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:20.475614+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:08.835455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:24.388703+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:09.203761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:07.310914+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:45:57.195770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:32:30.217716+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:43.318620+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:35.371158+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:45.842710+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:32.603252+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:15:21.423552+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:02:25.069359+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:45:25.538078+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:38:04.354120+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:36:01.114910+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:15:19.794617+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:00:20.021922+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:45:18.711238+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:30:18.274250+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:15:18.475074+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:00:21.001662+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:45:19.509455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:30:20.998231+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:15:19.666687+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:00:23.702427+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:45:23.314060+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:30:27.326591+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:15:24.060476+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:00:25.665545+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:45:19.412919+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:42:59.295940+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:59.944505+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:55.979270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:45:21.389879+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:30:19.112951+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:15:21.009534+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:00:22.881747+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:45:21.700270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:30:20.038657+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:15:21.850761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:00:20.722205+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:45:20.618936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:30:21.595745+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:15:22.557473+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T13:25:09.806870+00:00","riesgo_score":60.66,"nivel_riesgo":"NARANJA"}] 
+ </msg>
+<msg time="2026-05-27T03:52:39.914945" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.907826" elapsed="0.007134"/>
+</kw>
+<status status="PASS" start="2026-05-27T03:52:39.907779" elapsed="0.007222"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:52:39.907482" elapsed="0.007544"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:52:39.915066" elapsed="0.000029"/>
+</return>
+<msg time="2026-05-27T03:52:39.915175" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/risk/history</arg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>params=limit=1</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-27T03:52:39.906700" elapsed="0.008487"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-27T03:52:39.915602" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.915500" elapsed="0.000114"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.915665" elapsed="0.000773"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-27T03:52:39.915296" elapsed="0.001182"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-27T03:52:39.916866" level="INFO">${data} = [{'evaluated_at': '2026-05-27T08:52:39.004770+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}, {'evaluated_at': '2026-05-27T08:49:54.693981+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'A...</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.916533" elapsed="0.000348"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>len(${data}) &gt; 0</arg>
+<arg>msg=No hay registros en risk/history tras simulación</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.916937" elapsed="0.000930"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2026-05-27T03:52:39.918308" level="INFO">${last} = {'evaluated_at': '2026-05-27T08:52:39.004770+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</msg>
+<var>${last}</var>
+<arg>${data}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.918078" elapsed="0.000247"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:52:39.918483" level="INFO">${nivel} = AMARILLO</msg>
+<var>${nivel}</var>
+<arg>${last}</arg>
+<arg>nivel_riesgo</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.918393" elapsed="0.000101"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:52:39.918609" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${last}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.918542" elapsed="0.000076"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:39.918762" level="INFO">Nivel: AMARILLO, Score: 35.67</msg>
+<arg>Nivel: ${nivel}, Score: ${score}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.918666" elapsed="0.000114"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>float(${score}) &gt;= 0 and float(${score}) &lt;= 100</arg>
+<arg>msg=Score fuera del rango válido [0,100]: ${score}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.918825" elapsed="0.000185"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>float(${score}) &lt; 60</arg>
+<arg>msg=Score para escenario mínimo esperado &lt; 60, obtuvo ${score} (nivel=${nivel})</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.919061" elapsed="0.000110"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:39.919299" level="INFO">✓ Escenario VERDE: nivel=AMARILLO, score=35.67</msg>
+<arg>✓ Escenario VERDE: nivel=${nivel}, score=${score}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.919220" elapsed="0.000097"/>
+</kw>
+<doc>RF-008, RF-010 — Preset Verde (precip=0, humedad=30) → score bajo</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>RISK</tag>
+<tag>TC-RISK-001</tag>
+<status status="PASS" start="2026-05-27T03:52:24.760998" elapsed="15.158414"/>
+</test>
+<test id="s1-t2" name="TC-RISK-002 Escenario ROJO produce nivel ROJO y score alto" line="38">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:39.920423" level="INFO">&amp;{sim_body} = { precip_1h=40 | precip_3h=75 | humedad=95 }</msg>
+<var>&amp;{sim_body}</var>
+<arg>precip_1h=${40}</arg>
+<arg>precip_3h=${75}</arg>
+<arg>humedad=${95}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.919884" elapsed="0.000556"/>
+</kw>
+<kw name="POST Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:39.920835" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.920729" elapsed="0.000122"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:40.099911" level="INFO">POST Request : url=http://localhost:8000/api/simulate 
+ path_url=/api/simulate 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"precip_1h": 40, "precip_3h": 75, "humedad": 95}' 
+ </msg>
+<msg time="2026-05-27T03:52:40.100051" level="INFO">POST Response : url=http://localhost:8000/api/simulate 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:52:39 GMT', 'server': 'uvicorn', 'content-length': '89', 'content-type': 'application/json'} 
+ body={"status":"ok","message":"Simulación iniciada. El pipeline está procesando los datos."} 
+ </msg>
+<msg time="2026-05-27T03:52:40.100493" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:52:39.920904" elapsed="0.179967"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:52:40.101103" elapsed="0.000092"/>
+</return>
+<msg time="2026-05-27T03:52:40.101476" level="INFO">${sim_resp} = &lt;Response [200]&gt;</msg>
+<var>${sim_resp}</var>
+<arg>/api/simulate</arg>
+<arg>${sim_body}</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta POST con Bearer token y body JSON</doc>
+<status status="PASS" start="2026-05-27T03:52:39.920551" elapsed="0.181011"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${sim_resp.status_code} in [200, 202]</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T03:52:40.101788" elapsed="0.001021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:40.103260" level="INFO">Simulación ROJO disparada. Esperando 15s...</msg>
+<arg>Simulación ROJO disparada. Esperando ${PIPELINE_WAIT_S}s...</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:40.103030" elapsed="0.000287"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:52:55.104172" level="INFO">Slept 15 seconds.</msg>
+<arg>${PIPELINE_WAIT_S}s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:40.103550" elapsed="15.000761"/>
+</kw>
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:55.105455" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.105167" elapsed="0.000321"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:55.105886" elapsed="0.000022"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:52:55.105595" elapsed="0.000362"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:55.113189" level="INFO">GET Request : url=http://localhost:8000/api/risk/history?limit=1 
+ path_url=/api/risk/history?limit=1 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94'} 
+ body=None 
+ </msg>
+<msg time="2026-05-27T03:52:55.113280" level="INFO">GET Response : url=http://localhost:8000/api/risk/history?limit=1 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:52:54 GMT', 'server': 'uvicorn', 'content-length': '5742', 'content-type': 'application/json'} 
+ body=[{"evaluated_at":"2026-05-27T08:52:53.180737+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:46.192936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:39.004770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:49:54.693981+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:46:43.999056+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:40.594845+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:39.526517+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:04.237781+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:03.147039+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:48.995170+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:47.220142+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:36.283141+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:20.475614+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:08.835455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:24.388703+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:09.203761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:07.310914+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:45:57.195770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:32:30.217716+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:43.318620+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:35.371158+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:45.842710+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:32.603252+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:15:21.423552+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:02:25.069359+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:45:25.538078+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:38:04.354120+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:36:01.114910+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:15:19.794617+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:00:20.021922+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:45:18.711238+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:30:18.274250+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:15:18.475074+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:00:21.001662+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:45:19.509455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:30:20.998231+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:15:19.666687+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:00:23.702427+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:45:23.314060+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:30:27.326591+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:15:24.060476+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:00:25.665545+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:45:19.412919+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:42:59.295940+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:59.944505+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:55.979270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:45:21.389879+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:30:19.112951+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:15:21.009534+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:00:22.881747+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:45:21.700270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:30:20.038657+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:15:21.850761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:00:20.722205+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:45:20.618936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:30:21.595745+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:15:22.557473+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T13:25:09.806870+00:00","riesgo_score":60.66,"nivel_riesgo":"NARANJA"}] 
+ </msg>
+<msg time="2026-05-27T03:52:55.113462" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.106091" elapsed="0.007399"/>
+</kw>
+<status status="PASS" start="2026-05-27T03:52:55.105987" elapsed="0.007839"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:52:55.105566" elapsed="0.008403"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:52:55.114118" elapsed="0.000036"/>
+</return>
+<msg time="2026-05-27T03:52:55.114249" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/risk/history</arg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>params=limit=1</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-27T03:52:55.104704" elapsed="0.009557"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-27T03:52:55.114642" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.114545" elapsed="0.000107"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.114698" elapsed="0.000636"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-27T03:52:55.114367" elapsed="0.000998"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2026-05-27T03:52:55.115663" level="INFO">${last} = {'evaluated_at': '2026-05-27T08:52:53.180737+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</msg>
+<var>${last}</var>
+<arg>${resp.json()}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.115409" elapsed="0.000264"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:52:55.115783" level="INFO">${nivel} = AMARILLO</msg>
+<var>${nivel}</var>
+<arg>${last}</arg>
+<arg>nivel_riesgo</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.115720" elapsed="0.000073"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:52:55.115903" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${last}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.115837" elapsed="0.000076"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:52:55.116105" level="INFO">Nivel: AMARILLO, Score: 35.67</msg>
+<arg>Nivel: ${nivel}, Score: ${score}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.115961" elapsed="0.000171"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<msg time="2026-05-27T03:52:55.116407" level="FAIL">Score ROJO esperado &gt;= 40, obtuvo 35.67 (nivel=AMARILLO)</msg>
+<arg>float(${score}) &gt;= 40</arg>
+<arg>msg=Score ROJO esperado &gt;= 40, obtuvo ${score} (nivel=${nivel})</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="FAIL" start="2026-05-27T03:52:55.116202" elapsed="0.000354">Score ROJO esperado &gt;= 40, obtuvo 35.67 (nivel=AMARILLO)</status>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ Escenario ROJO: nivel=${nivel}, score=${score}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:52:55.116647" elapsed="0.000010"/>
+</kw>
+<doc>RF-008, RF-010 — Preset Rojo (precip_1h=40, precip_3h=75, humedad=95) → score alto</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>RISK</tag>
+<tag>TC-RISK-002</tag>
+<status status="FAIL" start="2026-05-27T03:52:39.919566" elapsed="15.197181">Score ROJO esperado &gt;= 40, obtuvo 35.67 (nivel=AMARILLO)</status>
+</test>
+<test id="s1-t3" name="TC-RISK-003 Escenario NARANJA produce score intermedio" line="56">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:55.118434" level="INFO">&amp;{sim_body} = { precip_1h=18 | precip_3h=35 | humedad=85 }</msg>
+<var>&amp;{sim_body}</var>
+<arg>precip_1h=${18}</arg>
+<arg>precip_3h=${35}</arg>
+<arg>humedad=${85}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.117917" elapsed="0.000532"/>
+</kw>
+<kw name="POST Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:52:55.118771" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.118682" elapsed="0.000100"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:52:55.274954" level="INFO">POST Request : url=http://localhost:8000/api/simulate 
+ path_url=/api/simulate 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"precip_1h": 18, "precip_3h": 35, "humedad": 85}' 
+ </msg>
+<msg time="2026-05-27T03:52:55.275068" level="INFO">POST Response : url=http://localhost:8000/api/simulate 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:52:54 GMT', 'server': 'uvicorn', 'content-length': '89', 'content-type': 'application/json'} 
+ body={"status":"ok","message":"Simulación iniciada. El pipeline está procesando los datos."} 
+ </msg>
+<msg time="2026-05-27T03:52:55.275233" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.118829" elapsed="0.156435"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:52:55.275365" elapsed="0.000054"/>
+</return>
+<msg time="2026-05-27T03:52:55.275848" level="INFO">${sim_resp} = &lt;Response [200]&gt;</msg>
+<var>${sim_resp}</var>
+<arg>/api/simulate</arg>
+<arg>${sim_body}</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta POST con Bearer token y body JSON</doc>
+<status status="PASS" start="2026-05-27T03:52:55.118541" elapsed="0.157335"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${sim_resp.status_code} in [200, 202]</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.276381" elapsed="0.000681"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.277825" level="INFO">Slept 15 seconds.</msg>
+<arg>${PIPELINE_WAIT_S}s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-27T03:52:55.277472" elapsed="15.000501"/>
+</kw>
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.279174" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.278890" elapsed="0.000363"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.280043" elapsed="0.000039"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.279359" elapsed="0.000806"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:53:10.290745" level="INFO">GET Request : url=http://localhost:8000/api/risk/history?limit=1 
+ path_url=/api/risk/history?limit=1 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94'} 
+ body=None 
+ </msg>
+<msg time="2026-05-27T03:53:10.290855" level="INFO">GET Response : url=http://localhost:8000/api/risk/history?limit=1 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:53:09 GMT', 'server': 'uvicorn', 'content-length': '5940', 'content-type': 'application/json'} 
+ body=[{"evaluated_at":"2026-05-27T08:53:08.333996+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:53:02.259257+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:53.180737+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:46.192936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:39.004770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:49:54.693981+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:46:43.999056+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:40.594845+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:39.526517+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:04.237781+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:03.147039+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:48.995170+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:47.220142+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:36.283141+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:20.475614+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:08.835455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:24.388703+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:09.203761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:07.310914+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:45:57.195770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:32:30.217716+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:43.318620+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:35.371158+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:45.842710+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:32.603252+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:15:21.423552+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:02:25.069359+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:45:25.538078+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:38:04.354120+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:36:01.114910+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:15:19.794617+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:00:20.021922+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:45:18.711238+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:30:18.274250+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:15:18.475074+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:00:21.001662+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:45:19.509455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:30:20.998231+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:15:19.666687+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:00:23.702427+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:45:23.314060+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:30:27.326591+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:15:24.060476+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:00:25.665545+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:45:19.412919+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:42:59.295940+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:59.944505+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:55.979270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:45:21.389879+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:30:19.112951+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:15:21.009534+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:00:22.881747+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:45:21.700270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:30:20.038657+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:15:21.850761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:00:20.722205+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:45:20.618936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:30:21.595745+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:15:22.557473+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T13:25:09.806870+00:00","riesgo_score":60.66,"nivel_riesgo":"NARANJA"}] 
+ </msg>
+<msg time="2026-05-27T03:53:10.291312" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.280610" elapsed="0.010732"/>
+</kw>
+<status status="PASS" start="2026-05-27T03:53:10.280209" elapsed="0.011605"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.279331" elapsed="0.012545"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:53:10.291938" elapsed="0.000049"/>
+</return>
+<msg time="2026-05-27T03:53:10.292397" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/risk/history</arg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>params=limit=1</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-27T03:53:10.278395" elapsed="0.014055"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.293341" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.293126" elapsed="0.000243"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.293488" elapsed="0.001621"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-27T03:53:10.292715" elapsed="0.002475"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2026-05-27T03:53:10.295925" level="INFO">${last} = {'evaluated_at': '2026-05-27T08:53:08.333996+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</msg>
+<var>${last}</var>
+<arg>${resp.json()}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.295304" elapsed="0.000648"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.296226" level="INFO">${nivel} = AMARILLO</msg>
+<var>${nivel}</var>
+<arg>${last}</arg>
+<arg>nivel_riesgo</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.296070" elapsed="0.000180"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.296506" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${last}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.296356" elapsed="0.000172"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.296805" level="INFO">Nivel: AMARILLO, Score: 35.67</msg>
+<arg>Nivel: ${nivel}, Score: ${score}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.296637" elapsed="0.000209"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>float(${score}) &gt;= 10</arg>
+<arg>msg=Score intermedio esperado &gt;= 10, obtuvo ${score}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.296953" elapsed="0.000873"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.298387" level="INFO">✓ Escenario NARANJA: nivel=AMARILLO, score=35.67</msg>
+<arg>✓ Escenario NARANJA: nivel=${nivel}, score=${score}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.298095" elapsed="0.000353"/>
+</kw>
+<doc>RF-008, RF-010 — Preset Naranja (precip_1h=18, precip_3h=35, humedad=85) → score medio</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>RISK</tag>
+<tag>TC-RISK-003</tag>
+<status status="PASS" start="2026-05-27T03:52:55.117366" elapsed="15.181219"/>
+</test>
+<test id="s1-t4" name="TC-RISK-004 Score de riesgo siempre en rango 0 a 100" line="73">
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.300126" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.299853" elapsed="0.000305"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.300495" elapsed="0.000026"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.300251" elapsed="0.000330"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:53:10.307452" level="INFO">GET Request : url=http://localhost:8000/api/risk/history?limit=100 
+ path_url=/api/risk/history?limit=100 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94'} 
+ body=None 
+ </msg>
+<msg time="2026-05-27T03:53:10.307544" level="INFO">GET Response : url=http://localhost:8000/api/risk/history?limit=100 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:53:09 GMT', 'server': 'uvicorn', 'content-length': '5940', 'content-type': 'application/json'} 
+ body=[{"evaluated_at":"2026-05-27T08:53:08.333996+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:53:02.259257+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:53.180737+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:46.192936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:39.004770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:49:54.693981+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:46:43.999056+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:40.594845+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:39.526517+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:04.237781+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:03.147039+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:48.995170+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:47.220142+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:36.283141+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:20.475614+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:08.835455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:24.388703+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:09.203761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:07.310914+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:45:57.195770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:32:30.217716+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:43.318620+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:35.371158+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:45.842710+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:32.603252+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:15:21.423552+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:02:25.069359+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:45:25.538078+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:38:04.354120+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:36:01.114910+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:15:19.794617+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:00:20.021922+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:45:18.711238+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:30:18.274250+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:15:18.475074+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:00:21.001662+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:45:19.509455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:30:20.998231+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:15:19.666687+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:00:23.702427+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:45:23.314060+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:30:27.326591+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:15:24.060476+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:00:25.665545+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:45:19.412919+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:42:59.295940+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:59.944505+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:55.979270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:45:21.389879+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:30:19.112951+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:15:21.009534+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:00:22.881747+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:45:21.700270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:30:20.038657+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:15:21.850761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:00:20.722205+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:45:20.618936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:30:21.595745+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:15:22.557473+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T13:25:09.806870+00:00","riesgo_score":60.66,"nivel_riesgo":"NARANJA"}] 
+ </msg>
+<msg time="2026-05-27T03:53:10.307740" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.300733" elapsed="0.007039"/>
+</kw>
+<status status="PASS" start="2026-05-27T03:53:10.300620" elapsed="0.007218"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.300228" elapsed="0.007641"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:53:10.307922" elapsed="0.000042"/>
+</return>
+<msg time="2026-05-27T03:53:10.308105" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/risk/history</arg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>params=limit=100</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-27T03:53:10.299465" elapsed="0.008664"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.308815" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.308609" elapsed="0.000229"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.308941" elapsed="0.002019"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-27T03:53:10.308305" elapsed="0.002780"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.312119" level="INFO">${data} = [{'evaluated_at': '2026-05-27T08:53:08.333996+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}, {'evaluated_at': '2026-05-27T08:53:02.259257+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'A...</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.311251" elapsed="0.000907"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.312773" level="INFO">${invalid_count} = 0</msg>
+<var>${invalid_count}</var>
+<arg>${0}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.312302" elapsed="0.000503"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.313503" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.313303" elapsed="0.000231"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.314000" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.313689" elapsed="0.000342"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.314285" elapsed="0.000022"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.314421" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.314128" elapsed="0.000358"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.314106" elapsed="0.000414"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:53:08.333996+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.313194" elapsed="0.001358"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.315029" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.314833" elapsed="0.000225"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.315459" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.315182" elapsed="0.000307"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.315742" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.315921" elapsed="0.000044"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.315572" elapsed="0.000450"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.315553" elapsed="0.000509"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:53:02.259257+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.314735" elapsed="0.001356"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.316523" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.316347" elapsed="0.000199"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.317073" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.316653" elapsed="0.000469"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.317495" elapsed="0.000024"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.317644" elapsed="0.000022"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.317269" elapsed="0.000437"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.317229" elapsed="0.000508"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:52:53.180737+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.316256" elapsed="0.001509"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.318247" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.318025" elapsed="0.000251"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.318756" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.318438" elapsed="0.000347"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.319011" elapsed="0.000022"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.319134" elapsed="0.000017"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.318867" elapsed="0.000319"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.318848" elapsed="0.000367"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:52:46.192936+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.317934" elapsed="0.001307"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.319647" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.319474" elapsed="0.000198"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.320036" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.319781" elapsed="0.000280"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.320246" elapsed="0.000017"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.320346" elapsed="0.000015"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.320133" elapsed="0.000259"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.320118" elapsed="0.000297"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:52:39.004770+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.319391" elapsed="0.001045"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.320782" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.320633" elapsed="0.000170"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.321101" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.320892" elapsed="0.000230"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.321294" elapsed="0.000015"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.321389" elapsed="0.000015"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.321182" elapsed="0.000253"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.321168" elapsed="0.000290"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:49:54.693981+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.320553" elapsed="0.000925"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.321797" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.321658" elapsed="0.000159"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.322563" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.322131" elapsed="0.000473"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.322887" elapsed="0.000023"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.323029" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.322720" elapsed="0.000373"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.322692" elapsed="0.000437"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:46:43.999056+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.321592" elapsed="0.001569"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.323646" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.323440" elapsed="0.000238"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.324123" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.323831" elapsed="0.000323"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.324388" elapsed="0.000023"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.324521" elapsed="0.000020"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.324238" elapsed="0.000346"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.324219" elapsed="0.000401"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:45:40.594845+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.323347" elapsed="0.001305"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.325128" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.324939" elapsed="0.000219"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.325554" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.325283" elapsed="0.000301"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.325824" elapsed="0.000022"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.325954" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.325665" elapsed="0.000353"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.325647" elapsed="0.000407"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:45:39.526517+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.324852" elapsed="0.001233"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.326515" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.326329" elapsed="0.000218"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.326932" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.326665" elapsed="0.000297"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.327187" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.327314" elapsed="0.000019"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.327046" elapsed="0.000329"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.327025" elapsed="0.000381"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:45:04.237781+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.326245" elapsed="0.001192"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.327878" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.327677" elapsed="0.000229"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.328558" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.328216" elapsed="0.000373"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.328822" elapsed="0.000040"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.329245" elapsed="0.000048"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.328679" elapsed="0.000684"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.328658" elapsed="0.000754"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:45:03.147039+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.327594" elapsed="0.001857"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.329997" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.329787" elapsed="0.000239"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.330450" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.330147" elapsed="0.000330"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.330780" elapsed="0.000033"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.330929" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.330570" elapsed="0.000425"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.330547" elapsed="0.000476"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:44:48.995170+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.329678" elapsed="0.001369"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.331473" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.331287" elapsed="0.000212"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.331819" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.331593" elapsed="0.000245"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.331992" elapsed="0.000015"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.332079" elapsed="0.000012"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.331893" elapsed="0.000226"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.331880" elapsed="0.000280"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:44:47.220142+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.331202" elapsed="0.000979"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.332463" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.332343" elapsed="0.000138"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.332767" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.332559" elapsed="0.000229"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.333106" elapsed="0.000013"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.333189" elapsed="0.000013"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.332852" elapsed="0.000375"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.332834" elapsed="0.000412"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T03:22:36.283141+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.332283" elapsed="0.000980"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.333541" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.333419" elapsed="0.000140"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.333834" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.333634" elapsed="0.000221"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.334173" elapsed="0.000057"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.334564" elapsed="0.000052"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.333913" elapsed="0.000781"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.333899" elapsed="0.000853"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T03:22:20.475614+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.333363" elapsed="0.001429"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.335361" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.335123" elapsed="0.000271"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.335847" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.335526" elapsed="0.000352"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.336126" elapsed="0.000023"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.336291" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.335974" elapsed="0.000382"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.335949" elapsed="0.000440"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T03:22:08.835455+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.335016" elapsed="0.001404"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.336867" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.336676" elapsed="0.000224"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.337296" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.337020" elapsed="0.000306"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.337548" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.337677" elapsed="0.000020"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.337408" elapsed="0.000331"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.337390" elapsed="0.000378"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T02:46:24.388703+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.336587" elapsed="0.001212"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.338244" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.338040" elapsed="0.000233"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.338662" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.338391" elapsed="0.000300"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.338913" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.339079" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.338773" elapsed="0.000371"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.338754" elapsed="0.000420"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T02:46:09.203761+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.337958" elapsed="0.001247"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.339624" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.339444" elapsed="0.000209"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.340035" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.339770" elapsed="0.000361"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.340556" elapsed="0.000026"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.340705" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.340324" elapsed="0.000441"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.340233" elapsed="0.000561"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T02:46:07.310914+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.339360" elapsed="0.001461"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.341252" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.341058" elapsed="0.000220"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.341673" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.341391" elapsed="0.000308"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.341903" elapsed="0.000020"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.342020" elapsed="0.000017"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.341774" elapsed="0.000319"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.341755" elapsed="0.000364"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T02:45:57.195770+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.340973" elapsed="0.001171"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.342516" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.342355" elapsed="0.000186"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.342880" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.342641" elapsed="0.000263"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.343096" elapsed="0.000018"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.343207" elapsed="0.000017"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.342973" elapsed="0.000285"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.342956" elapsed="0.000326"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T01:32:30.217716+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.342275" elapsed="0.001032"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.343664" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.343506" elapsed="0.000184"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.344014" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.343787" elapsed="0.000252"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.344241" elapsed="0.000018"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.344350" elapsed="0.000016"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.344119" elapsed="0.000281"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.344104" elapsed="0.000321"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T01:29:43.318620+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.343434" elapsed="0.001015"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.344805" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.344651" elapsed="0.000176"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.345134" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.344920" elapsed="0.000237"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.345363" elapsed="0.000018"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.345544" elapsed="0.000047"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.345246" elapsed="0.000412"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.345231" elapsed="0.000467"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T01:29:35.371158+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.344578" elapsed="0.001155"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.346527" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.346055" elapsed="0.000516"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.347067" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.346749" elapsed="0.000350"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.347355" elapsed="0.000022"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.347489" elapsed="0.000020"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.347194" elapsed="0.000357"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.347171" elapsed="0.000409"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T01:28:45.842710+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.345937" elapsed="0.001674"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.348078" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.347870" elapsed="0.000237"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.348498" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.348227" elapsed="0.000299"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.348751" elapsed="0.000020"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.348875" elapsed="0.000018"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.348610" elapsed="0.000324"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.348590" elapsed="0.000371"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T01:28:32.603252+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.347783" elapsed="0.001207"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.349408" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.349225" elapsed="0.000210"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.349804" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.349548" elapsed="0.000284"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.350061" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.350193" elapsed="0.000019"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.349910" elapsed="0.000344"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.349893" elapsed="0.000388"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T01:15:21.423552+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.349143" elapsed="0.001167"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.350714" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.350540" elapsed="0.000200"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.351106" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.350856" elapsed="0.000278"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.351341" elapsed="0.000019"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.351465" elapsed="0.000018"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.351211" elapsed="0.000313"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.351192" elapsed="0.000360"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T01:02:25.069359+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.350460" elapsed="0.001120"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.351973" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.351803" elapsed="0.000196"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.352749" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.352131" elapsed="0.000686"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.353147" elapsed="0.000024"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.353293" elapsed="0.000020"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.352950" elapsed="0.000406"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.352917" elapsed="0.000470"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T00:45:25.538078+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.351724" elapsed="0.001695"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.353897" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.353681" elapsed="0.000244"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.354348" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.354048" elapsed="0.000329"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.354624" elapsed="0.000020"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.354753" elapsed="0.000018"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.354484" elapsed="0.000327"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.354465" elapsed="0.000374"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T00:38:04.354120+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.353595" elapsed="0.001274"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.355284" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.355106" elapsed="0.000205"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.355684" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.355423" elapsed="0.000290"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.355923" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.356045" elapsed="0.000019"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.355790" elapsed="0.000313"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.355774" elapsed="0.000361"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T00:36:01.114910+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.355024" elapsed="0.001140"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.356580" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.356391" elapsed="0.000216"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.356972" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.356720" elapsed="0.000280"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.357209" elapsed="0.000019"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.357332" elapsed="0.000018"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.357077" elapsed="0.000311"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.357058" elapsed="0.000357"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T22:15:19.794617+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.356312" elapsed="0.001131"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.357838" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.357670" elapsed="0.000195"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.358220" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.357974" elapsed="0.000324"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.358611" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.358739" elapsed="0.000017"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.358443" elapsed="0.000348"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.358414" elapsed="0.000401"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T22:00:20.021922+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.357593" elapsed="0.001247"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.359423" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.359200" elapsed="0.000288"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.359916" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.359622" elapsed="0.000335"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.360189" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.360314" elapsed="0.000018"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.360043" elapsed="0.000326"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.360021" elapsed="0.000374"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T21:45:18.711238+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.359046" elapsed="0.001376"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.360829" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.360658" elapsed="0.000195"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.361551" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.361098" elapsed="0.000480"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.361796" elapsed="0.000020"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.361911" elapsed="0.000017"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.361658" elapsed="0.000304"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.361640" elapsed="0.000348"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T21:30:18.274250+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.360576" elapsed="0.001437"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.362411" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.362235" elapsed="0.000201"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.362844" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.362574" elapsed="0.000295"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.363073" elapsed="0.000018"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.363181" elapsed="0.000017"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.362940" elapsed="0.000291"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.362923" elapsed="0.000332"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T21:15:18.475074+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.362155" elapsed="0.001124"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.363734" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.363568" elapsed="0.000192"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.364114" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.363862" elapsed="0.000276"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.364905" elapsed="0.000050"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.365137" elapsed="0.000025"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.364210" elapsed="0.001002"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.364191" elapsed="0.001056"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T21:00:21.001662+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.363412" elapsed="0.001871"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.365815" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.365579" elapsed="0.000266"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.366274" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.365967" elapsed="0.000337"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.366533" elapsed="0.000022"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.366692" elapsed="0.000020"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.366390" elapsed="0.000369"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.366371" elapsed="0.000417"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T20:45:19.509455+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.365484" elapsed="0.001334"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.367276" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.367092" elapsed="0.000212"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.367688" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.367421" elapsed="0.000296"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.367939" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.368069" elapsed="0.000020"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.367802" elapsed="0.000327"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.367779" elapsed="0.000378"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T20:30:20.998231+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.367009" elapsed="0.001176"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.368619" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.368427" elapsed="0.000221"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.369019" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.368761" elapsed="0.000286"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.369256" elapsed="0.000020"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.369379" elapsed="0.000018"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.369124" elapsed="0.000313"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.369107" elapsed="0.000358"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T20:15:19.666687+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.368345" elapsed="0.001149"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.369896" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.369725" elapsed="0.000198"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.370281" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.370037" elapsed="0.000272"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.370531" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.370679" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.370389" elapsed="0.000351"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.370372" elapsed="0.000398"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T20:00:23.702427+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.369642" elapsed="0.001158"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.371215" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.371034" elapsed="0.000209"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.371633" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.371360" elapsed="0.000302"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.371877" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.372007" elapsed="0.000022"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.371744" elapsed="0.000328"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.371724" elapsed="0.000381"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T19:45:23.314060+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.370952" elapsed="0.001185"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.372562" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.372380" elapsed="0.000223"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.373002" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.372729" elapsed="0.000301"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.373242" elapsed="0.000021"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.373371" elapsed="0.000019"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.373108" elapsed="0.000663"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.373091" elapsed="0.000719"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T19:30:27.326591+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.372294" elapsed="0.001548"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.374192" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.374046" elapsed="0.000167"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.374500" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.374300" elapsed="0.000221"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.374695" elapsed="0.000016"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.374789" elapsed="0.000014"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.374580" elapsed="0.000252"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.374566" elapsed="0.000285"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T19:15:24.060476+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.373978" elapsed="0.000895"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.375173" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.375043" elapsed="0.000149"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.375455" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.375272" elapsed="0.000203"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.375624" elapsed="0.000014"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.375713" elapsed="0.000014"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.375530" elapsed="0.000226"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.375518" elapsed="0.000258"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T19:00:25.665545+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.374984" elapsed="0.000813"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.376089" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.375963" elapsed="0.000145"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.376365" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.376185" elapsed="0.000200"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.376712" elapsed="0.000035"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.376874" elapsed="0.000019"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.376527" elapsed="0.000400"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.376428" elapsed="0.000522"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T18:45:19.412919+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.375904" elapsed="0.001069"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.377333" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.377180" elapsed="0.000171"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.377635" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.377430" elapsed="0.000222"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.377797" elapsed="0.000014"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.377883" elapsed="0.000012"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.377703" elapsed="0.000216"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.377691" elapsed="0.000245"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T18:42:59.295940+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.377108" elapsed="0.000844"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.378196" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.378111" elapsed="0.000097"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.378385" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.378262" elapsed="0.000136"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.378498" elapsed="0.000010"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.378568" elapsed="0.000009"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.378435" elapsed="0.000159"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.378426" elapsed="0.000180"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T18:40:59.944505+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.378046" elapsed="0.000571"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.378797" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.378717" elapsed="0.000092"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.378981" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.378862" elapsed="0.000132"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.379092" elapsed="0.000009"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.379147" elapsed="0.000009"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.379029" elapsed="0.000144"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.379021" elapsed="0.000164"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T18:40:55.979270+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.378681" elapsed="0.000515"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.379376" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.379298" elapsed="0.000090"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.379552" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.379437" elapsed="0.000127"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.379659" elapsed="0.000009"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.379714" elapsed="0.000009"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.379600" elapsed="0.000140"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.379590" elapsed="0.000163"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T17:45:21.389879+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.379261" elapsed="0.000503"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.379942" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.379862" elapsed="0.000092"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.380124" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.380004" elapsed="0.000132"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.380230" elapsed="0.000010"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.380288" elapsed="0.000009"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.380170" elapsed="0.000143"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.380162" elapsed="0.000162"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T17:30:19.112951+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.379826" elapsed="0.000510"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.380513" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.380438" elapsed="0.000086"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.380680" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.380571" elapsed="0.000120"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.380784" elapsed="0.000008"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.380837" elapsed="0.000008"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.380724" elapsed="0.000138"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.380717" elapsed="0.000156"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T17:15:21.009534+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.380402" elapsed="0.000483"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.381058" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.380981" elapsed="0.000089"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.381225" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.381121" elapsed="0.000114"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.381322" elapsed="0.000007"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.381365" elapsed="0.000007"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.381272" elapsed="0.000113"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.381264" elapsed="0.000130"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T17:00:22.881747+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.380946" elapsed="0.000457"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.381541" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.381482" elapsed="0.000067"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.381675" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.381590" elapsed="0.000094"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.381755" elapsed="0.000007"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.381799" elapsed="0.000006"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.381709" elapsed="0.000109"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.381704" elapsed="0.000123"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T16:45:21.700270+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.381453" elapsed="0.000383"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.381972" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.381915" elapsed="0.000066"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.382112" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.382019" elapsed="0.000103"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.382196" elapsed="0.000007"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.382239" elapsed="0.000007"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.382149" elapsed="0.000111"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.382143" elapsed="0.000126"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T16:30:20.038657+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.381885" elapsed="0.000393"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.382421" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.382360" elapsed="0.000279"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.383281" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.382922" elapsed="0.000390"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.383535" elapsed="0.000019"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.383643" elapsed="0.000015"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.383399" elapsed="0.000291"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.383377" elapsed="0.000336"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T16:15:21.850761+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.382331" elapsed="0.001404"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.384118" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.383968" elapsed="0.000171"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.384448" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.384231" elapsed="0.000238"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.384639" elapsed="0.000016"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.384736" elapsed="0.000017"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.384530" elapsed="0.000251"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.384517" elapsed="0.000294"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T16:00:20.722205+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.383896" elapsed="0.000936"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.385170" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.385022" elapsed="0.000170"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.385515" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.385305" elapsed="0.000231"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.385704" elapsed="0.000016"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.385807" elapsed="0.000014"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.385596" elapsed="0.000254"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.385582" elapsed="0.000288"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T15:45:20.618936+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.384953" elapsed="0.000937"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.386196" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.386064" elapsed="0.000152"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.386495" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.386302" elapsed="0.000213"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.386674" elapsed="0.000015"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.386766" elapsed="0.000014"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.386573" elapsed="0.000245"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.386558" elapsed="0.000278"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T15:30:21.595745+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.386001" elapsed="0.000855"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.387159" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.387029" elapsed="0.000150"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.387448" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.387262" elapsed="0.000206"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.387624" elapsed="0.000014"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.387714" elapsed="0.000014"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.387526" elapsed="0.000230"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.387511" elapsed="0.000263"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T15:15:22.557473+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.386966" elapsed="0.000835"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.388095" level="INFO">${score} = 60.66</msg>
+<var>${score}</var>
+<arg>${alert}</arg>
+<arg>riesgo_score</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.387968" elapsed="0.000146"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.388357" level="INFO">${out_of_range} = False</msg>
+<var>${out_of_range}</var>
+<arg>not (0 &lt;= float(${score}) &lt;= 100)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.388195" elapsed="0.000174"/>
+</kw>
+<if>
+<branch type="IF" condition="${out_of_range}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${invalid_count}</var>
+<arg>${invalid_count} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.388471" elapsed="0.000010"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Score fuera de rango: ${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.388642" elapsed="0.000020"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.388405" elapsed="0.000280"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.388397" elapsed="0.000302"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-26T13:25:09.806870+00:00', 'riesgo_score': 60.66, 'nivel_riesgo': 'NARANJA'}</var>
+<status status="PASS" start="2026-05-27T03:53:10.387906" elapsed="0.000806"/>
+</iter>
+<var>${alert}</var>
+<value>@{data}</value>
+<status status="PASS" start="2026-05-27T03:53:10.312903" elapsed="0.075843"/>
+</for>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.389299" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${invalid_count}</arg>
+<arg>0</arg>
+<arg>msg=${invalid_count} registros con score fuera de [0,100]</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.388973" elapsed="0.000402"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.390307" level="INFO">✓ 60 registros verificados — todos en [0, 100]</msg>
+<arg>✓ ${data.__len__()} registros verificados — todos en [0, 100]</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.389517" elapsed="0.000872"/>
+</kw>
+<doc>RF-010 — Ningún registro tiene score fuera de [0, 100]</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>RISK</tag>
+<tag>TC-RISK-004</tag>
+<status status="PASS" start="2026-05-27T03:53:10.298849" elapsed="0.091678"/>
+</test>
+<test id="s1-t5" name="TC-RISK-005 Clasificación es consistente con el score" line="92">
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.392232" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.391954" elapsed="0.000337"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.392653" elapsed="0.000023"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.392406" elapsed="0.000328"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:53:10.398522" level="INFO">GET Request : url=http://localhost:8000/api/risk/history?limit=50 
+ path_url=/api/risk/history?limit=50 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94'} 
+ body=None 
+ </msg>
+<msg time="2026-05-27T03:53:10.398596" level="INFO">GET Response : url=http://localhost:8000/api/risk/history?limit=50 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:53:09 GMT', 'server': 'uvicorn', 'content-length': '5940', 'content-type': 'application/json'} 
+ body=[{"evaluated_at":"2026-05-27T08:53:08.333996+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:53:02.259257+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:53.180737+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:46.192936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:52:39.004770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:49:54.693981+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:46:43.999056+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:40.594845+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:39.526517+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:04.237781+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:45:03.147039+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:48.995170+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T08:44:47.220142+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:36.283141+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:20.475614+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T03:22:08.835455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:24.388703+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:09.203761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:46:07.310914+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T02:45:57.195770+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:32:30.217716+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:43.318620+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:29:35.371158+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:45.842710+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:28:32.603252+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:15:21.423552+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T01:02:25.069359+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:45:25.538078+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:38:04.354120+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-27T00:36:01.114910+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:15:19.794617+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T22:00:20.021922+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:45:18.711238+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:30:18.274250+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:15:18.475074+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T21:00:21.001662+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:45:19.509455+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:30:20.998231+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:15:19.666687+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T20:00:23.702427+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:45:23.314060+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:30:27.326591+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:15:24.060476+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T19:00:25.665545+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:45:19.412919+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:42:59.295940+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:59.944505+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T18:40:55.979270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:45:21.389879+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:30:19.112951+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:15:21.009534+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T17:00:22.881747+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:45:21.700270+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:30:20.038657+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:15:21.850761+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T16:00:20.722205+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:45:20.618936+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:30:21.595745+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T15:15:22.557473+00:00","riesgo_score":35.67,"nivel_riesgo":"AMARILLO"},{"evaluated_at":"2026-05-26T13:25:09.806870+00:00","riesgo_score":60.66,"nivel_riesgo":"NARANJA"}] 
+ </msg>
+<msg time="2026-05-27T03:53:10.398719" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.392861" elapsed="0.005876"/>
+</kw>
+<status status="PASS" start="2026-05-27T03:53:10.392764" elapsed="0.006019"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.392380" elapsed="0.006423"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:53:10.398842" elapsed="0.000032"/>
+</return>
+<msg time="2026-05-27T03:53:10.399002" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/risk/history</arg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>params=limit=50</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-27T03:53:10.391543" elapsed="0.007475"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.399518" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.399369" elapsed="0.000164"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.399613" elapsed="0.000999"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-27T03:53:10.399149" elapsed="0.001514"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.401168" level="INFO">${data} = [{'evaluated_at': '2026-05-27T08:53:08.333996+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}, {'evaluated_at': '2026-05-27T08:53:02.259257+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'A...</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.400793" elapsed="0.000389"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.401402" level="INFO">${inconsistencies} = 0</msg>
+<var>${inconsistencies}</var>
+<arg>${0}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.401235" elapsed="0.000178"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-27T03:53:10.401878" level="INFO">${nivel} = AMARILLO</msg>
+<var>${nivel}</var>
+<arg>${alert}</arg>
+<arg>nivel_riesgo</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.401593" elapsed="0.000320"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.402718" level="INFO">${score} = 35.67</msg>
+<var>${score}</var>
+<arg>float(${alert['riesgo_score']})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.402066" elapsed="0.000682"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.404300" level="FAIL">Evaluating expression "('AMARILLO' == 'VERDE' and 35.67 &gt; 80) or" failed: ModuleNotFoundError: No module named "('AMARILLO'=='ROJO'and35"</msg>
+<var>${extreme_inconsistent}</var>
+<arg>('${nivel}' == 'VERDE' and ${score} &gt; 80) or</arg>
+<arg>('${nivel}' == 'ROJO' and ${score} &lt; 20)</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="FAIL" start="2026-05-27T03:53:10.402877" elapsed="0.001623">Evaluating expression "('AMARILLO' == 'VERDE' and 35.67 &gt; 80) or" failed: ModuleNotFoundError: No module named "('AMARILLO'=='ROJO'and35"</status>
+</kw>
+<if>
+<branch type="IF" condition="${extreme_inconsistent}">
+<kw name="Evaluate" owner="BuiltIn">
+<var>${inconsistencies}</var>
+<arg>${inconsistencies} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.404738" elapsed="0.000022"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>INCONSISTENCIA: nivel=${nivel}, score=${score}</arg>
+<arg>level=WARN</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.404874" elapsed="0.000020"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.404618" elapsed="0.000312"/>
+</branch>
+<status status="NOT RUN" start="2026-05-27T03:53:10.404596" elapsed="0.000362"/>
+</if>
+<var name="${alert}">{'evaluated_at': '2026-05-27T08:53:08.333996+00:00', 'riesgo_score': 35.67, 'nivel_riesgo': 'AMARILLO'}</var>
+<status status="FAIL" start="2026-05-27T03:53:10.401553" elapsed="0.003481">Evaluating expression "('AMARILLO' == 'VERDE' and 35.67 &gt; 80) or" failed: ModuleNotFoundError: No module named "('AMARILLO'=='ROJO'and35"</status>
+</iter>
+<var>${alert}</var>
+<value>@{data}</value>
+<status status="FAIL" start="2026-05-27T03:53:10.401450" elapsed="0.003652">Evaluating expression "('AMARILLO' == 'VERDE' and 35.67 &gt; 80) or" failed: ModuleNotFoundError: No module named "('AMARILLO'=='ROJO'and35"</status>
+</for>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${inconsistencies}</arg>
+<arg>0</arg>
+<arg>msg=${inconsistencies} registros extremadamente inconsistentes</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.405225" elapsed="0.000020"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ ${data.__len__()} registros sin inconsistencias extremas</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.405346" elapsed="0.000019"/>
+</kw>
+<doc>RF-010 — nivel_riesgo es coherente con riesgo_score (sin extremos invertidos)</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>RISK</tag>
+<tag>TC-RISK-005</tag>
+<status status="FAIL" start="2026-05-27T03:53:10.390836" elapsed="0.014679">Evaluating expression "('AMARILLO' == 'VERDE' and 35.67 &gt; 80) or" failed: ModuleNotFoundError: No module named "('AMARILLO'=='ROJO'and35"</status>
+</test>
+<test id="s1-t6" name="TC-RISK-006 Endpoint api risk current retorna el resultado más reciente" line="115">
+<kw name="GET Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.407406" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.406617" elapsed="0.000855"/>
+</kw>
+<if>
+<branch type="IF" condition="$params is None">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-05-27T03:53:10.454086" level="INFO">GET Request : url=http://localhost:8000/api/risk/current 
+ path_url=/api/risk/current 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5NTgzNDR9.U_QOhBTGbJTlqRQ_PbXXT5dMr04Zkx1ng4fGqs1WK94'} 
+ body=None 
+ </msg>
+<msg time="2026-05-27T03:53:10.454217" level="INFO">GET Response : url=http://localhost:8000/api/risk/current 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 08:53:09 GMT', 'server': 'uvicorn', 'content-length': '120', 'content-type': 'application/json'} 
+ body={"nivel_riesgo":"AMARILLO","riesgo_score":35.67,"nivel_lluvia":0.1556,"evaluated_at":"2026-05-27T08:53:08.333996+00:00"} 
+ </msg>
+<msg time="2026-05-27T03:53:10.454387" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.407897" elapsed="0.046529"/>
+</kw>
+<status status="PASS" start="2026-05-27T03:53:10.407599" elapsed="0.046907"/>
+</branch>
+<branch type="ELSE">
+<kw name="GET On Session" owner="RequestsLibrary">
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>params=${params}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.454743" elapsed="0.000028"/>
+</kw>
+<status status="NOT RUN" start="2026-05-27T03:53:10.454547" elapsed="0.000277"/>
+</branch>
+<status status="PASS" start="2026-05-27T03:53:10.407573" elapsed="0.047278"/>
+</if>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-27T03:53:10.454901" elapsed="0.000045"/>
+</return>
+<msg time="2026-05-27T03:53:10.455124" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/risk/current</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta GET con Bearer token, retorna response</doc>
+<status status="PASS" start="2026-05-27T03:53:10.406247" elapsed="0.048941"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.456145" level="INFO">${status} = 200</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.455920" elapsed="0.000255"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.456297" elapsed="0.001634"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-27T03:53:10.455535" elapsed="0.002485"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.458708" level="INFO">${data} = {'nivel_riesgo': 'AMARILLO', 'riesgo_score': 35.67, 'nivel_lluvia': 0.1556, 'evaluated_at': '2026-05-27T08:53:08.333996+00:00'}</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.458142" elapsed="0.000594"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.459031" level="INFO">@{required_fields} = [ nivel_riesgo | riesgo_score | evaluated_at ]</msg>
+<var>@{required_fields}</var>
+<arg>nivel_riesgo</arg>
+<arg>riesgo_score</arg>
+<arg>evaluated_at</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.458854" elapsed="0.000203"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${data}</arg>
+<arg>${field}</arg>
+<arg>msg=Campo requerido '${field}' ausente en /api/risk/current</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.459345" elapsed="0.000239"/>
+</kw>
+<var name="${field}">nivel_riesgo</var>
+<status status="PASS" start="2026-05-27T03:53:10.459260" elapsed="0.000372"/>
+</iter>
+<iter>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${data}</arg>
+<arg>${field}</arg>
+<arg>msg=Campo requerido '${field}' ausente en /api/risk/current</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.459803" elapsed="0.000221"/>
+</kw>
+<var name="${field}">riesgo_score</var>
+<status status="PASS" start="2026-05-27T03:53:10.459722" elapsed="0.000349"/>
+</iter>
+<iter>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${data}</arg>
+<arg>${field}</arg>
+<arg>msg=Campo requerido '${field}' ausente en /api/risk/current</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.460231" elapsed="0.000209"/>
+</kw>
+<var name="${field}">evaluated_at</var>
+<status status="PASS" start="2026-05-27T03:53:10.460154" elapsed="0.000330"/>
+</iter>
+<var>${field}</var>
+<value>@{required_fields}</value>
+<status status="PASS" start="2026-05-27T03:53:10.459126" elapsed="0.001389"/>
+</for>
+<kw name="Measure Response Time" owner="api_keywords">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.461722" level="INFO">${elapsed_ms} = 3.392</msg>
+<var>${elapsed_ms}</var>
+<arg>${resp.elapsed.total_seconds()} * 1000</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.460954" elapsed="0.000813"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.462582" level="FAIL">Resolving variable '${elapsed_ms:.0f}' failed: SyntaxError: invalid decimal literal (&lt;string&gt;, line 1)</msg>
+<arg>${elapsed_ms} &lt; ${max_ms}</arg>
+<arg>msg=Tiempo de respuesta ${elapsed_ms:.0f}ms excede el límite de ${max_ms}ms</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="FAIL" start="2026-05-27T03:53:10.461932" elapsed="0.000696">Resolving variable '${elapsed_ms:.0f}' failed: SyntaxError: invalid decimal literal (&lt;string&gt;, line 1)</status>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>Tiempo de respuesta: ${elapsed_ms:.0f}ms ✓</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.462767" elapsed="0.000024"/>
+</kw>
+<arg>${resp}</arg>
+<arg>2000</arg>
+<doc>Verifica que el tiempo de respuesta no exceda max_ms milisegundos</doc>
+<status status="FAIL" start="2026-05-27T03:53:10.460662" elapsed="0.002260">Resolving variable '${elapsed_ms:.0f}' failed: SyntaxError: invalid decimal literal (&lt;string&gt;, line 1)</status>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<arg>✓ /api/risk/current: todos los campos presentes</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-05-27T03:53:10.463101" elapsed="0.000022"/>
+</kw>
+<doc>RF-008 — /api/risk/current devuelve los campos requeridos</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>RISK</tag>
+<tag>TC-RISK-006</tag>
+<status status="FAIL" start="2026-05-27T03:53:10.405779" elapsed="0.057478">Resolving variable '${elapsed_ms:.0f}' failed: SyntaxError: invalid decimal literal (&lt;string&gt;, line 1)</status>
+</test>
+<kw name="Teardown Suite RISK" type="TEARDOWN">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-27T03:53:10.464222" level="INFO">=== Suite RISK completada ===</msg>
+<arg>=== Suite RISK completada ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.464057" elapsed="0.000219"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2026-05-27T03:53:10.464670" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-05-27T03:53:10.464592" elapsed="0.000169"/>
+</kw>
+<arg>Delete All Sessions</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-27T03:53:10.464416" elapsed="0.000393"/>
+</kw>
+<status status="PASS" start="2026-05-27T03:53:10.463863" elapsed="0.000999"/>
+</kw>
+<doc>MÓDULO MOTOR DE RIESGO — TC-RISK-001 al TC-RISK-006
+Requisitos: RF-005, RF-008, RF-010</doc>
+<status status="FAIL" start="2026-05-27T03:52:24.419442" elapsed="46.045447"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="3" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="3" fail="3" skip="0">Alta</stat>
+<stat pass="3" fail="3" skip="0">Funcional</stat>
+<stat pass="3" fail="3" skip="0">RISK</stat>
+<stat pass="1" fail="0" skip="0">TC-RISK-001</stat>
+<stat pass="0" fail="1" skip="0">TC-RISK-002</stat>
+<stat pass="1" fail="0" skip="0">TC-RISK-003</stat>
+<stat pass="1" fail="0" skip="0">TC-RISK-004</stat>
+<stat pass="0" fail="1" skip="0">TC-RISK-005</stat>
+<stat pass="0" fail="1" skip="0">TC-RISK-006</stat>
+</tag>
+<suite>
+<stat pass="3" fail="3" skip="0" id="s1" name="TC RISK">TC RISK</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

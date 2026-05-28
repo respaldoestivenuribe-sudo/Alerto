@@ -1,0 +1,19 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": {
+    "builder": "DOCKERFILE",
+    "dockerfilePath": "railway/dockerfiles/airflow-webserver.Dockerfile",
+    "watchPatterns": [
+      "airflow/**",
+      "dbt/**",
+      "railway/airflow-webserver.json",
+      "railway/dockerfiles/airflow-webserver.Dockerfile"
+    ]
+  },
+  "deploy": {
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 300,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+  }
+}

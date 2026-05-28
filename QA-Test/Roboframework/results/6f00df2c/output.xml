@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1 (Python 3.14.4 on win32)" generated="2026-05-26T21:45:40.858826" rpa="false" schemaversion="5">
+<suite id="s1" name="TC SIM" source="C:\Users\cipap\Documents\GitHub\Alerto\QA-Test\Roboframework\tests\TC_SIM.robot">
+<kw name="Setup Suite SIM" type="SETUP">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:40.992521" level="INFO">=== Iniciando Suite SIM ===</msg>
+<arg>=== Iniciando Suite SIM ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:40.992361" elapsed="0.000425"/>
+</kw>
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:40.993551" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-26T21:45:40.993336" elapsed="0.000387"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-26T21:45:40.993212" elapsed="0.000568"/>
+</kw>
+<kw name="Get Admin Token" owner="api_keywords">
+<kw name="Create API Session" owner="api_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:40.994255" level="INFO">Creating Session using : alias=api, url=http://localhost:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<arg>verify=False</arg>
+<arg>disable_warnings=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-26T21:45:40.994117" elapsed="0.000230"/>
+</kw>
+<doc>Crea sesión HTTP apuntando a la API de Alerto</doc>
+<status status="PASS" start="2026-05-26T21:45:40.994026" elapsed="0.000365"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:40.994710" level="INFO">&amp;{body} = { email=admin@alerto.com | password=alerto123** }</msg>
+<var>&amp;{body}</var>
+<arg>email=${ADMIN_EMAIL}</arg>
+<arg>password=${ADMIN_PASS}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:40.994461" elapsed="0.000265"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.241970" level="INFO">POST Request : url=http://localhost:8000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '56', 'Content-Type': 'application/json'} 
+ body=b'{"email": "admin@alerto.com", "password": "alerto123**"}' 
+ </msg>
+<msg time="2026-05-26T21:45:41.242048" level="INFO">POST Response : url=http://localhost:8000/api/auth/login 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 02:45:40 GMT', 'server': 'uvicorn', 'content-length': '210', 'content-type': 'application/json'} 
+ body={"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4","token_type":"bearer"} 
+ </msg>
+<msg time="2026-05-26T21:45:41.242142" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>/api/auth/login</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T21:45:40.994793" elapsed="0.247364"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>200</arg>
+<arg>${resp}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.242278" elapsed="0.000155"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T21:45:41.242823" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4</msg>
+<var>${token}</var>
+<arg>${resp.json()}</arg>
+<arg>access_token</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.242490" elapsed="0.000344"/>
+</kw>
+<return>
+<value>${token}</value>
+<status status="PASS" start="2026-05-26T21:45:41.242869" elapsed="0.000039"/>
+</return>
+<msg time="2026-05-26T21:45:41.242977" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4</msg>
+<var>${token}</var>
+<doc>Inicia sesión como administrador y retorna el token JWT</doc>
+<status status="PASS" start="2026-05-26T21:45:40.993913" elapsed="0.249075"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.243294" level="INFO">${SUITE_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4</msg>
+<arg>${SUITE_TOKEN}</arg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.243054" elapsed="0.000271"/>
+</kw>
+<status status="PASS" start="2026-05-26T21:45:40.991916" elapsed="0.251522"/>
+</kw>
+<test id="s1-t1" name="TC-SIM-001 Simulador valida que precip 3h es mayor o igual a precip 1h" line="15">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.249010" level="INFO">&amp;{body} = { precip_1h=20 | precip_3h=10 | humedad=50 }</msg>
+<var>&amp;{body}</var>
+<arg>precip_1h=${20}</arg>
+<arg>precip_3h=${10}</arg>
+<arg>humedad=${50}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.243898" elapsed="0.005137"/>
+</kw>
+<kw name="POST Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.249510" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.249390" elapsed="0.000136"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.296646" level="INFO">POST Request : url=http://localhost:8000/api/simulate 
+ path_url=/api/simulate 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"precip_1h": 20, "precip_3h": 10, "humedad": 50}' 
+ </msg>
+<msg time="2026-05-26T21:45:41.296706" level="INFO">POST Response : url=http://localhost:8000/api/simulate 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Wed, 27 May 2026 02:45:40 GMT', 'server': 'uvicorn', 'content-length': '57', 'content-type': 'application/json'} 
+ body={"detail":"precip_3h debe ser mayor o igual a precip_1h"} 
+ </msg>
+<msg time="2026-05-26T21:45:41.296802" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.249583" elapsed="0.047231"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T21:45:41.296892" elapsed="0.000041"/>
+</return>
+<msg time="2026-05-26T21:45:41.297020" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/simulate</arg>
+<arg>${body}</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta POST con Bearer token y body JSON</doc>
+<status status="PASS" start="2026-05-26T21:45:41.249187" elapsed="0.047845"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.297407" level="INFO">${status} = 422</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.297313" elapsed="0.000104"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.297462" elapsed="0.000634"/>
+</kw>
+<arg>${resp}</arg>
+<arg>422</arg>
+<status status="PASS" start="2026-05-26T21:45:41.297145" elapsed="0.000980"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.298237" level="INFO">✓ HTTP 422 para precip_3h (10) &lt; precip_1h (20)</msg>
+<arg>✓ HTTP 422 para precip_3h (10) &lt; precip_1h (20)</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.298178" elapsed="0.000077"/>
+</kw>
+<doc>RF-002 — precip_3h &lt; precip_1h debe retornar HTTP 422</doc>
+<tag>Funcional</tag>
+<tag>Media</tag>
+<tag>SIM</tag>
+<tag>TC-SIM-001</tag>
+<status status="PASS" start="2026-05-26T21:45:41.243506" elapsed="0.054808"/>
+</test>
+<test id="s1-t2" name="TC-SIM-002 Simulación exitosa dispara el pipeline y genera resultado" line="23">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.299123" level="INFO">&amp;{body} = { precip_1h=10 | precip_3h=20 | humedad=70 }</msg>
+<var>&amp;{body}</var>
+<arg>precip_1h=${10}</arg>
+<arg>precip_3h=${20}</arg>
+<arg>humedad=${70}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.298672" elapsed="0.000463"/>
+</kw>
+<kw name="POST Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.299451" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.299356" elapsed="0.000107"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.584605" level="INFO">POST Request : url=http://localhost:8000/api/simulate 
+ path_url=/api/simulate 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"precip_1h": 10, "precip_3h": 20, "humedad": 70}' 
+ </msg>
+<msg time="2026-05-26T21:45:41.584663" level="INFO">POST Response : url=http://localhost:8000/api/simulate 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 May 2026 02:45:40 GMT', 'server': 'uvicorn', 'content-length': '89', 'content-type': 'application/json'} 
+ body={"status":"ok","message":"Simulación iniciada. El pipeline está procesando los datos."} 
+ </msg>
+<msg time="2026-05-26T21:45:41.584748" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.299511" elapsed="0.285249"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T21:45:41.584819" elapsed="0.000032"/>
+</return>
+<msg time="2026-05-26T21:45:41.584935" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/simulate</arg>
+<arg>${body}</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta POST con Bearer token y body JSON</doc>
+<status status="PASS" start="2026-05-26T21:45:41.299214" elapsed="0.285734"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${resp.status_code} in [200, 202]</arg>
+<arg>msg=Simulación falló: HTTP ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.585044" elapsed="0.000658"/>
+</kw>
+<kw name="Response Body Should Contain Key" owner="api_keywords">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.586209" level="INFO">${data} = {'status': 'ok', 'message': 'Simulación iniciada. El pipeline está procesando los datos.'}</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.585926" elapsed="0.000296"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${data}</arg>
+<arg>${key}</arg>
+<arg>msg=La respuesta no contiene la clave '${key}'. Body: ${resp.text}</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.586270" elapsed="0.000269"/>
+</kw>
+<arg>${resp}</arg>
+<arg>message</arg>
+<status status="PASS" start="2026-05-26T21:45:41.585791" elapsed="0.000779"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-05-26T21:45:41.586836" level="INFO">${msg} = Simulación iniciada. El pipeline está procesando los datos.</msg>
+<var>${msg}</var>
+<arg>${resp.json()}</arg>
+<arg>message</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.586617" elapsed="0.000230"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.586945" level="INFO">Length is 59.</msg>
+<arg>${msg}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.586893" elapsed="0.000070"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.587071" level="INFO">✓ Simulación AMARILLO disparada: Simulación iniciada. El pipeline está procesando los datos.</msg>
+<arg>✓ Simulación AMARILLO disparada: ${msg}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.587008" elapsed="0.000082"/>
+</kw>
+<doc>RF-002 — POST /api/simulate con valores válidos retorna 200 y dispara DAG</doc>
+<tag>Alta</tag>
+<tag>Funcional</tag>
+<tag>Integración</tag>
+<tag>SIM</tag>
+<tag>TC-SIM-002</tag>
+<status status="PASS" start="2026-05-26T21:45:41.298449" elapsed="0.288700"/>
+</test>
+<test id="s1-t3" name="TC-SIM-003 Simulador rechaza valores fuera del rango permitido" line="35">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.587932" level="INFO">&amp;{body} = { precip_1h=200 | precip_3h=300 | humedad=150 }</msg>
+<var>&amp;{body}</var>
+<arg>precip_1h=${200}</arg>
+<arg>precip_3h=${300}</arg>
+<arg>humedad=${150}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.587490" elapsed="0.000454"/>
+</kw>
+<kw name="POST Authenticated" owner="api_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.588301" level="INFO">&amp;{headers} = { Authorization=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4 }</msg>
+<var>&amp;{headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.588195" elapsed="0.000118"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.632616" level="INFO">POST Request : url=http://localhost:8000/api/simulate 
+ path_url=/api/simulate 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBhbGVydG8uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJleHAiOjE3Nzk5MzYzNDF9.E-btsvRbTANGk2lqrEwvchP1VnhqYojOkrlmxu0vBa4', 'Content-Length': '52', 'Content-Type': 'application/json'} 
+ body=b'{"precip_1h": 200, "precip_3h": 300, "humedad": 150}' 
+ </msg>
+<msg time="2026-05-26T21:45:41.632675" level="INFO">POST Response : url=http://localhost:8000/api/simulate 
+ status=422, reason=Unprocessable Entity 
+ headers={'date': 'Wed, 27 May 2026 02:45:40 GMT', 'server': 'uvicorn', 'content-length': '411', 'content-type': 'application/json'} 
+ body={"detail":[{"type":"less_than_equal","loc":["body","precip_1h"],"msg":"Input should be less than or equal to 50","input":200,"ctx":{"le":50.0}},{"type":"less_than_equal","loc":["body","precip_3h"],"msg":"Input should be less than or equal to 90","input":300,"ctx":{"le":90.0}},{"type":"less_than_equal","loc":["body","humedad"],"msg":"Input should be less than or equal to 100","input":150,"ctx":{"le":100.0}}]} 
+ </msg>
+<msg time="2026-05-26T21:45:41.632756" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>api</arg>
+<arg>${endpoint}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.588360" elapsed="0.044410"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-05-26T21:45:41.632827" elapsed="0.000030"/>
+</return>
+<msg time="2026-05-26T21:45:41.632938" level="INFO">${resp} = &lt;Response [422]&gt;</msg>
+<var>${resp}</var>
+<arg>/api/simulate</arg>
+<arg>${body}</arg>
+<arg>${SUITE_TOKEN}</arg>
+<doc>Ejecuta POST con Bearer token y body JSON</doc>
+<status status="PASS" start="2026-05-26T21:45:41.588054" elapsed="0.044894"/>
+</kw>
+<kw name="Response Should Have Status" owner="api_keywords">
+<kw name="Convert To Integer" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.633345" level="INFO">${status} = 422</msg>
+<var>${status}</var>
+<arg>${expected_status}</arg>
+<doc>Converts the given item to an integer number.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.633249" elapsed="0.000106"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${resp.status_code}</arg>
+<arg>${status}</arg>
+<arg>msg=Esperaba HTTP ${expected_status}, recibió ${resp.status_code}. Body: ${resp.text}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.633404" elapsed="0.000659"/>
+</kw>
+<arg>${resp}</arg>
+<arg>422</arg>
+<status status="PASS" start="2026-05-26T21:45:41.633079" elapsed="0.001017"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.634393" level="INFO">${detail} = {'detail': [{'type': 'less_than_equal', 'loc': ['body', 'precip_1h'], 'msg': 'Input should be less than or equal to 50', 'input': 200, 'ctx': {'le': 50.0}}, {'type': 'less_than_equal', 'loc': ['body',...</msg>
+<var>${detail}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.634146" elapsed="0.000258"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.634597" level="INFO">Detalle de validación: {'detail': [{'type': 'less_than_equal', 'loc': ['body', 'precip_1h'], 'msg': 'Input should be less than or equal to 50', 'input': 200, 'ctx': {'le': 50.0}}, {'type': 'less_than_equal', 'loc': ['body', 'precip_3h'], 'msg': 'Input should be less than or equal to 90', 'input': 300, 'ctx': {'le': 90.0}}, {'type': 'less_than_equal', 'loc': ['body', 'humedad'], 'msg': 'Input should be less than or equal to 100', 'input': 150, 'ctx': {'le': 100.0}}]}</msg>
+<arg>Detalle de validación: ${detail}</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.634453" elapsed="0.000176"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.634760" level="INFO">✓ HTTP 422 con errores de validación para valores fuera de rango</msg>
+<arg>✓ HTTP 422 con errores de validación para valores fuera de rango</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.634704" elapsed="0.000076"/>
+</kw>
+<doc>RF-002 — Valores &gt; máximo deben retornar HTTP 422 con detalle</doc>
+<tag>Funcional</tag>
+<tag>Media</tag>
+<tag>SIM</tag>
+<tag>TC-SIM-003</tag>
+<status status="PASS" start="2026-05-26T21:45:41.587284" elapsed="0.047554"/>
+</test>
+<kw name="Teardown Suite SIM" type="TEARDOWN">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-05-26T21:45:41.635296" level="INFO">=== Suite SIM completada ===</msg>
+<arg>=== Suite SIM completada ===</arg>
+<arg>level=INFO</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.635243" elapsed="0.000074"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2026-05-26T21:45:41.635467" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-05-26T21:45:41.635438" elapsed="0.000078"/>
+</kw>
+<arg>Delete All Sessions</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-05-26T21:45:41.635370" elapsed="0.000166"/>
+</kw>
+<status status="PASS" start="2026-05-26T21:45:41.635157" elapsed="0.000400"/>
+</kw>
+<doc>MÓDULO SIMULADOR — TC-SIM-001 al TC-SIM-003
+Requisito: RF-002</doc>
+<status status="PASS" start="2026-05-26T21:45:40.860478" elapsed="0.775091"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">Alta</stat>
+<stat pass="3" fail="0" skip="0">Funcional</stat>
+<stat pass="1" fail="0" skip="0">Integración</stat>
+<stat pass="2" fail="0" skip="0">Media</stat>
+<stat pass="3" fail="0" skip="0">SIM</stat>
+<stat pass="1" fail="0" skip="0">TC-SIM-001</stat>
+<stat pass="1" fail="0" skip="0">TC-SIM-002</stat>
+<stat pass="1" fail="0" skip="0">TC-SIM-003</stat>
+</tag>
+<suite>
+<stat pass="3" fail="0" skip="0" id="s1" name="TC SIM">TC SIM</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

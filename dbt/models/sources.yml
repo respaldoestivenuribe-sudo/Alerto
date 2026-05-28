@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Datos crudos extraídos desde Open-Meteo por Airflow"
+    schema: public
+    tables:
+      - name: bronze_weather_hourly
+        description: "Datos horarios de clima, incluyendo histórico de 7 días y forecast"
+        columns:
+          - name: time
+            description: "Timestamp de la observación (timezone America/Bogota desde Open-Meteo)"
+            tests:
+              - not_null
+              - unique
+          - name: fetched_at
+            description: "Momento en que se hizo la extracción"
+            tests:
+              - not_null
+
+      - name: bronze_weather_current
+        description: "Snapshot del clima al momento de cada extracción"
+        columns:
+          - name: time
+            tests:
+              - not_null
+          - name: fetched_at
+            tests:
+              - not_null
