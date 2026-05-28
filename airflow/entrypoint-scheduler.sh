@@ -9,5 +9,11 @@ until airflow db check; do
   sleep 5
 done
 
+if [ ! -f "/opt/airflow/airflow.db_initialized" ]; then
+  echo "Inicializando DB..."
+  airflow db upgrade
+  touch /opt/airflow/airflow.db_initialized
+fi
+
 echo "Iniciando scheduler..."
 exec airflow scheduler
